@@ -1,3 +1,9 @@
+<div class="row">
+  <div class="col-6">Song</div>
+
+  <div class="col-1"><%= song.yachtski.round(2) %></div>
+</div>
+
 <% @songs.each do |song| %>
   <div class="row">
     <div class="col-8"><%= song.artist.name %> - <%= song.title %></div>
