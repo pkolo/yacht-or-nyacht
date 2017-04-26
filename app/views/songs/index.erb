@@ -1,5 +1,8 @@
 <% @songs.each do |song| %>
   <div class="row">
-    <p><%= song.artist.name %> - <%= song.title %> - <%= song.yachtski.round(2) %></p>
+    <div>
+      <%= song.artist.name %> - <%= song.title %>
+      <%= song.yachtski.round(2) %>
+    </div>
   </div>
 <% end %>
