@@ -18,11 +18,21 @@ GEM
     backports (3.6.4)
     builder (3.2.2)
     coderay (1.1.1)
+    connection_pool (2.2.1)
+    execjs (2.7.0)
     i18n (0.7.0)
     json (1.8.2)
+    libv8 (5.3.332.38.5)
     method_source (0.8.2)
+    mini_racer (0.1.9)
+      libv8 (~> 5.3)
     minitest (5.5.1)
     multi_json (1.10.1)
+    padrino-helpers (0.14.0.1)
+      i18n (~> 0.6, >= 0.6.7)
+      padrino-support (= 0.14.0.1)
+      tilt (>= 1.4.1, < 3)
+    padrino-support (0.14.0.1)
     pg (0.18.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -34,6 +44,10 @@ GEM
     rack-test (0.6.3)
       rack (>= 1.0)
     rake (10.4.2)
+    react-sinatra (0.1.1)
+      activesupport
+      connection_pool
+      padrino-helpers
     shotgun (0.9.1)
       rack (>= 1.0)
     sinatra (1.4.5)
@@ -59,9 +73,12 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 4.2.0)
   activesupport (~> 4.2.0)
+  execjs
+  mini_racer
   pg
   pry
   rake
+  react-sinatra
   shotgun (~> 0.9.1)
   sinatra (~> 1.0)
   sinatra-contrib
