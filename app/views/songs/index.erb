@@ -1,1 +1,5 @@
-<%= react_component('Hello', prerender: true) %>
+<% @songs.each do |song| %>
+<div class="row">
+  <div class="col-6"><%= song.artist.name %> - <%= song.title %></div>
+</div>
+<% end %>
