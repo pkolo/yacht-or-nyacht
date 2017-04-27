@@ -25,22 +25,6 @@ APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 
 APP_NAME = APP_ROOT.basename.to_s
 
-register React::Sinatra
-
-configure do
-  React::Sinatra.configure do |config|
-    # configures for bundled React.js
-    config.use_bundled_react = true
-    config.env = ENV['RACK_ENV'] || :development
-    config.addon = true
-
-    # The asset should be able to be compiled by your server side runtime.
-    # react-sinatra does not transform jsx into js, also ES2015 may not be worked through.
-    config.asset_path = File.join('client', 'dist', 'server.js')
-    config.runtime = :execjs
-  end
-end
-
 configure do
   # By default, Sinatra assumes that the root is the file that calls the configure block.
   # Since this is not the case for us, we set it manually.
