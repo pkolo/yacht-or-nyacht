@@ -1,4 +1,16 @@
-<div><%= @artist.name %></div>
-<div><%= @artist.total_avg %></div>
+<div class="artist-container">
+  <div class="artist-info">
+    <div class="artist-name"><%= @artist.name %></div>
+    <div>Average Score: <%= @artist.total_avg %></div>
+  </div>
+  
+  <div class="artist-songs">
+  <div>Appears on:</div>
+    <% @songs.each do |song| %>
+      <div class="artist-song">
+        <%= @artist.name %> - <%= song.title %>
+      </div>
+    <% end %>
+  </div>
 
-<%= erb :'songs/_list', locals: {songs: @songs} %>
+</div>
