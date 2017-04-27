@@ -1,10 +1,10 @@
-<div class="artist-container">
-  <div class="artist-info">
+<div class="artist-container row">
+  <div class="artist-info col-6">
     <div class="artist-name"><%= @artist.name %></div>
     <div>Average Score: <%= @artist.total_avg %></div>
   </div>
-  
-  <div class="artist-songs">
+
+  <div class="artist-songs col-6">
   <div>Appears on:</div>
     <% @songs.each do |song| %>
       <div class="artist-song">

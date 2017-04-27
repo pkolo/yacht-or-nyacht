@@ -73,14 +73,11 @@ header {
 }
 
 .artist-info {
-  float: left;
-  width: 500px;
-  margin-right: 20px;
+
 }
 
 .artist-songs {
-  float: right;
-  width: 500px;
+
 }
 
 .artist-name {
