@@ -1,2 +1,4 @@
 <div><%= @artist.name %></div>
 <div><%= @artist.total_avg %></div>
+
+<%= erb :'songs/_list', locals: {songs: @songs} %>
