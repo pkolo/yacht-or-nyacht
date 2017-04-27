@@ -15,6 +15,10 @@ gem 'rake'
 gem 'shotgun', '~>0.9.1'
 gem 'pry'
 
+gem 'react-sinatra'
+gem 'execjs'
+gem 'mini_racer'
+
 group :test do
 
 end

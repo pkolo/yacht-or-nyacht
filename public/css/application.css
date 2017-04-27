@@ -19,8 +19,12 @@
 
 [class*="col-"] {
     float: left;
-    padding: 15px;
-    border: 1px solid red;
+    padding: 10px;
+    border-right: 1px black solid;
+}
+
+.row {
+  border: 1px black solid;
 }
 
 .row::after {
@@ -34,4 +38,26 @@
 .container {
   max-width: 1200px;
   margin: auto;
+}
+
+/* Styles */
+
+body {
+}
+
+.title {
+  font-size: 1.15em;
+  font-weight: 600;
+}
+
+.search-bar {
+  max-width: 50%;
+  margin: 20px auto;
+}
+
+.search-bar input {
+  width: 100%;
+  height: 2em;
+  font-size: 1.5em;
+  padding: 10px;
 }

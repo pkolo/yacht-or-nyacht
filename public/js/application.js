@@ -1,7 +1,14 @@
 $(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
 
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+  jQuery.expr[':'].Contains = function(a,i,m){
+    return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+  };
+
+  $('#songSearch').keyup(function() {
+    var query = $(this).val();
+
+    $('.song-list').find('.title:Contains(' + query + ')').parent().show()
+    $('.song-list').find('.title:not(:Contains(' + query + '))').parent().hide()
+  });
+
 });
