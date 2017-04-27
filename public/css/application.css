@@ -20,7 +20,11 @@
 [class*="col-"] {
     float: left;
     padding: 10px;
-    border: 1px solid red;
+    border-right: 1px black solid;
+}
+
+.row {
+  border-bottom: 1px black solid;
 }
 
 .row::after {

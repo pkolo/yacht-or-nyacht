@@ -1,19 +1,21 @@
+<input type="text" id="songSearch" placeholder="Search for names..">
+
 <div class="row">
-  <div class="col-1 title">Yachtski</div>
+  <div class="col-1">Yachtski</div>
   <div class="col-6 title">Song</div>
-  <div class="col-1 title">JD</div>
-  <div class="col-1 title">Hunter</div>
-  <div class="col-1 title">Steve</div>
-  <div class="col-1 title">Dave</div>
+  <div class="col-1">JD</div>
+  <div class="col-1">Hunter</div>
+  <div class="col-1">Steve</div>
+  <div class="col-1">Dave</div>
 </div>
 
 <% @songs.each do |song| %>
 <div class="row">
-  <div class="col-1 title"><%= song.yachtski.round(2) %></div>
+  <div class="col-1"><%= song.yachtski.round(2) %></div>
   <div class="col-6 title"><%= song.artist.name %> - <%= song.title %></div>
-  <div class="col-1 title"><%= song.jd_score %></div>
-  <div class="col-1 title"><%= song.hunter_score %></div>
-  <div class="col-1 title"><%= song.steve_score %></div>
-  <div class="col-1 title"><%= song.dave_score %></div>
+  <div class="col-1"><%= song.jd_score %></div>
+  <div class="col-1"><%= song.hunter_score %></div>
+  <div class="col-1"><%= song.steve_score %></div>
+  <div class="col-1"><%= song.dave_score %></div>
 </div>
 <% end %>
