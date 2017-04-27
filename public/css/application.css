@@ -19,7 +19,7 @@
 
 [class*="col-"] {
     float: left;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid red;
 }
 
@@ -34,4 +34,14 @@
 .container {
   max-width: 1200px;
   margin: auto;
+}
+
+/* Styles */
+
+body {
+}
+
+.title {
+  font-size: 1.15em;
+  font-weight: 600;
 }
