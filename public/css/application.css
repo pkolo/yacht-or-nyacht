@@ -35,18 +35,23 @@
 
 /* Layout */
 
-.container {
+body {
   max-width: 1200px;
   margin: auto;
 }
 
+.container {
+}
+
 /* Styles */
 
-body {
+header {
+  font-size: 8.0em;
+  text-align: center;
 }
 
 .title {
-  font-size: 1.15em;
+  font-size: 1.0em;
   font-weight: 600;
 }
 
