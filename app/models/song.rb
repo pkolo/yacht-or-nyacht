@@ -36,4 +36,15 @@ class Song < ActiveRecord::Base
     avg_dev
   end
 
+  def self.dissent(host)
+    host = host + "_score"
+    other_hosts = ["jd_score", "hunter_score", "steve_score", "dave_score"] - [host]
+    dissents = Song.all.map do |song|
+      other_total = other_hosts.inject(0) {|sum, host_score| sum + song.send(host_score)}
+      other_avg = other_total / other_hosts.length
+      {song_id: song.id, dissent: (song.send(host) - other_avg)}
+    end
+    dissents.sort_by {|song| song[:dissent]}.reverse
+  end
+
 end
