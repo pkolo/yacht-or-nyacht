@@ -47,11 +47,27 @@ class Song < ActiveRecord::Base
     dissents.sort_by {|song| song[:dissent]}.reverse
   end
 
+
+
   def self.disagreement(host, other_host)
-    host = host + "_score"
-    other_host = other_host + "_score"
-    disagreements = Song.all.map {|song| {song_id: song.id, disagreement: (song.send(host) - song.send(other_host))}}
+
+    disagreements = self.all.map {|song| {song_id: song.id, disagreement: (song.send(self.get_column(host)) - song.send(self.get_column(other_host)))}}
     disagreements.sort_by {|song| song[:disagreement]}.reverse
   end
+
+  def self.total_yacht_pct(host)
+    host = host + "_score"
+    total_yacht = self.where("#{host} >= ?", 50).length
+    {total_yacht: total_yacht, yacht_pct: (total_yacht / self.all.length.to_f)}
+  end
+
+  def self.get_column(host)
+    host + "_score"
+  end
+
+  def self.get_other_hosts(host)
+    other_hosts = ["jd_score", "hunter_score", "steve_score", "dave_score"] - [self.score(host)]
+  end
+
 
 end
