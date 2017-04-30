@@ -35,18 +35,23 @@
 
 /* Layout */
 
-.container {
+body {
   max-width: 1200px;
   margin: auto;
 }
 
+.container {
+}
+
 /* Styles */
 
-body {
+header {
+  font-size: 8.0em;
+  text-align: center;
 }
 
 .title {
-  font-size: 1.15em;
+  font-size: 1.0em;
   font-weight: 600;
 }
 
@@ -58,6 +63,23 @@ body {
 .search-bar input {
   width: 100%;
   height: 2em;
+  text-align: center;
   font-size: 1.5em;
   padding: 10px;
+}
+
+.artist-container {
+  margin-top: 50px;
+}
+
+.artist-info {
+
+}
+
+.artist-songs {
+
+}
+
+.artist-name {
+  font-size: 3em;
 }
