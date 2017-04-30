@@ -1,1 +1,18 @@
-fun stats
+<div class="stats-container">
+
+  <% @hosts.each_with_index do |host, index| %>
+    <% if index.even? %>
+      <div class="row">
+    <% end %>
+
+      <div class="host-panel col-6">
+        <%= host %>
+      </div>
+
+    <% if index.odd? %>
+      </div>
+    <% end %>
+
+  <% end %>
+
+</div>
