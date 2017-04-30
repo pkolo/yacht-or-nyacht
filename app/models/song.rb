@@ -37,27 +37,40 @@ class Song < ActiveRecord::Base
   end
 
   def self.dissent(host)
-    host = host + "_score"
-    other_hosts = ["jd_score", "hunter_score", "steve_score", "dave_score"] - [host]
+    other_hosts = self.get_other_hosts(host)
+    host = self.get_column(host)
+
     dissents = Song.all.map do |song|
-      other_total = other_hosts.inject(0) {|sum, host_score| sum + song.send(host_score)}
+      other_total = other_hosts.inject(0) {|sum, other_host_score| sum + song.send(other_host_score)}
       other_avg = other_total / other_hosts.length
       {song_id: song.id, dissent: (song.send(host) - other_avg)}
     end
+
     dissents.sort_by {|song| song[:dissent]}.reverse
   end
 
+  def self.all_disagreements(host)
+    other_hosts = self.get_other_hosts(host)
+    host = self.get_column(host)
+    other_hosts.inject([]) do |memo, other_host|
+      disagreements = self.disagreement(host, other_host)
+      memo <<
+        {
+          host: other_host[0..-7],
+          yacht: disagreements.first,
+          nyacht: disagreements.last
+        }
+    end
+  end
 
-
+  # takes column names
   def self.disagreement(host, other_host)
-
-    disagreements = self.all.map {|song| {song_id: song.id, disagreement: (song.send(self.get_column(host)) - song.send(self.get_column(other_host)))}}
+    disagreements = self.all.map {|song| {song_id: song.id, disagreement: (song.send(host) - song.send(other_host))}}
     disagreements.sort_by {|song| song[:disagreement]}.reverse
   end
 
   def self.total_yacht_pct(host)
-    host = host + "_score"
-    total_yacht = self.where("#{host} >= ?", 50).length
+    total_yacht = self.where("#{self.get_column(host)} >= ?", 50).length
     {total_yacht: total_yacht, yacht_pct: (total_yacht / self.all.length.to_f)}
   end
 
@@ -66,7 +79,7 @@ class Song < ActiveRecord::Base
   end
 
   def self.get_other_hosts(host)
-    other_hosts = ["jd_score", "hunter_score", "steve_score", "dave_score"] - [self.score(host)]
+    other_hosts = ["jd_score", "hunter_score", "steve_score", "dave_score"] - [self.get_column(host)]
   end
 
 
