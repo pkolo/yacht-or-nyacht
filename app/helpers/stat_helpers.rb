@@ -6,9 +6,23 @@ def get_other_hosts(host)
   other_hosts = ["jd_score", "hunter_score", "steve_score", "dave_score"] - [get_column(host)]
 end
 
+def nice_name(host)
+  
+  if host == "jd"
+    "JD Ryznar"
+  elsif host == "hunter"
+    "Hunter Stair"
+  elsif host == "steve"
+    "Steve Huey"
+  elsif host == "dave"
+    "Dave Lyons"
+  end
+
+end
+
 def total_yacht_pct(host)
   total_yacht = Song.where("#{get_column(host)} >= ?", 50).length
-  {total_yacht: total_yacht, yacht_pct: (total_yacht / Song.all.length.to_f)}
+  {count: total_yacht, pct: ((total_yacht / Song.all.length.to_f) * 100).round(2)}
 end
 
 def avg_host_deviations
