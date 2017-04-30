@@ -5,9 +5,7 @@
       <div class="row">
     <% end %>
 
-      <div class="host-panel col-6">
-        <%= host %>
-      </div>
+      <%= erb :'hosts/_stats', locals: {host: host} %>
 
     <% if index.odd? %>
       </div>
