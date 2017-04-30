@@ -25,6 +25,10 @@ def total_yacht_pct(host)
   {count: total_yacht, pct: ((total_yacht / Song.all.length.to_f) * 100).round(2)}
 end
 
+def avg_deviation(host)
+  avg_host_deviations[host.to_sym]
+end
+
 def avg_host_deviations
   total_songs = Song.all.length
   total_dev = Song.all.inject({jd: 0, hunter: 0, steve: 0, dave: 0}) do |memo, song|
@@ -37,10 +41,10 @@ def avg_host_deviations
   end
 
   avg_dev = {
-    jd: (total_dev[:jd] / total_songs),
-    hunter: (total_dev[:hunter] / total_songs),
-    steve: (total_dev[:steve] / total_songs),
-    dave: (total_dev[:dave] / total_songs),
+    "jd": (total_dev[:jd] / total_songs),
+    "hunter": (total_dev[:hunter] / total_songs),
+    "steve": (total_dev[:steve] / total_songs),
+    "dave": (total_dev[:dave] / total_songs),
   }
   avg_dev
 end
