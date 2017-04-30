@@ -7,7 +7,7 @@ def get_other_hosts(host)
 end
 
 def nice_name(host)
-  
+
   if host == "jd"
     "JD Ryznar"
   elsif host == "hunter"
@@ -55,7 +55,8 @@ def dissent(host)
     {song: song, dissent: (song.send(host) - other_avg)}
   end
 
-  dissents.sort_by {|song| song[:dissent]}.reverse
+  dissents.sort_by! {|song| song[:dissent]}.reverse
+  {nyacht: dissents.first(3), yacht: dissents.last(3).reverse}
 end
 
 def all_disagreements(host)
@@ -74,6 +75,6 @@ end
 
 # takes column names
 def disagreement(host, other_host)
-  disagreements = Song.all.map {|song| {song: song, disagreement: (song.send(host) - song.send(other_host))}}
+  disagreements = Song.all.map {|song| {song_id: song.id, song_title: song.title, artist: song.artist.name, disagreement: (song.send(host) - song.send(other_host))}}
   disagreements.sort_by {|song| song[:disagreement]}.reverse
 end
