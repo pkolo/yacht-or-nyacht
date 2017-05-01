@@ -29,9 +29,9 @@ $(document).ready(function() {
   });
 
   $('.add-song-btn').click(function() {
-    var that = $(this)
+    var id = $(this).attr('id')
     $.ajax({
-      url: '/episodes/songs/new'
+      url: '/episodes/'+id+'/songs/new'
     }).done(function(res) {
       $('.add-song-form').append(res)
     });

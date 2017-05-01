@@ -1,5 +1,5 @@
 <div class="row">
-  <form class="song-form">
+  <form class="song-form" method="POST" action="/episodes/<%= @episode.id %>/songs">
     <div class="col-4">
       <div>Title: <input type="text" name="song[title]"></div>
       <div>Artist: <input type="text" name="song[artist]"></div>

@@ -23,6 +23,7 @@ get '/episodes/:id/edit' do
   erb :'episodes/edit'
 end
 
-get '/episodes/songs/new' do
+get '/episodes/:id/songs/new' do
+  @episode = Episode.find(params[:id])
   erb :'/songs/_form', layout: false
 end
