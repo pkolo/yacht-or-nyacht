@@ -17,3 +17,12 @@ get '/episodes/:id' do
   @episode = Episode.find(params[:id])
   erb :'episodes/show'
 end
+
+get '/episodes/:id/edit' do
+  @episode = Episode.find(params[:id])
+  erb :'episodes/edit'
+end
+
+put '/episodes/:id' do
+
+end
