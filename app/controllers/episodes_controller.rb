@@ -23,6 +23,6 @@ get '/episodes/:id/edit' do
   erb :'episodes/edit'
 end
 
-put '/episodes/:id' do
-
+get '/episodes/:id/songs/new' do
+  erb :'/songs/_form'
 end
