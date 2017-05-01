@@ -5,6 +5,7 @@
   <div class="col-1">Hunter</div>
   <div class="col-1">Steve</div>
   <div class="col-1">Dave</div>
+  <div class="col-1">Episode</div>
 </div>
 
 <div class="song-list">
@@ -20,6 +21,7 @@
     <div class="col-1"><%= song.hunter_score %></div>
     <div class="col-1"><%= song.steve_score %></div>
     <div class="col-1"><%= song.dave_score %></div>
+    <div class="col-1"><a href="/episodes/<%= song.episode.id %>"><%= song.episode.number %></a></div>
   </div>
   <% end %>
 </div>
