@@ -1,1 +1,5 @@
-test
+<h1>Add a new episode</h1>
+<p>Follow the format "YON##" for Yacht Or Nyacht episodes and "BYR##" for Beyond Yacht Rock episodes.</p>
+<form class="new-episode-form" action="/episodes" method="POST">
+  Episode number: <input name="episode[number]" type="text" placeholder="Last ep: <%= @recent_episode.number %>">
+</form>
