@@ -12,3 +12,8 @@ post '/episodes' do
     erb :'episodes/new'
   end
 end
+
+get '/episodes/:id' do
+  @episode = Episode.find(params[:id])
+  erb :'episodes/show'
+end
