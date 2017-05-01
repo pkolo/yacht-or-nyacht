@@ -11,7 +11,7 @@ $(document).ready(function() {
     $('.song-list').find('.title:not(:Contains(' + query + '))').parent().hide()
   });
 
-  $('.score-input').keyup(function() {
+  $('.add-song-form').on('keyup', '.score-input', function() {
     var sum = 0;
     var avg = 0;
     $('.score-input').each(function() {
@@ -26,6 +26,15 @@ $(document).ready(function() {
 
     $('.yachtski-score').text(avg)
 
+  });
+
+  $('.add-song-btn').click(function() {
+    var that = $(this)
+    $.ajax({
+      url: '/episodes/songs/new'
+    }).done(function(res) {
+      $('.add-song-form').append(res)
+    });
   });
 
 });
