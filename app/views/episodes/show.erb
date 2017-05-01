@@ -1,0 +1,3 @@
+<h1>Episode: <%= @episode.number %></h1>
+
+<%= erb :'songs/_list', locals: {songs: @episode.songs} %>

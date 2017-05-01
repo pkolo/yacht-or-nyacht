@@ -5,6 +5,7 @@
   <div class="col-1">Hunter</div>
   <div class="col-1">Steve</div>
   <div class="col-1">Dave</div>
+  <div class="col-1">Episode</div>
 </div>
 
 <div class="song-list">
@@ -13,13 +14,14 @@
     <div class="col-1"><%= song.yachtski.round(2) %></div>
 
     <div class="col-6 title">
-      <a href="/artists/<%= song.artist.id %>"><%= song.artist.name %></a> - <%= song.title %>
+      <a href="/artists/<%= song.artist.id %>"><%= song.artist.name %></a> - <%= song.title %> (<%= song.year %>)
     </div>
 
     <div class="col-1"><%= song.jd_score %></div>
     <div class="col-1"><%= song.hunter_score %></div>
     <div class="col-1"><%= song.steve_score %></div>
     <div class="col-1"><%= song.dave_score %></div>
+    <div class="col-1"><a href="/episodes/<%= song.episode.id %>"><%= song.episode.number %></a></div>
   </div>
   <% end %>
 </div>
