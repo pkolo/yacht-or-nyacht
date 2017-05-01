@@ -1,0 +1,7 @@
+<h1>Editing Episode: <%= @episode.number %></h1>
+
+<div class="new-song-form">
+  <button class="add-song-btn">Add a song</button>
+</div>
+
+<%= erb :'songs/_list', locals: {songs: @episode.songs} %>
