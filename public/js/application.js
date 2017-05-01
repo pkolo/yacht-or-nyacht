@@ -28,10 +28,21 @@ $(document).ready(function() {
 
   });
 
-  $('.add-song-btn').click(function() {
-    var id = $(this).attr('id')
+  $('.add-song-form').on('submit', '.song-form', function(e) {
+    e.preventDefault();
     $.ajax({
-      url: '/episodes/'+id+'/songs/new'
+      url: 'songs',
+      method: 'POST',
+      data: $('.song-form').serialize()
+    }).done(function(res) {
+      $('.song-list').append(res)
+      $('.song-form').parent().remove()
+    });
+  });
+
+  $('.add-song-btn').click(function() {
+    $.ajax({
+      url: 'songs/new'
     }).done(function(res) {
       $('.add-song-form').append(res)
     });
