@@ -82,3 +82,8 @@ def disagreement(host, other_host)
   disagreements = Song.all.map {|song| {song_id: song.id, song_title: song.title, artist: song.artist.name, disagreement: (song.send(host) - song.send(other_host))}}
   disagreements.sort_by {|song| song[:disagreement]}.reverse
 end
+
+def weird_essentials(host)
+  host_score = get_column(host)
+  Song.where("#{host_score} >= 90") - Song.essentials
+end

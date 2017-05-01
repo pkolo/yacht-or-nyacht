@@ -6,6 +6,10 @@ class Song < ActiveRecord::Base
     (self.dave_score + self.jd_score + self.hunter_score + self.steve_score) / 4.0
   end
 
+  def essential?
+    self.yachtski >= 90
+  end
+
   def host_deviations
     devs = {
       jd: (self.yachtski - self.jd_score).abs,
@@ -13,6 +17,10 @@ class Song < ActiveRecord::Base
       steve: (self.yachtski - self.steve_score).abs,
       dave: (self.yachtski - self.dave_score).abs
     }
+  end
+
+  def self.essentials
+    self.all.select {|song| song.yachtski >= 90 }
   end
 
 end
