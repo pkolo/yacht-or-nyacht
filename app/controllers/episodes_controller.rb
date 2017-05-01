@@ -34,7 +34,7 @@ post '/episodes/:id/songs' do
   @artist = Artist.find_or_create_by(name: data[:artist])
 
   if @artist
-    @song = Song.new(title: data[:title], year: data[:year], jd_score: data[:jd_score], hunter_score: data[:hunter_score], steve_score: data[:steve_score], dave_score: [:dave_score])
+    @song = Song.new(title: data[:title], year: data[:year], jd_score: data[:jd_score], hunter_score: data[:hunter_score], steve_score: data[:steve_score], dave_score: data[:dave_score])
     @song.artist = @artist
     @song.episode = @episode
 
