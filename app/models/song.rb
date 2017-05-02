@@ -30,15 +30,17 @@ class Song < ActiveRecord::Base
   def discog_search
     q = "type=release&track=#{self.title}&artist=#{self.artist.name}&year=#{self.year}&token=#{ENV['DISCOG_TOKEN']}"
     url = "https://api.discogs.com/database/search?#{q}"
-    uri = URI.parse(url)
-    response = Net::HTTP.get_response(uri)
-    JSON.parse(response.body)
+    api_call(url)
   end
 
   def add_personnel(url)
+    results = api_call(url)
+  end
+
+  def api_call(url)
     uri = URI.parse(url)
     response = Net::HTTP.get_response(uri)
-    JSON.parse(response.body)
+    result = JSON.parse(response.body)
   end
 
   def self.essentials
