@@ -39,6 +39,8 @@ class Song < ActiveRecord::Base
 
     album = Album.create(title: results["title"], discog_id: results["id"])
     self.album = album
+    track_data = results["tracklist"].find {|track| track["title"] == self.title }
+    self.track_no = track_data["position"]
     self.save
   end
 
