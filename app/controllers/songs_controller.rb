@@ -16,6 +16,7 @@ end
 get '/songs/:id/discog_search' do
   @song = Song.find(params[:id])
   results = @song.discog_search
+  results
 end
 
 get '/stats' do

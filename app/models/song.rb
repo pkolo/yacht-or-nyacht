@@ -1,3 +1,6 @@
+require 'net/http'
+require 'json'
+
 class Song < ActiveRecord::Base
   belongs_to :episode
   belongs_to :artist
@@ -21,6 +24,10 @@ class Song < ActiveRecord::Base
       steve: (self.yachtski - self.steve_score).abs,
       dave: (self.yachtski - self.dave_score).abs
     }
+  end
+
+  def discog_search
+    "test"
   end
 
   def self.essentials
