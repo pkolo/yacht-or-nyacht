@@ -46,7 +46,8 @@ body {
 /* Styles */
 
 header {
-  font-size: 4.0em;
+  font-size: 7.0em;
+  text-align: center;
 }
 
 .title {
