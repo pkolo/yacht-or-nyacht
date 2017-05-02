@@ -20,7 +20,9 @@ get '/songs/:id/discog_search' do
 end
 
 post '/songs/:id/add_personnel' do
-  "test"
+  @song = Song.find(params[:id])
+  @results = @song.add_personnel(params[:url])
+  erb :'songs/_personnel', layout: false
 end
 
 get '/stats' do

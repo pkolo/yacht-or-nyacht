@@ -35,6 +35,12 @@ class Song < ActiveRecord::Base
     JSON.parse(response.body)
   end
 
+  def add_personnel(url)
+    uri = URI.parse(url)
+    response = Net::HTTP.get_response(uri)
+    JSON.parse(response.body)
+  end
+
   def self.essentials
     self.all.select {|song| song.yachtski >= 90 }
   end
