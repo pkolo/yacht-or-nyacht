@@ -3,7 +3,7 @@ class Song < ActiveRecord::Base
   belongs_to :artist
 
   def nice_title
-    "#{self.artist.name} = #{self.title} (#{self.year})"
+    "#{self.artist.name} - #{self.title} (#{self.year})"
   end
 
   def yachtski
