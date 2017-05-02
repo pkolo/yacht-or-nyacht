@@ -11,15 +11,14 @@ require 'rubygems'
 require 'uri'
 require 'pathname'
 
-require 'dotenv'
-Dotenv.load
-
 require 'pg'
 require 'active_record'
 require 'logger'
 
 require 'sinatra'
 require "sinatra/reloader" if development?
+
+require 'dotenv/load'
 
 require 'erb'
 require 'pry'
