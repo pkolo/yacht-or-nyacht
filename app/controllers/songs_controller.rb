@@ -15,7 +15,7 @@ end
 
 get '/songs/:id/discog_search' do
   @song = Song.find(params[:id])
-  @results = @song.discog_search["results"]
+  @results = @song.discog_search["results"].sort_by {|result| result["community"]["have"]}.reverse.first(10)
   erb :'songs/_search_results', layout: false
 end
 
