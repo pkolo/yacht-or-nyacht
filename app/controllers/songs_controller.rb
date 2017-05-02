@@ -15,8 +15,8 @@ end
 
 get '/songs/:id/discog_search' do
   @song = Song.find(params[:id])
-  results = @song.discog_search
-  results
+  @results = @song.discog_search["results"]
+  erb :'songs/_search_results', layout: false
 end
 
 get '/stats' do

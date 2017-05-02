@@ -32,7 +32,7 @@ class Song < ActiveRecord::Base
     url = "https://api.discogs.com/database/search?#{q}"
     uri = URI.parse(url)
     response = Net::HTTP.get_response(uri)
-    response.body
+    JSON.parse(response.body)
   end
 
   def self.essentials
