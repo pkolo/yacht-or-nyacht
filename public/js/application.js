@@ -52,7 +52,7 @@ $(document).ready(function() {
     $.ajax({
       url: 'discog_search'
     }).done(function(res) {
-      console.log(res)
+      $('.search-results-list').append(res)
     });
   });
 

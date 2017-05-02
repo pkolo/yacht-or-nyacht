@@ -1,1 +1,5 @@
-<%= @results %>
+<% @results.each do |result| %>
+  <%= result %>
+  <%= result["title"] %>
+  <br><br><br>
+<% end %>
