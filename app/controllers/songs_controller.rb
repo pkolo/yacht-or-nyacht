@@ -19,6 +19,10 @@ get '/songs/:id/discog_search' do
   erb :'songs/_search_results', layout: false
 end
 
+post '/songs/:id/add_personnel' do
+  "test"
+end
+
 get '/stats' do
   @hosts = ["jd", "hunter", "steve", "dave"]
   erb :'songs/stats'
