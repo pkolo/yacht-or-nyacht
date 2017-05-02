@@ -14,11 +14,4 @@ gem 'rake'
 
 gem 'shotgun', '~>0.9.1'
 gem 'pry'
-
-group :test do
-
-end
-
-group :test, :development do
-
-end
+gem 'dotenv'
