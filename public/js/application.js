@@ -48,4 +48,12 @@ $(document).ready(function() {
     });
   });
 
+  $('.add-discog-btn').click(function() {
+    $.ajax({
+      url: 'discog_search'
+    }).done(function(res) {
+      console.log(res)
+    });
+  });
+
 });
