@@ -1,5 +1,6 @@
+<p>(Select the result with the most comprehensive track credits)</p>
 <% @results.each do |result| %>
-  <%= result %>
-  <%= result["title"] %>
-  <br><br><br>
+<div class="serch-result">
+  <a href="https://www.discogs.com/<%= result['uri'] %>" target="_blank"><%= result["title"] %></a> (<%= result["year"] %> / <%= result["country"] %> / <%= result["format"].join(", ") %>)
+</div>
 <% end %>
