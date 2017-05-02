@@ -37,7 +37,9 @@ class Song < ActiveRecord::Base
   def add_personnel(url)
     results = api_call(url)
 
-
+    album = Album.create(title: results["title"], discog_id: results["id"])
+    self.album = album
+    self.save
   end
 
   def api_call(url)

@@ -1,2 +1,6 @@
 <h1><%= song.nice_title %></h1>
 <p>Yachtski score: <%= song.yachtski %></p>
+
+<% if song.album %>
+  From the album: <%= song.album.title %>
+<% end %>
