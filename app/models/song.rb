@@ -1,4 +1,5 @@
 require 'net/http'
+require 'uri'
 require 'json'
 
 class Song < ActiveRecord::Base
@@ -27,7 +28,11 @@ class Song < ActiveRecord::Base
   end
 
   def discog_search
-    "test"
+    q = "track=#{self.title}&artist=#{self.artist.name}&year=#{self.year}&token=#{ENV['DISCOG_TOKEN']}"
+    url = "https://api.discogs.com/database/search?#{q}"
+    uri = URI.parse(url)
+    response = Net::HTTP.get_response(uri)
+    response.body
   end
 
   def self.essentials
