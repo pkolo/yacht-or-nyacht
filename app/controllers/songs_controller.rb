@@ -13,6 +13,11 @@ get '/songs/:id/edit' do
   erb :'songs/edit'
 end
 
+get '/songs/:id/discog_search' do
+  @song = Song.find(params[:id])
+  results = @song.discog_search
+end
+
 get '/stats' do
   @hosts = ["jd", "hunter", "steve", "dave"]
   erb :'songs/stats'
