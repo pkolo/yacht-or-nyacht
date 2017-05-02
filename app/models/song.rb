@@ -5,6 +5,7 @@ require 'json'
 class Song < ActiveRecord::Base
   belongs_to :episode
   belongs_to :artist
+  belongs_to :album
 
   def nice_title
     "#{self.artist.name} - #{self.title} (#{self.year})"
@@ -35,6 +36,8 @@ class Song < ActiveRecord::Base
 
   def add_personnel(url)
     results = api_call(url)
+
+
   end
 
   def api_call(url)
