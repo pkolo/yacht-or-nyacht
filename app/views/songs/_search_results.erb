@@ -2,6 +2,6 @@
 <% @results.each do |result| %>
 <div class="serch-result">
   <a href="https://www.discogs.com<%= result['uri'] %>" target="_blank"><%= result["title"] %></a> (<%= result["year"] %> / <%= result["country"] %> / <%= result["format"].join(", ") %>)
-  <button class="add-personnel-btn">Use this release</button>
+  <button class="add-personnel-btn" id="<%= result['id']%>">Use this release</button>
 </div>
 <% end %>
