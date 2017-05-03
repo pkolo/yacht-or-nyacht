@@ -17,8 +17,8 @@ get '/songs/:id/discog_search' do
   @song = Song.find(params[:id])
   @results = @song.discog_search["results"].sort_by {|result| result["community"]["have"]}.reverse.first(10)
   if Album.match_in(@results)
-    url = "https://api.discogs.com/releases/" + Album.match_in(@results)
-    @credits = @song.add_personnel(url)
+    url = "https://api.discogs.com/releases/" + Album.match_in(@results).discog_id
+    @credits = @song.add_personnel(url, false)
     erb :'songs/_personnel', layout: false, locals: {credits: @credits}
   else
     erb :'songs/_search_results', layout: false
@@ -27,7 +27,7 @@ end
 
 post '/songs/:id/add_personnel' do
   @song = Song.find(params[:id])
-  @credits = @song.add_personnel(params[:url])
+  @credits = @song.add_personnel(params[:url], true)
   erb :'songs/_personnel', layout: false, locals: {credits: @credits}
 end
 

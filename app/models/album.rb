@@ -10,6 +10,6 @@ class Album < ActiveRecord::Base
 
   def self.match_in(results)
     result_ids = results.map {|result| result["id"].to_s}
-    self.where(discog_id: result_ids).first.discog_id
+    self.where(discog_id: result_ids).first
   end
 end
