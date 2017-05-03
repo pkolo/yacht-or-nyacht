@@ -39,7 +39,7 @@ class Song < ActiveRecord::Base
   def add_personnel(url)
     results = api_call(url)
 
-    album = Album.find_or_create_by(title: results["title"], discog_id: results["id"])
+    album = Album.find_or_create_by(artist: self.artist, year: results["year"], title: results["title"], discog_id: results["id"])
     self.album = album
     track_data = results["tracklist"].find {|track| is_match?(track["title"], self.title) }
     self.track_no = track_data["position"]
