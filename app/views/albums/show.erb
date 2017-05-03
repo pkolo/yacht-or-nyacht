@@ -2,6 +2,8 @@
 
 <%= erb :'songs/_list', locals: {songs: @album.songs } %>
 
+<h3>Average Yachtski: <%= @album.avg_yachtski %></h3>
+
 <% if @album.credits.any? %>
   <%= erb :'songs/_personnel', locals: { credits: @album.credits } %>
 <% end %>
