@@ -64,7 +64,8 @@ $(document).ready(function() {
       method: 'POST',
       data: {url: baseURL+id}
     }).done(function(res) {
-      console.log(res)
+      $('.edit-section').hide()
+      $('.credits-list').append(res)
     });
   })
 
