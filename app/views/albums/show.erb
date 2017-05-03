@@ -1,1 +1,7 @@
 <h1><%= @album.title %></h1>
+
+<%= erb :'songs/_list', locals: {songs: @album.songs } %>
+
+<% if @album.credits.any? %>
+  <%= erb :'songs/_personnel', locals: { credits: @album.credits } %>
+<% end %>
