@@ -56,7 +56,7 @@ class Song < ActiveRecord::Base
     other_personnel = results["extraartists"] - album_personnel
     track_personnel = other_personnel.select {|person| includes_track?(person["tracks"], self.track_no)}
     track_personnel += track_data["extraartists"] if track_data["extraartists"]
-    
+
     track_personnel.each do |personnel|
       new_person = Personnel.find_or_create_by(name: personnel["name"], discog_id: personnel["id"])
       personnel["role"].split(", ").each do |role|
@@ -64,6 +64,7 @@ class Song < ActiveRecord::Base
         self.credits << credit
       end
     end
+    self.credits
   end
 
   def api_call(url)

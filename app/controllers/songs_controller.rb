@@ -21,8 +21,8 @@ end
 
 post '/songs/:id/add_personnel' do
   @song = Song.find(params[:id])
-  @results = @song.add_personnel(params[:url])
-  erb :'songs/_personnel', layout: false
+  @credits = @song.add_personnel(params[:url])
+  erb :'songs/_personnel', layout: false, locals: {credits: @credits}
 end
 
 get '/stats' do

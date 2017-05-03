@@ -7,8 +7,8 @@
 </div>
 <% end %>
 
-<% if song.credits.any? %>
 <div class="credits-list">
+<% if song.credits.any? %>
   <%= erb :'songs/_personnel', locals: { credits: song.credits } %>
-</div>
 <% end %>
+</div>
