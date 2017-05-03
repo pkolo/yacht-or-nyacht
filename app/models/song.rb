@@ -41,7 +41,7 @@ class Song < ActiveRecord::Base
 
     album = Album.find_or_create_by(title: results["title"], discog_id: results["id"])
     self.album = album
-    track_data = results["tracklist"].find {|track| track["title"] == self.title }
+    track_data = results["tracklist"].find {|track| is_match?(track["title"], self.title) }
     self.track_no = track_data["position"]
 
     album_personnel = results["extraartists"].select{|artist| artist["tracks"] == "" }
