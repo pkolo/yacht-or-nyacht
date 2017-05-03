@@ -15,3 +15,5 @@ gem 'rake'
 gem 'shotgun', '~>0.9.1'
 gem 'pry'
 gem 'dotenv'
+
+gem 'fuzzy-string-match'
