@@ -2,7 +2,7 @@
   <div class="col-1"><%= song.yachtski.round(2) %></div>
 
   <div class="col-6 title">
-    <a href="/artists/<%= song.artist.id %>"><%= song.artist.name %></a> - <%= song.title %> (<%= song.year %>)
+    <a href="/artists/<%= song.artist.id %>"><%= song.artist.name %></a> - <a href="/songs/<%= song.id %>"><%= song.title %></a> (<%= song.year %>)
   </div>
 
   <div class="col-1"><%= song.jd_score %></div>

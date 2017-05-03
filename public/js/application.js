@@ -48,4 +48,24 @@ $(document).ready(function() {
     });
   });
 
+  $('.add-discog-btn').click(function() {
+    $.ajax({
+      url: 'discog_search'
+    }).done(function(res) {
+      $('.search-results-list').append(res)
+    });
+  });
+
+  $('.search-results-list').on('click', '.add-personnel-btn', function() {
+    var id = $(this).attr('id')
+    var baseURL = "https://api.discogs.com/releases/"
+    $.ajax({
+      url: 'add_personnel',
+      method: 'POST',
+      data: {url: baseURL+id}
+    }).done(function(res) {
+      console.log(res)
+    });
+  })
+
 });
