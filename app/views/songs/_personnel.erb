@@ -1,6 +1,6 @@
 <h4>Credits:</h4>
 <% credits.each do |credit| %>
 <div class="credit">
-  <%= credit.role %> - <%= credit.personnel.name %>
+  <%= credit.role %> - <a href="/personnel/<%= credit.personnel.id %>"><%= credit.personnel.name %></a>
 </div>
 <% end %>
