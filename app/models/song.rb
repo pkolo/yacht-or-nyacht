@@ -7,6 +7,8 @@ class Song < ActiveRecord::Base
   belongs_to :artist
   belongs_to :album
 
+  has_many :credits, as: :creditable
+
   def nice_title
     "#{self.artist.name} - #{self.title} (#{self.year})"
   end
