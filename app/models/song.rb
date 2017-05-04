@@ -60,7 +60,7 @@ class Song < ActiveRecord::Base
 
     album = Album.find_or_create_by(artist: self.artist, year: results["year"], title: results["title"], discog_id: results["id"])
     self.album = album
-    track_data = results["tracklist"].find {|track| is_match?(track["title"], self.title) }
+    track_data = results["tracklist"].find {|track| is_match?(track["title"].gsub(/\([^)]*\)/, ''), self.title) }
     self.track_no = track_data["position"]
     self.save
 
