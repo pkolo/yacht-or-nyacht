@@ -1,5 +1,5 @@
 get '/' do
-  @songs = Song.all
+  @songs = Song.all.sort_by {|song| song.yachtski}.reverse
   erb :'songs/index'
 end
 
