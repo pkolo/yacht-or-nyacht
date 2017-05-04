@@ -4,12 +4,11 @@
   <form class="discog-search-form" action="#">
     <p>Add album / personnel</p>
     <label>Search by:</label><br>
-    <select multiple size="3">
+    <select multiple size="3" name="options[]">
       <option selected value="artist">Artist</option>
       <option selected value="title">Title</option>
       <option selected value="year">Year</option>
     </select><br>
-    <input type="hidden" name="song_id" value="<%= @song.id %>">
     <input type="submit">
   </form>
 
