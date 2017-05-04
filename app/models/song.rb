@@ -64,6 +64,12 @@ class Song < ActiveRecord::Base
     self.track_no = track_data["position"]
     self.save
 
+    results["artists"].each do |artist|
+      new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
+      credit = Credit.new(role: "Artist", personnel: new_person)
+      self.credits << credit
+    end
+
     album_personnel = results["extraartists"].select{|artist| artist["tracks"] == "" }
 
     if add_album_personnel
