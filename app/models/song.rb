@@ -30,8 +30,12 @@ class Song < ActiveRecord::Base
     }
   end
 
-  def discog_search
-    q = "query=#{self.artist.name}&type=release&track=#{self.title}&year=#{self.year}&token=#{ENV['DISCOG_TOKEN']}"
+  def build_query(args)
+    q = ""
+  end
+
+  def discog_search(q)
+    q = "artist=#{self.artist.name.gsub(/[^0-9a-z ]/i, '')}&type=release&track=#{self.title}&year=#{self.year}&token=#{ENV['DISCOG_TOKEN']}"
     url = "https://api.discogs.com/database/search?#{q}"
     api_call(url)
   end
