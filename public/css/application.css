@@ -38,6 +38,7 @@ body {
   max-width: 1200px;
   margin: auto;
   color: #444;
+  font-family: 'Lato', sans-serif;
 }
 
 .container {
@@ -77,7 +78,6 @@ header a {
 
 .song-list-box {
   padding-left: 10px;
-  font-family: 'Lato', sans-serif;
 }
 
 .song-list-box a {
