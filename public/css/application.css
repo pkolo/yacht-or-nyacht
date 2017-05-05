@@ -19,12 +19,11 @@
 
 [class*="col-"] {
     float: left;
-    padding: 10px;
-    border-right: 1px black solid;
+    padding: 10px 0;
 }
 
 .row {
-  border: 1px black solid;
+  margin-bottom: 5px;
 }
 
 .row::after {
@@ -38,6 +37,8 @@
 body {
   max-width: 1200px;
   margin: auto;
+  color: #444;
+  font-family: 'Lato', sans-serif;
 }
 
 .container {
@@ -45,13 +46,19 @@ body {
 
 /* Styles */
 
-header {
-  font-size: 4.0em;
+a {
+  color: #444;
 }
 
-.title {
-  font-size: 1.0em;
+header {
+  font-size: 3.0em;
   font-weight: 600;
+  font-style: italic;
+  font-family: 'Taviraj';
+}
+
+header a {
+  text-decoration: none;
 }
 
 .search-bar {
@@ -66,6 +73,34 @@ header {
   font-size: 1.5em;
   padding: 10px;
 }
+
+/* Song list style */
+
+.song-list-box {
+  padding-left: 10px;
+}
+
+.song-list-box a {
+  text-decoration: none
+}
+
+.song-list-box a:hover {
+  text-decoration: underline
+}
+
+.yachtski {
+  font-weight: bold;
+  color: #fff;
+}
+
+
+.title {
+  font-size: 1.0em;
+  font-weight: 400;
+}
+
+
+/* Artist page style */
 
 .artist-container {
   margin-top: 50px;

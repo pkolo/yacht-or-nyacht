@@ -15,6 +15,7 @@ end
 
 get '/episodes/:id' do
   @episode = Episode.find(params[:id])
+  @songs = @episode.songs.sort_by { |song| song.yachtski }.reverse
   erb :'episodes/show'
 end
 
