@@ -29,11 +29,16 @@ $(document).ready(function() {
 
   $('.yachtski').each(function() {
     var $this = $(this);
-    var yachtski = $this.text()
-    var color = jayGradient(yachtski / 100)
+    var yachtski = $this.text();
+    var color = jayGradient(yachtski / 100);
 
-    $this.css('background-color', color)
-    $this.parent().css('border', `1px solid ${color}`)
+
+    $this.css('background-color', color);
+
+    if ($this.hasClass('avg')) {
+      $this.parent().css('border', `2px solid ${color}`)
+    }
+
   });
 
   jQuery.expr[':'].Contains = function(a,i,m){
