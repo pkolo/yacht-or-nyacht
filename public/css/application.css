@@ -37,6 +37,7 @@
 body {
   max-width: 1200px;
   margin: auto;
+  color: #444;
 }
 
 .container {
@@ -44,14 +45,19 @@ body {
 
 /* Styles */
 
+a {
+  color: #444;
+}
+
 header {
   font-size: 3.0em;
-  font-family: 'Shrikhand';
+  font-weight: 600;
+  font-style: italic;
+  font-family: 'Taviraj';
 }
 
 header a {
   text-decoration: none;
-  color: #444;
 }
 
 .search-bar {
@@ -71,6 +77,15 @@ header a {
 
 .song-list-box {
   padding-left: 10px;
+  font-family: 'Lato', sans-serif;
+}
+
+.song-list-box a {
+  text-decoration: none
+}
+
+.song-list-box a:hover {
+  text-decoration: underline
 }
 
 .yachtski {
