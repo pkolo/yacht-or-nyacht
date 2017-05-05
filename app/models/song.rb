@@ -62,6 +62,7 @@ class Song < ActiveRecord::Base
     self.album = album
     track_data = results["tracklist"].find {|track| is_match?(track["title"].gsub(/\([^)]*\)/, ''), self.title) }
     self.track_no = track_data["position"]
+    self.title = track_data["title"]
     self.save
 
     results["artists"].each do |artist|
