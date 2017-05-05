@@ -30,33 +30,63 @@ class Song < ActiveRecord::Base
     }
   end
 
-  def discog_search
-    q = "type=release&track=#{self.title}&artist=#{self.artist.name}&year=#{self.year}&token=#{ENV['DISCOG_TOKEN']}"
-    url = "https://api.discogs.com/database/search?#{q}"
-    api_call(url)
+  def build_query(options)
+    q = "type=release&token=#{ENV['DISCOG_TOKEN']}"
+
+    if options.include?("artist")
+      q += "&artist=#{self.artist.name.gsub(/[^0-9a-z ]/i, '')}"
+    end
+
+    if options.include?("title")
+      q += "&track=#{self.title}"
+    end
+
+    if options.include?("year")
+      q += "&year=#{self.year}"
+    end
+
+    q
   end
 
-  def add_personnel(url)
+  def discog_search(options)
+    q = self.build_query(options)
+    url = "https://api.discogs.com/database/search?#{q}"
+    response = api_call(url)
+    response["results"]
+  end
+
+  def add_personnel(url, add_album_personnel)
     results = api_call(url)
 
-    album = Album.find_or_create_by(title: results["title"], discog_id: results["id"])
+    album = Album.find_or_create_by(artist: self.artist, year: results["year"], title: results["title"], discog_id: results["id"])
     self.album = album
-    track_data = results["tracklist"].find {|track| is_match?(track["title"], self.title) }
+    track_data = results["tracklist"].find {|track| is_match?(track["title"].gsub(/\([^)]*\)/, ''), self.title) }
     self.track_no = track_data["position"]
+    self.title = track_data["title"]
     self.save
+
+    results["artists"].each do |artist|
+      new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
+      credit = Credit.new(role: "Artist", personnel: new_person)
+      self.credits << credit
+    end
+
     album_personnel = results["extraartists"].select{|artist| artist["tracks"] == "" }
-    album_personnel.each do |personnel|
-      new_person = Personnel.find_or_create_by(name: personnel["name"], discog_id: personnel["id"])
-      personnel["role"].split(", ").each do |role|
-        credit = Credit.new(role: role, personnel: new_person)
-        album.credits << credit
+
+    if add_album_personnel
+      album_personnel.each do |personnel|
+        new_person = Personnel.find_or_create_by(name: personnel["name"], discog_id: personnel["id"])
+        personnel["role"].split(", ").each do |role|
+          credit = Credit.new(role: role, personnel: new_person)
+          album.credits << credit
+        end
       end
     end
 
     other_personnel = results["extraartists"] - album_personnel
     track_personnel = other_personnel.select {|person| includes_track?(person["tracks"], self.track_no)}
     track_personnel += track_data["extraartists"] if track_data["extraartists"]
-    
+
     track_personnel.each do |personnel|
       new_person = Personnel.find_or_create_by(name: personnel["name"], discog_id: personnel["id"])
       personnel["role"].split(", ").each do |role|
@@ -64,6 +94,7 @@ class Song < ActiveRecord::Base
         self.credits << credit
       end
     end
+    self.credits
   end
 
   def api_call(url)

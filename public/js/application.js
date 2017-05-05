@@ -48,9 +48,12 @@ $(document).ready(function() {
     });
   });
 
-  $('.add-discog-btn').click(function() {
+  $('.discog-search-form').submit(function(e) {
+    e.preventDefault();
     $.ajax({
-      url: 'discog_search'
+      url: 'discog_search',
+      method: 'POST',
+      data: $(this).serialize()
     }).done(function(res) {
       $('.search-results-list').append(res)
     });
@@ -64,7 +67,8 @@ $(document).ready(function() {
       method: 'POST',
       data: {url: baseURL+id}
     }).done(function(res) {
-      console.log(res)
+      $('.edit-section').hide()
+      $('.credits-list').append(res)
     });
   })
 

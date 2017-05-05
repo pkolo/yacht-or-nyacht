@@ -1,6 +1,14 @@
 <h1><%= song.nice_title %></h1>
-<p>Yachtski score: <%= song.yachtski %></p>
+<%= erb :'songs/_list', locals: { songs: [song] } %>
 
 <% if song.album %>
-  Track <%= song.track_no %> on <%= song.album.title %>
+<div class="song-details">
+  <div>Track <%= song.track_no %> on <a href="/albums/<%= song.album.id %>"><%= song.album.title %></a></div>
+</div>
 <% end %>
+
+<div class="credits-list">
+<% if song.credits.any? %>
+  <%= erb :'songs/_personnel', locals: { credits: song.credits } %>
+<% end %>
+</div>
