@@ -1,5 +1,14 @@
 $(document).ready(function() {
 
+  $('.yachtski').each(function() {
+    var $this = $(this);
+    var yachtski = $this.text()
+
+    if (yachtski >= 50 ) {
+      $this.css('background-color', '#afa')
+    }
+  });
+
   jQuery.expr[':'].Contains = function(a,i,m){
     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
   };
