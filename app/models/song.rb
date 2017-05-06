@@ -4,10 +4,11 @@ require 'json'
 
 class Song < ActiveRecord::Base
   belongs_to :episode
-  belongs_to :artist
   belongs_to :album
 
   has_many :credits, as: :creditable
+  has_many :personnel, through: :credits
+  has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
 
   def nice_title
     "#{self.artist.name} - #{self.title} (#{self.year})"
@@ -58,7 +59,7 @@ class Song < ActiveRecord::Base
   def add_personnel(url, add_album_personnel)
     results = api_call(url)
 
-    album = Album.find_or_create_by(artist: self.artist, year: results["year"], title: results["title"], discog_id: results["id"])
+    album = Album.find_or_create_by(year: results["year"], title: results["title"], discog_id: results["id"])
     self.album = album
     track_data = results["tracklist"].find {|track| is_match?(track["title"].gsub(/\([^)]*\)/, ''), self.title) }
     self.track_no = track_data["position"]
