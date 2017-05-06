@@ -1,7 +1,11 @@
 class Album < ActiveRecord::Base
-  belongs_to :artist
   has_many :songs
-  has_many :credits, as: :creditable
+  has_many :credits, as: :creditable do
+    def players
+      where("role != ?", "Artist")
+    end
+  end
+  has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
 
   def avg_yachtski
     total_pts = self.songs.inject(0) { |sum, song| sum += song.yachtski }
