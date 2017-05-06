@@ -6,7 +6,12 @@ class Song < ActiveRecord::Base
   belongs_to :episode
   belongs_to :album
 
-  has_many :credits, as: :creditable
+  has_many :credits, as: :creditable do
+    def players
+      where("role != ?", "Artist")
+    end
+  end
+  
   has_many :personnel, through: :credits
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
 
