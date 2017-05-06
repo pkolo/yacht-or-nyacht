@@ -36,7 +36,8 @@ $(document).ready(function() {
     $this.css('background-color', color);
 
     if ($this.hasClass('avg')) {
-      $this.parent().css('border', `2px solid ${color}`)
+      $this.parent().css('border', `2px solid ${color}`);
+      $this.parent().css('background-color', color)
     }
 
   });
