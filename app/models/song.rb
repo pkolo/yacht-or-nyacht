@@ -11,7 +11,7 @@ class Song < ActiveRecord::Base
       where("role != ?", "Artist")
     end
   end
-  
+
   has_many :personnel, through: :credits
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
 
@@ -69,12 +69,14 @@ class Song < ActiveRecord::Base
     track_data = results["tracklist"].find {|track| is_match?(track["title"].gsub(/\([^)]*\)/, ''), self.title) }
     self.track_no = track_data["position"]
     self.title = track_data["title"]
+    self.credits.each {|credit| credit.destroy}
     self.save
 
     results["artists"].each do |artist|
       new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
       credit = Credit.new(role: "Artist", personnel: new_person)
       self.credits << credit
+      album.credits << credit
     end
 
     album_personnel = results["extraartists"].select{|artist| artist["tracks"] == "" }
