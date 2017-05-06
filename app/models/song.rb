@@ -4,13 +4,23 @@ require 'json'
 
 class Song < ActiveRecord::Base
   belongs_to :episode
-  belongs_to :artist
   belongs_to :album
 
-  has_many :credits, as: :creditable
+  has_many :credits, as: :creditable do
+    def players
+      where("role != ?", "Artist")
+    end
+  end
+
+  has_many :personnel, through: :credits
+  has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
+
+  def artist_list
+    self.performers.pluck(:name).join(', ')
+  end
 
   def nice_title
-    "#{self.artist.name} - #{self.title} (#{self.year})"
+    "#{self.artist_list} - #{self.title} (#{self.year})"
   end
 
   def yachtski
@@ -34,7 +44,7 @@ class Song < ActiveRecord::Base
     q = "type=release&token=#{ENV['DISCOG_TOKEN']}"
 
     if options.include?("artist")
-      q += "&artist=#{self.artist.name.gsub(/[^0-9a-z ]/i, '')}"
+      q += "&artist=#{self.artist_list.gsub(/[^0-9a-z ]/i, '')}"
     end
 
     if options.include?("title")
@@ -57,18 +67,20 @@ class Song < ActiveRecord::Base
 
   def add_personnel(url, add_album_personnel)
     results = api_call(url)
-
-    album = Album.find_or_create_by(artist: self.artist, year: results["year"], title: results["title"], discog_id: results["id"])
+    album = Album.find_or_create_by(year: results["year"], title: results["title"], discog_id: results["id"])
     self.album = album
     track_data = results["tracklist"].find {|track| is_match?(track["title"].gsub(/\([^)]*\)/, ''), self.title) }
     self.track_no = track_data["position"]
     self.title = track_data["title"]
+    self.credits.delete_all
     self.save
 
     results["artists"].each do |artist|
       new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
-      credit = Credit.new(role: "Artist", personnel: new_person)
-      self.credits << credit
+      song_credit = Credit.new(role: "Artist", personnel: new_person)
+      self.credits << song_credit
+      album_credit = Credit.new(role: "Artist", personnel: new_person)
+      album.credits << album_credit
     end
 
     album_personnel = results["extraartists"].select{|artist| artist["tracks"] == "" }

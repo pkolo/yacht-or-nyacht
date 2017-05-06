@@ -2,7 +2,7 @@
   <div class="song-list-box yachtski avg col-1"><%= song.yachtski.round(2) %></div>
 
   <div class="song-list-box col-6 title">
-    <a href="/artists/<%= song.artist.id %>"><%= song.artist.name %></a> - <a href="/songs/<%= song.id %>"><%= song.title %></a> (<%= song.year %>)
+    <%= song.artist_list %> - <a href="/songs/<%= song.id %>"><%= song.title %></a> (<%= song.year %>)
   </div>
 
   <div class="song-list-box yachtski col-1"><%= song.jd_score %></div>
