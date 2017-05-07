@@ -99,6 +99,32 @@ header a {
   font-weight: 400;
 }
 
+/* Song page style */
+
+.score-box {
+  width: 90%;
+  color: #fff;
+}
+
+.big-score {
+  font-size: 4.0em;
+  text-align: center;
+}
+
+.score {
+  font-size: 1.25em;
+  margin-bottom: 0px;
+}
+
+.score > * {
+  padding-left: 5px;
+}
+
+.big-title {
+  font-size: 4.0em;
+  font-weight: bold;
+}
+
 
 /* Artist page style */
 

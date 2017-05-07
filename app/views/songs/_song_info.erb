@@ -1,14 +1,37 @@
-<h1><%= song.nice_title %></h1>
-<%= erb :'songs/_list', locals: { songs: [song] } %>
-
-<% if song.album %>
 <div class="song-details">
-  <div>Track <%= song.track_no %> on <a href="/albums/<%= song.album.id %>"><%= song.album.title %></a></div>
-</div>
-<% end %>
-
-<div class="credits-list">
-<% if song.credits.any? %>
-  <%= erb :'songs/_personnel', locals: { credits: song.credits } %>
-<% end %>
+  <div class="score-box">
+    <div class="yachtski big-score avg"><%= song.yachtski.round(2) %></div>
+    <div class="row score">
+      <div class="yachtski col-8">
+        <%= song.jd_score %>
+      </div>
+      <div class="col-4">
+        JD
+      </div>
+    </div>
+    <div class="row score">
+      <div class="yachtski col-8">
+        <%= song.hunter_score %>
+      </div>
+      <div class="col-4">
+        Hunter
+      </div>
+    </div>
+    <div class="row score">
+      <div class="yachtski col-8">
+        <%= song.steve_score %>
+      </div>
+      <div class="col-4">
+        Steve
+      </div>
+    </div>
+    <div class="row score">
+      <div class="yachtski col-8">
+        <%= song.dave_score %>
+      </div>
+      <div class="col-4">
+        Dave
+      </div>
+    </div>
+  </div>
 </div>
