@@ -7,6 +7,10 @@ class Album < ActiveRecord::Base
   end
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
 
+  def artist_list
+    self.performers.pluck(:name).uniq.join(', ')
+  end
+
   def avg_yachtski
     total_pts = self.songs.inject(0) { |sum, song| sum += song.yachtski }
     (total_pts / self.songs.length)
