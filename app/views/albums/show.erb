@@ -1,9 +1,13 @@
-<h1><%= @album.artist_list %></a> - <%= @album.title %> (<%= @album.year %>)</h1>
+<div class="row album-container">
 
-<%= erb :'songs/_list', locals: {songs: @album.songs } %>
+  <div class="col-4 album-score-panel">
+    <%= erb :'albums/_score_panel', locals: {album: @album} %>
+  </div>
 
-<h3>Average Yachtski: <%= @album.avg_yachtski %></h3>
+  <div class="col-8 album-info">
+    <div class="big-title">
+      <%= @album.title %>
+    </div>
+  </div>
 
-<% if @album.credits.any? %>
-  <%= erb :'songs/_personnel', locals: { credits: @album.credits } %>
-<% end %>
+</div>

@@ -1,0 +1,5 @@
+<div class="big-score yachtski avg">
+  <%= album.avg_yachtski.round(2) %>
+</div>
+
+<%= erb :'albums/_song_list', locals: { songs: @songs } %>
