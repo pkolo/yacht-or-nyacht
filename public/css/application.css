@@ -51,6 +51,7 @@ a {
 }
 
 header {
+  margin-bottom: 15px;
   font-size: 3.0em;
   font-weight: 600;
 }
@@ -132,6 +133,10 @@ header a {
 .big-title {
   font-size: 4.0em;
   font-weight: bold;
+}
+
+.artist-credit {
+  font-size: 2.0em;
 }
 
 

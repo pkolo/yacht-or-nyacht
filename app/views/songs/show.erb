@@ -1,12 +1,27 @@
 <div class="row">
   <div class="song-info-panel col-3">
-    <%= erb :'songs/_song_info', locals: { song: @song } %>
+    <%= erb :'songs/_score_panel', locals: { song: @song } %>
   </div>
 
   <div class="personnel-panel col-9">
-    <div class="big-title"><%= @song.title %></div>
-    <% if @song.credits.any? %>
-      <%= erb :'songs/_personnel', locals: { credits: @song.credits } %>
-    <% end %>
+    <%= erb :'songs/_song_info', locals: { song: @song } %>
+    <div class="row">
+      <% if @song.album %>
+        <div class="col-6 song-credits">
+          <div>Album personnel:</div>
+          <%= erb :'songs/_personnel', locals: { credits: @song.album.credits.players } %>
+        </div>
+      <% end %>
+
+      <% if @song.credits.players.any? %>
+        <div class="col-6 song-credits">
+          <div>Song Personnel:</div>
+          <%= erb :'songs/_personnel', locals: { credits: @song.credits.players } %>
+        </div>
+      <% end %>
+    </div>
   </div>
+  <% if !@song.album %>
+    <a href="/songs/<%= @song.id %>/edit">Edit entry</a>
+  <% end %>
 </div>
