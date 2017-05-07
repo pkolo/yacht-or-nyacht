@@ -20,7 +20,7 @@ post '/songs/:id/discog_search' do
   if Album.match_in(@results)
     url = "https://api.discogs.com/releases/" + Album.match_in(@results).discog_id
     @credits = @song.add_personnel(url, false)
-    erb :'songs/_personnel', layout: false, locals: {credits: @credits}
+    redirect_to("/songs/#{params[:id]}")
   else
     erb :'songs/_search_results', layout: false
   end
@@ -29,7 +29,7 @@ end
 post '/songs/:id/add_personnel' do
   @song = Song.find(params[:id])
   @credits = @song.add_personnel(params[:url], true)
-  erb :'songs/_personnel', layout: false, locals: {credits: @credits}
+  redirect to("/songs/#{params[:id]}")
 end
 
 get '/stats' do
