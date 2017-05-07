@@ -133,10 +133,15 @@ header a {
 .big-title {
   font-size: 4.0em;
   font-weight: bold;
+  margin-bottom: -5px;
 }
 
 .artist-credit {
   font-size: 2.0em;
+}
+
+.track-info {
+  font-size: 1.25em;
 }
 
 
