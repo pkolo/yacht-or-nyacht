@@ -27,6 +27,16 @@ class Song < ActiveRecord::Base
     (self.dave_score + self.jd_score + self.hunter_score + self.steve_score) / 4.0
   end
 
+  def status
+    if self.essential?
+      "Essential Yacht"
+    elsif self.yachtski >= 50
+      "Yacht"
+    else
+      "Nyacht"
+    end
+  end
+
   def essential?
     self.yachtski >= 90
   end

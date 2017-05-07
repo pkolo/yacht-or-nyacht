@@ -53,8 +53,6 @@ a {
 header {
   font-size: 3.0em;
   font-weight: 600;
-  font-style: italic;
-  font-family: 'Taviraj';
 }
 
 header a {
@@ -104,6 +102,7 @@ header a {
 .score-box {
   width: 90%;
   color: #fff;
+  padding: 0 10px 10px 10px;
 }
 
 .big-score {
@@ -111,13 +110,23 @@ header a {
   text-align: center;
 }
 
+.yacht-status {
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 1.25em
+}
+
 .score {
-  font-size: 1.25em;
+  font-size: 1.5em;
   margin-bottom: 0px;
 }
 
+.host {
+  padding-left: 10px;
+}
+
 .score > * {
-  padding-left: 5px;
+  padding: 0 0 0 5px;
 }
 
 .big-title {
