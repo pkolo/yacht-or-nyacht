@@ -1,7 +1,9 @@
 <div class="row album-container">
 
-  <div class="col-4 album-score-box">
-    <%= erb :'albums/_score_panel', locals: {album: @album} %>
+  <div class="col-4">
+    <div class="album-score-box">
+      <%= erb :'albums/_score_panel', locals: {album: @album} %>
+    </div>
   </div>
 
   <div class="col-8 album-info">
