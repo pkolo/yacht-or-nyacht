@@ -145,6 +145,11 @@ header a {
   font-size: 1.25em;
 }
 
+/* Album page style */
+.album-score-box {
+  width: 50%;
+}
+
 
 /* Artist page style */
 
