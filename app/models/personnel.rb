@@ -8,4 +8,31 @@ class Personnel < ActiveRecord::Base
 
   has_many :song_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Song" }, class_name: 'Credit'
   has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
+
+  def combined_song_credits
+    self.song_credits.each_with_object({}) do |credit, memo|
+      if memo[credit.creditable.title]
+        memo[credit.creditable.title][:roles] << credit.role
+      else
+        memo[credit.creditable.title] = {
+          id: credit.creditable.id,
+          roles: [credit.role]
+        }
+      end
+    end
+  end
+
+  def combined_album_credits
+    self.album_credits.each_with_object({}) do |credit, memo|
+      if memo[credit.creditable.title]
+        memo[credit.creditable.title][:roles] << credit.role
+      else
+        memo[credit.creditable.title] = {
+          id: credit.creditable.id,
+          roles: [credit.role]
+        }
+      end
+    end
+  end
+
 end
