@@ -1,12 +1,12 @@
 <div class="row album-container">
 
-  <div class="col-4">
+  <div class="col-3">
     <div class="album-score-box">
-      <%= erb :'albums/_score_panel', locals: {album: @album} %>
+      <%= erb :'albums/_score_panel', locals: {album: @album, songs: @songs } %>
     </div>
   </div>
 
-  <div class="col-8 album-info">
+  <div class="col-9 album-info">
     <div class="big-title">
       <%= @album.title %>
     </div>
