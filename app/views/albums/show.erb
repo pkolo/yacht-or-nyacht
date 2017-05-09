@@ -16,9 +16,9 @@
     <%= erb :'albums/_song_list', locals: { songs: @songs } %>
 
     <div class="personnel-panel">
+      <div class="section-head">Album personnel:</div>
       <div class="row media-details">
         <section class="credit-container">
-          <div class="column-head">Album personnel:</div>
           <%= erb :'songs/_personnel', locals: { credits: @album.credits.players } %>
         </section>
       </div>

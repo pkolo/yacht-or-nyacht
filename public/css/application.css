@@ -131,6 +131,12 @@ header a {
   break-inside: auto;
 }
 
+.section-head {
+  margin-top: 15px;
+  margin-bottom: -10px;
+  font-size: 1.25em;
+}
+
 .column-head {
   font-size: 1.25em;
   margin-bottom: 5px;
