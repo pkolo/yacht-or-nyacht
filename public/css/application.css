@@ -101,17 +101,21 @@ header a {
 
 /* Song page style */
 
-.song-details {
+.media-details {
   margin-top: 20px;
   -webkit-column-count: 3; /* Chrome, Safari, Opera */
   -moz-column-count: 3; /* Firefox */
   column-count: 3;
 }
 
+.media-details > * {
+  margin-bottom: 15px;
+}
+
 .yt-embed {
 }
 
-.song-info-panel {
+.score-sidebar {
     height: 90vh;
 }
 
@@ -119,13 +123,18 @@ header a {
   /*-webkit-column-break-inside: avoid;
   page-break-inside: avoid;
   break-inside: avoid;*/
-  margin-top: 15px;
 }
 
 .credits {
   -webkit-column-break-inside: auto;
   page-break-inside: auto;
   break-inside: auto;
+}
+
+.section-head {
+  margin-top: 15px;
+  margin-bottom: -10px;
+  font-size: 1.25em;
 }
 
 .column-head {

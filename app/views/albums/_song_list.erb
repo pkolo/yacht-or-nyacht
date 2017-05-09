@@ -1,10 +1,16 @@
-<% songs.each do |song| %>
-  <div class="row">
-    <div class="yachtski avg col-2">
-      <%= song.yachtski.round(2) %>
-    </div>
-    <div class="col-10">
-      <%= song.title %>
-    </div>
-  </div>
-<% end %>
+<div class="row">
+  <div class="col-1">Yachtski</div>
+  <div class="col-1">Track</div>
+  <div class="col-5">Song</div>
+  <div class="col-1">JD</div>
+  <div class="col-1">Hunter</div>
+  <div class="col-1">Steve</div>
+  <div class="col-1">Dave</div>
+  <div class="col-1">Episode</div>
+</div>
+
+<div class="song-list">
+  <% songs.each do |song| %>
+   <%= erb :'albums/_list_item', locals: {song: song} %>
+  <% end %>
+</div>
