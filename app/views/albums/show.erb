@@ -5,9 +5,15 @@
   </div>
 
   <div class="col-9 album-info">
+
     <div class="big-title">
-      <%= @album.title %>
+      <i><%= @album.title %></i> (<%= @album.year %>)
     </div>
+    <div class="artist-credit">
+      <%= @album.artist_list %>
+    </div>
+
+    <%= erb :'albums/_song_list', locals: { songs: @songs } %>
   </div>
 
 </div>
