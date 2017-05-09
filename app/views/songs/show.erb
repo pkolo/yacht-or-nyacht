@@ -9,19 +9,19 @@
       <div class="yt-embed">
         <iframe width="250" height="250" src="https://www.youtube.com/embed/93E0bLh6oRE" frameborder="0" allowfullscreen></iframe>
       </div>
-      <div class="song-credits">
+      <section class="credit-container">
         <% if @song.credits.players.any? %>
-            <div>Song Personnel:</div>
+            <div class="column-head">Song Personnel:</div>
             <%= erb :'songs/_personnel', locals: { credits: @song.credits.players } %>
         <% end %>
-      </div>
+      </section>
 
+      <section class="credit-container">
       <% if @song.album %>
-        <div class="album-credits">
-          <div>Album personnel:</div>
+          <div class="column-head">Album personnel:</div>
           <%= erb :'songs/_personnel', locals: { credits: @song.album.credits.players } %>
-        </div>
       <% end %>
+    </section>
     </div>
   </div>
   <% if !@song.album %>

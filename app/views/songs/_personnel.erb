@@ -1,5 +1,7 @@
+<div class="credits">
 <% credits.each do |credit| %>
   <div class="credit">
     <%= credit.role %> - <a href="/personnel/<%= credit.personnel.id %>"><%= credit.personnel.name %></a>
   </div>
 <% end %>
+</div>
