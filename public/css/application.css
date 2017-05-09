@@ -101,7 +101,37 @@ header a {
 
 /* Song page style */
 
-.song-info-panel {}
+.song-details {
+  margin-top: 20px;
+  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+  -moz-column-count: 3; /* Firefox */
+  column-count: 3;
+}
+
+.yt-embed {
+}
+
+.song-info-panel {
+    height: 90vh;
+}
+
+.credit-container {
+  /*-webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;*/
+  margin-top: 15px;
+}
+
+.credits {
+  -webkit-column-break-inside: auto;
+  page-break-inside: auto;
+  break-inside: auto;
+}
+
+.column-head {
+  font-size: 1.25em;
+  margin-bottom: 5px;
+}
 
 .score-box {
   width: 90%;
