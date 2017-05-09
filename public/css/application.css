@@ -101,7 +101,9 @@ header a {
 
 /* Song page style */
 
-.song-info-panel {}
+.song-info-panel {
+    height: 85vh;
+}
 
 .score-box {
   width: 90%;
