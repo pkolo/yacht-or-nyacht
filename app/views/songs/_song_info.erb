@@ -1,14 +1,5 @@
-<h1><%= song.nice_title %></h1>
-<%= erb :'songs/_list', locals: { songs: [song] } %>
-
+<div class="big-title"><%= song.title %></div>
+<div class="artist-credit">By: <%= song.artist_list %></div>
 <% if song.album %>
-<div class="song-details">
-  <div>Track <%= song.track_no %> on <a href="/albums/<%= song.album.id %>"><%= song.album.title %></a></div>
-</div>
+  <div class="track-info">From: <a href="/albums/<%= song.album.id %>"><%= song.album.title %></a> (<%= @song.year %>)</div>
 <% end %>
-
-<div class="credits-list">
-<% if song.credits.any? %>
-  <%= erb :'songs/_personnel', locals: { credits: song.credits } %>
-<% end %>
-</div>

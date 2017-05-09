@@ -27,6 +27,16 @@ class Song < ActiveRecord::Base
     (self.dave_score + self.jd_score + self.hunter_score + self.steve_score) / 4.0
   end
 
+  def status
+    if self.essential?
+      "Essential Yacht"
+    elsif self.yachtski >= 50
+      "Yacht"
+    else
+      "Nyacht"
+    end
+  end
+
   def essential?
     self.yachtski >= 90
   end
@@ -75,12 +85,26 @@ class Song < ActiveRecord::Base
     self.credits.delete_all
     self.save
 
-    results["artists"].each do |artist|
-      new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
-      song_credit = Credit.new(role: "Artist", personnel: new_person)
-      self.credits << song_credit
-      album_credit = Credit.new(role: "Artist", personnel: new_person)
-      album.credits << album_credit
+    if track_data["artists"]
+      track_data["artists"].each do |artist|
+        new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
+        song_credit = Credit.new(role: "Artist", personnel: new_person)
+        self.credits << song_credit
+      end
+
+      results["artists"].each do |artist|
+        new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
+        album_credit = Credit.new(role: "Artist", personnel: new_person)
+        album.credits << album_credit
+      end
+    else
+      results["artists"].each do |artist|
+        new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
+        song_credit = Credit.new(role: "Artist", personnel: new_person)
+        self.credits << song_credit
+        album_credit = Credit.new(role: "Artist", personnel: new_person)
+        album.credits << album_credit
+      end
     end
 
     album_personnel = results["extraartists"].select{|artist| artist["tracks"] == "" }

@@ -51,10 +51,10 @@ a {
 }
 
 header {
+  font-family: 'Shrikhand', "serif";
+  margin-bottom: 15px;
   font-size: 3.0em;
   font-weight: 600;
-  font-style: italic;
-  font-family: 'Taviraj';
 }
 
 header a {
@@ -97,6 +97,61 @@ header a {
 .title {
   font-size: 1.0em;
   font-weight: 400;
+}
+
+/* Song page style */
+
+.song-info-panel {}
+
+.score-box {
+  width: 90%;
+  height: 100%;
+  color: #fff;
+  padding: 0 10px 10px 10px;
+}
+
+.big-score {
+  font-size: 4.0em;
+  text-align: center;
+}
+
+.yacht-status {
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 1.25em
+}
+
+.score {
+  font-size: 1.5em;
+  margin-bottom: 0px;
+}
+
+.host {
+  padding-left: 10px;
+}
+
+.score > * {
+  padding: 0 0 0 5px;
+}
+
+.big-title {
+  font-size: 4.0em;
+  font-weight: bold;
+  margin-bottom: -5px;
+}
+
+.artist-credit {
+  font-size: 2.0em;
+  margin-bottom: 5px;
+}
+
+.track-info {
+  font-size: 1.25em;
+}
+
+/* Album page style */
+.album-score-box {
+  width: 95%;
 }
 
 

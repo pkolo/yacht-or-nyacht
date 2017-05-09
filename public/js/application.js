@@ -36,7 +36,8 @@ $(document).ready(function() {
     $this.css('background-color', color);
 
     if ($this.hasClass('avg')) {
-      $this.parent().css('border', `2px solid ${color}`)
+      $this.parent().css('border', `2px solid ${color}`);
+      $this.parent().css('background-color', color)
     }
 
   });
@@ -100,17 +101,16 @@ $(document).ready(function() {
     });
   });
 
-  $('.search-results-list').on('click', '.add-personnel-btn', function() {
-    var id = $(this).attr('id')
-    var baseURL = "https://api.discogs.com/releases/"
-    $.ajax({
-      url: 'add_personnel',
-      method: 'POST',
-      data: {url: baseURL+id}
-    }).done(function(res) {
-      $('.edit-section').hide()
-      $('.credits-list').append(res)
-    });
-  })
+  // $('.search-results-list').on('click', '.add-personnel-btn', function() {
+  //   var id = $(this).attr('id')
+  //   var baseURL = "https://api.discogs.com/releases/"
+  //   $.ajax({
+  //     url: 'add_personnel',
+  //     method: 'POST',
+  //     data: {url: baseURL+id}
+  //   }).done(function(res) {
+  //     console.log("ok")
+  //   });
+  // })
 
 });
