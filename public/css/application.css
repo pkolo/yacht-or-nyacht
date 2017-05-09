@@ -101,8 +101,23 @@ header a {
 
 /* Song page style */
 
+.song-details {
+  margin-top: 15px;
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+}
+
+.yt-embed {
+  margin-bottom: 15px;
+}
+
 .song-info-panel {
-    height: 85vh;
+    height: 90vh;
+}
+
+.song-credits {
+  margin-bottom: 15px;
 }
 
 .score-box {

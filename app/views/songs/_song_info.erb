@@ -1,5 +1,5 @@
 <div class="big-title"><%= song.title %></div>
-<div class="artist-credit">By: <%= song.artist_list %></div>
+<div class="artist-credit"><%= song.artist_list %></div>
 <% if song.album %>
-  <div class="track-info">From: <a href="/albums/<%= song.album.id %>"><%= song.album.title %></a> (<%= @song.year %>)</div>
+  <div class="track-info"><a href="/albums/<%= song.album.id %>"><i><%= song.album.title %></i></a> (<%= @song.year %>)</div>
 <% end %>
