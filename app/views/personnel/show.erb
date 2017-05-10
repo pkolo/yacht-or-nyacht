@@ -1,23 +1,17 @@
-<h1><%= @personnel.name %></h1>
+<div class="row personnel-container">
 
-<% if @song_credits.any? %>
-  <h3>Appears on songs:</h3>
-  <div class="personnel-credits-list">
-    <% @personnel.combined_song_credits.each do |credit| %>
-    <div class="personnel-credit">
-      <%= credit[:media].artist_list %> - <%= credit[:media].title %>: <%= credit[:roles].join(', ') %>
+  <div class="score-sidebar col-3">
+    <div class="score-box">
+      <div class="big-score yachtski avg">
+        69.25
+      </div>
+      <div class="yacht-status">Yachtski Average</div>
     </div>
-    <% end %>
   </div>
-<% end %>
 
-<% if @album_credits.any? %>
-  <h3>Appears on albums:</h3>
-  <div class="personnel-credits-list">
-    <% @personnel.combined_album_credits.each do |credit| %>
-    <div class="personnel-credit">
-      <%= credit[:media].artist_list %> - <%= credit[:media].title %>: <%= credit[:roles].join(', ') %>
-    </div>
-    <% end %>
+  <div class="col-9 personnel-info">
+    <div class="big-title"><%= @personnel.name %></div>
+
+    <%= erb :'personnel/_credits', locals: {personnel: @personnel, song_credits: @song_credits, album_credits: @album_credits} %>
   </div>
-<% end %>
+</div>
