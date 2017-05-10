@@ -7,25 +7,26 @@
 
     <%= erb :'songs/_song_info', locals: { song: @song } %>
 
-    <% if @song.credits.players.any? %>
-      <h3>Song Personnel:</h3>
-      <div class="media-details">
-        <section class="credit-container">
-          <%= erb :'songs/_personnel', locals: { credits: @song.combined_players } %>
-        </section>
-      </div>
-    <% end %>
+    <% if @song.album %>
+      <% if @song.credits.players.any? %>
+        <h3>Song Personnel:</h3>
+        <div class="media-details">
+          <section class="credit-container">
+            <%= erb :'songs/_personnel', locals: { credits: @song.combined_players } %>
+          </section>
+        </div>
+      <% end %>
 
-    <% if @song.album.credits.players.any? %>
-      <h3>Album Personnel:</h3>
-      <div class="media-details">
-        <section class="credit-container">
-          <%= erb :'songs/_personnel', locals: { credits: @song.album.combined_players } %>
-        </section>
-      </div>
-    <% end %>
-  </div>
-  <% if !@song.album %>
+      <% if @song.album.credits.players.any? %>
+        <h3>Album Personnel:</h3>
+        <div class="media-details">
+          <section class="credit-container">
+            <%= erb :'songs/_personnel', locals: { credits: @song.album.combined_players } %>
+          </section>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
     <a href="/songs/<%= @song.id %>/edit">Edit entry</a>
   <% end %>
 </div>
