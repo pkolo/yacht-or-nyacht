@@ -4,25 +4,26 @@
   </div>
 
   <div class="personnel-panel col-9">
-    <%= erb :'songs/_song_info', locals: { song: @song } %>
-    <div class="row media-details">
-      <div class="yt-embed">
-        <iframe width="250" height="250" src="https://www.youtube.com/embed/93E0bLh6oRE" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <section class="credit-container">
-        <% if @song.credits.players.any? %>
-            <div class="column-head">Song Personnel:</div>
-            <%= erb :'songs/_personnel', locals: { credits: @song.combined_players } %>
-        <% end %>
-      </section>
 
-      <section class="credit-container">
-      <% if @song.album %>
-          <div class="column-head">Album personnel:</div>
+    <%= erb :'songs/_song_info', locals: { song: @song } %>
+
+    <% if @song.credits.players.any? %>
+      <h3>Song Personnel:</h3>
+      <div class="row media-details">
+        <section class="credit-container">
+          <%= erb :'songs/_personnel', locals: { credits: @song.combined_players } %>
+        </section>
+      </div>
+    <% end %>
+
+    <% if @song.album.credits.players.any? %>
+      <h3>Album Personnel:</h3>
+      <div class="row media-details">
+        <section class="credit-container">
           <%= erb :'songs/_personnel', locals: { credits: @song.album.combined_players } %>
-      <% end %>
-    </section>
-    </div>
+        </section>
+      </div>
+    <% end %>
   </div>
   <% if !@song.album %>
     <a href="/songs/<%= @song.id %>/edit">Edit entry</a>
