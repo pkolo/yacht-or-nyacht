@@ -20,4 +20,17 @@ class Album < ActiveRecord::Base
     result_ids = results.map {|result| result["id"].to_s}
     self.where(discog_id: result_ids).first
   end
+
+  def combined_players
+    roles = self.credits.players.pluck(:role).uniq
+    roles.each_with_object([]) do |role, memo|
+      credits = self.credits.players.where(role: role)
+
+      players = {
+        role: role,
+        personnel: credits.map { |credit| credit.personnel.name }
+      }
+      memo << players
+    end
+  end
 end
