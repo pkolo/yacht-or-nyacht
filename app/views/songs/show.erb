@@ -12,14 +12,14 @@
       <section class="credit-container">
         <% if @song.credits.players.any? %>
             <div class="column-head">Song Personnel:</div>
-            <%= erb :'songs/_personnel', locals: { credits: @song.credits.players } %>
+            <%= erb :'songs/_personnel', locals: { credits: @song.combined_players } %>
         <% end %>
       </section>
 
       <section class="credit-container">
       <% if @song.album %>
           <div class="column-head">Album personnel:</div>
-          <%= erb :'songs/_personnel', locals: { credits: @song.album.credits.players } %>
+          <%= erb :'songs/_personnel', locals: { credits: @song.album.combined_players } %>
       <% end %>
     </section>
     </div>

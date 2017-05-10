@@ -19,7 +19,7 @@
       <div class="section-head">Album personnel:</div>
       <div class="row media-details">
         <section class="credit-container">
-          <%= erb :'songs/_personnel', locals: { credits: @album.credits.players } %>
+          <%= erb :'albums/_personnel', locals: { credits: @album.combined_players } %>
         </section>
       </div>
     </div>
