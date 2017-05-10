@@ -15,6 +15,10 @@ class Song < ActiveRecord::Base
   has_many :personnel, through: :credits
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
 
+  def artist
+    self.performers.pluck(:name).first
+  end
+
   def artist_list
     artist_data = self.performers.pluck(:id, :name)
     artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
@@ -68,7 +72,7 @@ class Song < ActiveRecord::Base
     q = "type=release&token=#{ENV['DISCOG_TOKEN']}"
 
     if options.include?("artist")
-      q += "&artist=#{self.artist_list.gsub(/[^0-9a-z ]/i, '')}"
+      q += "&artist=#{self.artist.gsub(/[^0-9a-z ]/i, '')}"
     end
 
     if options.include?("title")
