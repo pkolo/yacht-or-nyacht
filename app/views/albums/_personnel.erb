@@ -1,0 +1,5 @@
+<% credits.each do |credit| %>
+<div class="media-credit">
+  <%= credit[:role] %> - <%= credit[:personnel].join(', ') %>
+</div>
+<% end %>

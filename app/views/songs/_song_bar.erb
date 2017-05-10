@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="song-list-box col-1">Year</div>
+  <div class="song-list-box col-6">From the album</div>
+  <div class="song-list-box col-1">JD</div>
+  <div class="song-list-box col-1">Hunter</div>
+  <div class="song-list-box col-1">Steve</div>
+  <div class="song-list-box col-1">Dave</div>
+  <div class="song-list-box col-1">Ep #</div>
+</div>
+
+<div class="song-list">
+  <div class="row">
+    <div class="yachtski avg" style="display:none"><%= song.yachtski %></div>
+    <div class="song-list-box col-1"><%= song.year %></div>
+
+    <div class="song-list-box col-6 title">
+      <% if song.album %>
+        <i><a href="/albums/<%= song.album.id %>"><%= song.album.title %></a></i>
+      <% else %>
+        N/A
+      <% end %>
+    </div>
+
+    <div class="song-list-box yachtski col-1"><%= song.jd_score %></div>
+    <div class="song-list-box yachtski col-1"><%= song.hunter_score %></div>
+    <div class="song-list-box yachtski col-1"><%= song.steve_score %></div>
+    <div class="song-list-box yachtski col-1"><%= song.dave_score %></div>
+    <div class="song-list-box col-1"><a href="/episodes/<%= song.episode.id %>"><%= song.episode.number %></a></div>
+  </div>
+</div>

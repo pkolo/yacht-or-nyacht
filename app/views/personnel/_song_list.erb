@@ -1,15 +1,16 @@
 <div class="row">
   <div class="song-list-box col-1">Yachtski</div>
-  <div class="song-list-box col-6">Song</div>
+  <div class="song-list-box col-5">Song</div>
+  <div class="song-list-box col-1">Year</div>
   <div class="song-list-box col-1">JD</div>
   <div class="song-list-box col-1">Hunter</div>
   <div class="song-list-box col-1">Steve</div>
   <div class="song-list-box col-1">Dave</div>
-  <div class="song-list-box col-1">Ep #</div>
+  <div class="song-list-box col-1">Episode</div>
 </div>
 
 <div class="song-list">
   <% songs.each do |song| %>
-   <%= erb :'songs/_list_item', locals: {song: song} %>
+   <%= erb :'personnel/_list_item', locals: {song: song} %>
   <% end %>
 </div>

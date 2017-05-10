@@ -42,6 +42,15 @@ $(document).ready(function() {
 
   });
 
+  $('.yachtski-list-item').each(function() {
+    var $this = $(this);
+    var yachtski = $this.text();
+    var color = jayGradient(yachtski / 100);
+
+    $this.siblings('.bullet').css('background-color', color);
+    $this.parent().css('border-bottom', `1px solid ${color}`);
+  });
+
   jQuery.expr[':'].Contains = function(a,i,m){
     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
   };
