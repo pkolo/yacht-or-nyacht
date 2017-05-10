@@ -1,21 +1,30 @@
 <% if song_credits.any? %>
-  <h3>Appears on songs:</h3>
-  <div class="personnel-credits-list">
-    <% @personnel.combined_song_credits.each do |credit| %>
-    <div class="personnel-credit">
-      <%= credit[:media].artist_list %> - <%= credit[:media].title %>: <%= credit[:roles].join(', ') %>
+  <div class="personnel-section">
+    <div class="personnel-section-head">Song Credits</div>
+    <div class="personnel-credits-list">
+      <% @personnel.combined_song_credits.each do |credit| %>
+      <div class="personnel-credit">
+        <div class="col-6">
+          <%= credit[:media].artist_list %> - <%= credit[:media].title %>
+        </div>
+        <div class="col-6">
+          <%= credit[:roles].join(', ') %>
+        </div>
+      </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
 <% end %>
 
 <% if album_credits.any? %>
-  <h3>Appears on albums:</h3>
-  <div class="personnel-credits-list">
-    <% @personnel.combined_album_credits.each do |credit| %>
-    <div class="personnel-credit">
-      <%= credit[:media].artist_list %> - <%= credit[:media].title %>: <%= credit[:roles].join(', ') %>
+  <div class="personnel-section">
+    <div class="personnel-section-head">Album Credits</div>
+    <div class="personnel-credits-list">
+      <% @personnel.combined_album_credits.each do |credit| %>
+      <div class="personnel-credit">
+        <%= credit[:media].artist_list %> - <%= credit[:media].title %>: <%= credit[:roles].join(', ') %>
+      </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
 <% end %>

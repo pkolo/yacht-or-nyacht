@@ -11,11 +11,12 @@
 
   <div class="col-9 personnel-info">
     <div class="big-title"><%= @personnel.name %></div>
-
     <% if @personnel.song_performances.any? %>
-      <h3>Song Performances</h3>
-      <div class="personnel-song-list">
-          <%= erb :'personnel/_song_list', locals: {songs: @personnel.song_performances} %>
+      <div class="personnel-section">
+        <div class="personnel-section-head">Song Performances</div>
+        <div class="personnel-song-list">
+            <%= erb :'personnel/_song_list', locals: {songs: @personnel.song_performances} %>
+        </div>
       </div>
     <% end %>
 
