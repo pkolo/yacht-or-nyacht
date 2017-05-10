@@ -24,7 +24,7 @@
   <div class="personnel-credits-list">
     <% @personnel.combined_album_credits.each do |credit| %>
     <div class="row personnel-credit">
-      <div class="yachtski-list-item" style="display:none"><%= credit[:media].avg_yachtski %></div>
+      <div class="yachtski-list-item" style="display:none"><%= credit[:media].yachtski %></div>
       <div class="bullet col-1">&nbsp;</div>
       <div class="col-6">
         <%= credit[:media].artist_list %> - <%= credit[:media].title %>

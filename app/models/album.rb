@@ -12,7 +12,7 @@ class Album < ActiveRecord::Base
     artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
   end
 
-  def avg_yachtski
+  def yachtski
     total_pts = self.songs.inject(0) { |sum, song| sum += song.yachtski }
     (total_pts / self.songs.length)
   end
