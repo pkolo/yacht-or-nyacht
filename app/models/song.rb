@@ -19,6 +19,19 @@ class Song < ActiveRecord::Base
     self.performers.pluck(:name).join(', ')
   end
 
+  def combined_players
+    roles = self.credits.players.pluck(:role).uniq
+    roles.each_with_object([]) do |role, memo|
+      credits = self.credits.players.where(role: role)
+
+      players = {
+        role: role,
+        personnel: credits.map { |credit| credit.personnel.name }
+      }
+      memo << players
+    end
+  end
+
   def nice_title
     "#{self.artist_list} - #{self.title} (#{self.year})"
   end
