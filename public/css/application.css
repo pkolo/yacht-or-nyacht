@@ -101,7 +101,7 @@ header a {
 /* Personnel page style */
 
 .personnel-section {
-  margin: 25px 0;
+  margin: 20px 0;
 }
 
 .personnel-section-head {
@@ -110,7 +110,11 @@ header a {
 }
 
 .personnel-credit {
-  margin: -15px 0;
+}
+
+.bullet {
+  width: 20px;
+  margin-right: 15px;
 }
 
 /* Song page style */

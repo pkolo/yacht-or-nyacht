@@ -3,11 +3,13 @@
     <div class="personnel-section-head">Song Credits</div>
     <div class="personnel-credits-list">
       <% @personnel.combined_song_credits.each do |credit| %>
-      <div class="personnel-credit">
+      <div class="row personnel-credit">
+        <div class="yachtski-list-item" style="display:none"><%= credit[:media].yachtski %></div>
+        <div class="bullet col-1">&nbsp;</div>
         <div class="col-6">
           <%= credit[:media].artist_list %> - <%= credit[:media].title %>
         </div>
-        <div class="col-6">
+        <div class="col-5">
           <%= credit[:roles].join(', ') %>
         </div>
       </div>
@@ -17,14 +19,21 @@
 <% end %>
 
 <% if album_credits.any? %>
-  <div class="personnel-section">
-    <div class="personnel-section-head">Album Credits</div>
-    <div class="personnel-credits-list">
-      <% @personnel.combined_album_credits.each do |credit| %>
-      <div class="personnel-credit">
-        <%= credit[:media].artist_list %> - <%= credit[:media].title %>: <%= credit[:roles].join(', ') %>
+<div class="personnel-section">
+  <div class="personnel-section-head">Album Credits</div>
+  <div class="personnel-credits-list">
+    <% @personnel.combined_album_credits.each do |credit| %>
+    <div class="row personnel-credit">
+      <div class="yachtski-list-item" style="display:none"><%= credit[:media].avg_yachtski %></div>
+      <div class="bullet col-1">&nbsp;</div>
+      <div class="col-6">
+        <%= credit[:media].artist_list %> - <%= credit[:media].title %>
       </div>
-      <% end %>
+      <div class="col-5">
+        <%= credit[:roles].join(', ') %>
+      </div>
     </div>
+    <% end %>
   </div>
+</div>
 <% end %>
