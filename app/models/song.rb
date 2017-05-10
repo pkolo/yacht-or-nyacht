@@ -16,7 +16,8 @@ class Song < ActiveRecord::Base
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
 
   def artist_list
-    self.performers.pluck(:name).join(', ')
+    artist_data = self.performers.pluck(:id, :name)
+    artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
   end
 
   def combined_players
