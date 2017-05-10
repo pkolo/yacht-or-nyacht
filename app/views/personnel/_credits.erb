@@ -1,6 +1,6 @@
 <% if song_credits.any? %>
   <div class="personnel-section">
-    <div class="personnel-section-head">Song Credits</div>
+    <div class="personnel-section-head">Song Contributions</div>
     <div class="personnel-credits-list">
       <% @personnel.combined_song_credits.each do |credit| %>
       <div class="row personnel-credit">
@@ -9,7 +9,7 @@
         <div class="col-6">
           <%= credit[:media].artist_list %> - <%= credit[:media].title %>
         </div>
-        <div class="col-5">
+        <div class="col-5 role">
           <%= credit[:roles].join(', ') %>
         </div>
       </div>
@@ -20,7 +20,7 @@
 
 <% if album_credits.any? %>
 <div class="personnel-section">
-  <div class="personnel-section-head">Album Credits</div>
+  <div class="personnel-section-head">Album Contributions</div>
   <div class="personnel-credits-list">
     <% @personnel.combined_album_credits.each do |credit| %>
     <div class="row personnel-credit">
@@ -29,7 +29,7 @@
       <div class="col-6">
         <%= credit[:media].artist_list %> - <%= credit[:media].title %>
       </div>
-      <div class="col-5">
+      <div class="col-5 role">
         <%= credit[:roles].join(', ') %>
       </div>
     </div>

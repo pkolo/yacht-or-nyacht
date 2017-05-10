@@ -117,6 +117,10 @@ header a {
   margin-right: 15px;
 }
 
+.role {
+  text-align: right;
+}
+
 /* Song page style */
 
 .media-details {
