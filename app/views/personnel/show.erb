@@ -1,23 +1,23 @@
 <h1><%= @personnel.name %></h1>
 
-<% if @song_credits %>
+<% if @song_credits.any? %>
   <h3>Appears on songs:</h3>
   <div class="personnel-credits-list">
-    <% @song_credits.each do |credit| %>
-      <div class="personnel-credit">
-        <a href="/songs/<%= credit.creditable.id %>"><%= credit.creditable.title %></a> - <%= credit.role %>
-      </div>
+    <% @personnel.combined_song_credits.each do |credit| %>
+    <div class="personnel-credit">
+      <%= credit[:media].artist_list %> - <%= credit[:media].title %>: <%= credit[:roles].join(', ') %>
+    </div>
     <% end %>
   </div>
 <% end %>
 
-<% if @album_credits %>
+<% if @album_credits.any? %>
   <h3>Appears on albums:</h3>
   <div class="personnel-credits-list">
-    <% @album_credits.each do |credit| %>
-      <div class="personnel-credit">
-        <a href="/albums/<%= credit.creditable.id %>"><%= credit.creditable.title %></a> - <%= credit.role %>
-      </div>
+    <% @personnel.combined_album_credits.each do |credit| %>
+    <div class="personnel-credit">
+      <%= credit[:media].artist_list %> - <%= credit[:media].title %>: <%= credit[:roles].join(', ') %>
+    </div>
     <% end %>
   </div>
 <% end %>
