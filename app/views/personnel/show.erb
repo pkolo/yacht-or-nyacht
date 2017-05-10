@@ -12,6 +12,13 @@
   <div class="col-9 personnel-info">
     <div class="big-title"><%= @personnel.name %></div>
 
+    <% if @personnel.song_performances.any? %>
+      <h3>Song Performances</h3>
+      <div class="personnel-song-list">
+          <%= erb :'personnel/_song_list', locals: {songs: @personnel.song_performances} %>
+      </div>
+    <% end %>
+
     <%= erb :'personnel/_credits', locals: {personnel: @personnel, song_credits: @song_credits, album_credits: @album_credits} %>
   </div>
 </div>
