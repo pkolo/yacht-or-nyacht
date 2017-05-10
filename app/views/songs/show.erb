@@ -9,7 +9,7 @@
 
     <% if @song.credits.players.any? %>
       <h3>Song Personnel:</h3>
-      <div class="row media-details">
+      <div class="media-details">
         <section class="credit-container">
           <%= erb :'songs/_personnel', locals: { credits: @song.combined_players } %>
         </section>
@@ -18,7 +18,7 @@
 
     <% if @song.album.credits.players.any? %>
       <h3>Album Personnel:</h3>
-      <div class="row media-details">
+      <div class="media-details">
         <section class="credit-container">
           <%= erb :'songs/_personnel', locals: { credits: @song.album.combined_players } %>
         </section>
