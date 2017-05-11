@@ -90,7 +90,6 @@ class Song < ActiveRecord::Base
     q = self.build_query(options)
     url = "https://api.discogs.com/database/search?#{q}"
     response = api_call(url)
-    binding.pry
     response["results"]
   end
 
@@ -139,7 +138,8 @@ class Song < ActiveRecord::Base
     end
 
     other_personnel = results["extraartists"] - album_personnel
-    track_personnel = other_personnel.select {|person| includes_track?(person["tracks"], self.track_no)}
+    all_tracks = results["tracklist"].map {|track| track["position"]}
+    track_personnel = other_personnel.select {|person| includes_track?(all_tracks, person, self.track_no)}
     track_personnel += track_data["extraartists"] if track_data["extraartists"]
 
     track_personnel.each do |personnel|
