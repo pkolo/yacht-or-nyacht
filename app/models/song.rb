@@ -97,7 +97,7 @@ class Song < ActiveRecord::Base
     results = api_call(url)
     album = Album.find_or_create_by(year: results["year"], title: results["title"], discog_id: results["id"])
     self.album = album
-    track_data = results["tracklist"].find {|track| is_match?(track["title"].gsub(/\([^)]*\)/, ''), self.title) }
+    track_data = results["tracklist"].find {|track| is_match?(remove_parens(track["title"]), self.title) }
     self.track_no = track_data["position"]
     self.title = track_data["title"]
     self.credits.delete_all
@@ -105,19 +105,19 @@ class Song < ActiveRecord::Base
 
     if track_data["artists"]
       track_data["artists"].each do |artist|
-        new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
+        new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
         song_credit = Credit.new(role: "Artist", personnel: new_person)
         self.credits << song_credit
       end
 
       results["artists"].each do |artist|
-        new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
+        new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
         album_credit = Credit.new(role: "Artist", personnel: new_person)
         album.credits << album_credit
       end
     else
       results["artists"].each do |artist|
-        new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
+        new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
         song_credit = Credit.new(role: "Artist", personnel: new_person)
         self.credits << song_credit
         album_credit = Credit.new(role: "Artist", personnel: new_person)
@@ -129,7 +129,7 @@ class Song < ActiveRecord::Base
 
     if add_album_personnel
       album_personnel.each do |personnel|
-        new_person = Personnel.find_or_create_by(name: personnel["name"], discog_id: personnel["id"])
+        new_person = Personnel.find_or_create_by(name: remove_parens(personnel["name"]), discog_id: personnel["id"])
         personnel["role"].split(", ").each do |role|
           credit = Credit.new(role: role, personnel: new_person)
           album.credits << credit
@@ -142,7 +142,7 @@ class Song < ActiveRecord::Base
     track_personnel += track_data["extraartists"] if track_data["extraartists"]
 
     track_personnel.each do |personnel|
-      new_person = Personnel.find_or_create_by(name: personnel["name"], discog_id: personnel["id"])
+      new_person = Personnel.find_or_create_by(name: remove_parens(personnel["name"]), discog_id: personnel["id"])
       personnel["role"].split(", ").each do |role|
         credit = Credit.new(role: role, personnel: new_person)
         self.credits << credit
