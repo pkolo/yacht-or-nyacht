@@ -20,7 +20,7 @@ post '/songs/:id/discog_search' do
   if Album.match_in(@results)
     url = "https://api.discogs.com/releases/" + Album.match_in(@results).discog_id
     @credits = @song.add_personnel(url, false)
-    redirect_to("/songs/#{params[:id]}")
+    redirect to("/songs/#{params[:id]}")
   else
     erb :'songs/_search_results', layout: false
   end
