@@ -110,18 +110,22 @@ class Song < ActiveRecord::Base
         self.credits << song_credit
       end
 
-      results["artists"].each do |artist|
-        new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
-        album_credit = Credit.new(role: "Artist", personnel: new_person)
-        album.credits << album_credit
+      if add_album_personnel
+        results["artists"].each do |artist|
+          new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
+          album_credit = Credit.new(role: "Artist", personnel: new_person)
+          album.credits << album_credit
+        end
       end
     else
       results["artists"].each do |artist|
         new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
         song_credit = Credit.new(role: "Artist", personnel: new_person)
         self.credits << song_credit
-        album_credit = Credit.new(role: "Artist", personnel: new_person)
-        album.credits << album_credit
+        if add_album_personnel
+          album_credit = Credit.new(role: "Artist", personnel: new_person)
+          album.credits << album_credit
+        end
       end
     end
 
