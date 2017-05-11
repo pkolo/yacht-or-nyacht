@@ -90,6 +90,7 @@ class Song < ActiveRecord::Base
     q = self.build_query(options)
     url = "https://api.discogs.com/database/search?#{q}"
     response = api_call(url)
+    binding.pry
     response["results"]
   end
 
@@ -144,7 +145,13 @@ class Song < ActiveRecord::Base
     track_personnel.each do |personnel|
       new_person = Personnel.find_or_create_by(name: remove_parens(personnel["name"]), discog_id: personnel["id"])
       personnel["role"].split(", ").each do |role|
-        credit = Credit.new(role: role, personnel: new_person)
+        if role.include?("Duet")
+          credit = Credit.new(role: "Artist", personnel: new_person)
+        elsif role.include?("Featuring")
+          credit = Credit.new(role: "Artist", personnel: new_person)
+        else
+          credit = Credit.new(role: role, personnel: new_person)
+        end
         self.credits << credit
       end
     end
