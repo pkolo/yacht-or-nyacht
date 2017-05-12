@@ -2,13 +2,19 @@
 <br><br>
 <div class="edit-section">
   <form class="discog-search-form" action="#">
-    <p>Add album / personnel</p>
-    <label>Search by:</label><br>
-    <select multiple size="3" name="options[]">
-      <option selected value="artist">Artist</option>
-      <option selected value="title">Title</option>
-      <option selected value="year">Year</option>
-    </select><br>
+    <div>
+      <p>Add album / personnel</p>
+      <label>Search by:</label><br>
+      <select multiple size="3" name="options[]">
+        <option selected value="artist">Artist</option>
+        <option selected value="title">Title</option>
+        <option selected value="year">Year</option>
+      </select>
+    </div>
+    <div>
+      <p>Or enter a discog release ID</p>
+      <input type="text" name="discog">
+    </div>
     <input type="submit">
   </form>
 

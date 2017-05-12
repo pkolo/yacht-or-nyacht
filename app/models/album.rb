@@ -8,10 +8,11 @@ class Album < ActiveRecord::Base
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
 
   def artist_list
-    self.performers.pluck(:name).uniq.join(', ')
+    artist_data = self.performers.pluck(:id, :name)
+    artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
   end
 
-  def avg_yachtski
+  def yachtski
     total_pts = self.songs.inject(0) { |sum, song| sum += song.yachtski }
     (total_pts / self.songs.length)
   end
@@ -28,7 +29,7 @@ class Album < ActiveRecord::Base
 
       players = {
         role: role,
-        personnel: credits.map { |credit| credit.personnel.name }
+        personnel: credits.map { |credit| "<a href='/personnel/#{credit.personnel.id}'>#{credit.personnel.name}</a>" }
       }
       memo << players
     end

@@ -15,8 +15,13 @@ class Song < ActiveRecord::Base
   has_many :personnel, through: :credits
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
 
+  def artist
+    self.performers.pluck(:name).first
+  end
+
   def artist_list
-    self.performers.pluck(:name).join(', ')
+    artist_data = self.performers.pluck(:id, :name)
+    artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
   end
 
   def combined_players
@@ -26,7 +31,7 @@ class Song < ActiveRecord::Base
 
       players = {
         role: role,
-        personnel: credits.map { |credit| credit.personnel.name }
+        personnel: credits.map { |credit| "<a href='/personnel/#{credit.personnel.id}'>#{credit.personnel.name}</a>" }
       }
       memo << players
     end
@@ -67,7 +72,7 @@ class Song < ActiveRecord::Base
     q = "type=release&token=#{ENV['DISCOG_TOKEN']}"
 
     if options.include?("artist")
-      q += "&artist=#{self.artist_list.gsub(/[^0-9a-z ]/i, '')}"
+      q += "&artist=#{self.artist.gsub(/[^0-9a-z ]/i, '')}"
     end
 
     if options.include?("title")
@@ -92,7 +97,7 @@ class Song < ActiveRecord::Base
     results = api_call(url)
     album = Album.find_or_create_by(year: results["year"], title: results["title"], discog_id: results["id"])
     self.album = album
-    track_data = results["tracklist"].find {|track| is_match?(track["title"].gsub(/\([^)]*\)/, ''), self.title) }
+    track_data = results["tracklist"].find {|track| is_match?(remove_parens(track["title"]), self.title) }
     self.track_no = track_data["position"]
     self.title = track_data["title"]
     self.credits.delete_all
@@ -100,23 +105,27 @@ class Song < ActiveRecord::Base
 
     if track_data["artists"]
       track_data["artists"].each do |artist|
-        new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
+        new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
         song_credit = Credit.new(role: "Artist", personnel: new_person)
         self.credits << song_credit
       end
 
-      results["artists"].each do |artist|
-        new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
-        album_credit = Credit.new(role: "Artist", personnel: new_person)
-        album.credits << album_credit
+      if add_album_personnel
+        results["artists"].each do |artist|
+          new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
+          album_credit = Credit.new(role: "Artist", personnel: new_person)
+          album.credits << album_credit
+        end
       end
     else
       results["artists"].each do |artist|
-        new_person = Personnel.find_or_create_by(name: artist["name"], discog_id: artist["id"])
+        new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
         song_credit = Credit.new(role: "Artist", personnel: new_person)
         self.credits << song_credit
-        album_credit = Credit.new(role: "Artist", personnel: new_person)
-        album.credits << album_credit
+        if add_album_personnel
+          album_credit = Credit.new(role: "Artist", personnel: new_person)
+          album.credits << album_credit
+        end
       end
     end
 
@@ -124,7 +133,7 @@ class Song < ActiveRecord::Base
 
     if add_album_personnel
       album_personnel.each do |personnel|
-        new_person = Personnel.find_or_create_by(name: personnel["name"], discog_id: personnel["id"])
+        new_person = Personnel.find_or_create_by(name: remove_parens(personnel["name"]), discog_id: personnel["id"])
         personnel["role"].split(", ").each do |role|
           credit = Credit.new(role: role, personnel: new_person)
           album.credits << credit
@@ -133,13 +142,20 @@ class Song < ActiveRecord::Base
     end
 
     other_personnel = results["extraartists"] - album_personnel
-    track_personnel = other_personnel.select {|person| includes_track?(person["tracks"], self.track_no)}
+    all_tracks = results["tracklist"].map {|track| track["position"]}
+    track_personnel = other_personnel.select {|person| includes_track?(all_tracks, person, self.track_no)}
     track_personnel += track_data["extraartists"] if track_data["extraartists"]
 
     track_personnel.each do |personnel|
-      new_person = Personnel.find_or_create_by(name: personnel["name"], discog_id: personnel["id"])
+      new_person = Personnel.find_or_create_by(name: remove_parens(personnel["name"]), discog_id: personnel["id"])
       personnel["role"].split(", ").each do |role|
-        credit = Credit.new(role: role, personnel: new_person)
+        if role.include?("Duet")
+          credit = Credit.new(role: "Artist", personnel: new_person)
+        elsif role.include?("Featuring")
+          credit = Credit.new(role: "Artist", personnel: new_person)
+        else
+          credit = Credit.new(role: role, personnel: new_person)
+        end
         self.credits << credit
       end
     end

@@ -17,6 +17,7 @@
       </div>
     <% end %>
 
-    <%= erb :'personnel/_credits', locals: {personnel: @personnel, song_credits: @song_credits, album_credits: @album_credits} %>
+    <%= erb :'personnel/_credits', locals: {credits: @personnel.combined_song_credits, type: "Song"} %>
+    <%= erb :'personnel/_credits', locals: {credits: @personnel.combined_album_credits, type: "Album"} %>
   </div>
 </div>

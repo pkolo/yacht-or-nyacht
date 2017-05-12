@@ -110,11 +110,16 @@ header a {
 }
 
 .personnel-credit {
+  padding-bottom: 5px;
 }
 
 .bullet {
   width: 20px;
   margin-right: 15px;
+}
+
+.role {
+  text-align: right;
 }
 
 /* Song page style */
