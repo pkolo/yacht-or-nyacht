@@ -13,11 +13,11 @@
     <div class="big-title"><%= @personnel.name %></div>
     <% if @personnel.song_performances.any? %>
       <div class="personnel-song-list">
-          <%= erb :'personnel/_song_list', locals: {songs: @personnel.song_performances} %>
+          <%= erb :'personnel/_song_list', locals: {songs: @song_performances} %>
       </div>
     <% end %>
 
-    <%= erb :'personnel/_credits', locals: {credits: @personnel.combined_song_credits, type: "Song"} %>
-    <%= erb :'personnel/_credits', locals: {credits: @personnel.combined_album_credits, type: "Album"} %>
+    <%= erb :'personnel/_credits', locals: {credits: @song_credits, type: "Song"} %>
+    <%= erb :'personnel/_credits', locals: {credits: @album_credits, type: "Album"} %>
   </div>
 </div>
