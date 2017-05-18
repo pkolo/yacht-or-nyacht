@@ -47,10 +47,10 @@ class Personnel < ActiveRecord::Base
   end
 
   def yachtski
-    song_total = self.songs.uniq.inject(0) {|sum, song| sum + song.yachtski}
-    album_total = self.albums.uniq.inject(0) {|sum, album| sum + album.yachtski}
+      song_total = self.songs.uniq.inject(0) {|sum, song| sum + song.yachtski}
+      album_total = self.albums.uniq.inject(0) {|sum, album| sum + album.yachtski}
 
-    (song_total + album_total) / (self.albums.uniq.length + self.songs.uniq.length)
+      (song_total + album_total) / (self.albums.uniq.length + self.songs.uniq.length)
   end
 
 end
