@@ -31,14 +31,26 @@ class Personnel < ActiveRecord::Base
     combined_credits.uniq
   end
 
-  def all_albums
+  def all_song_albums
     song_albums = self.songs.map {|song| song.album}.uniq
     (song_albums + self.albums.uniq).uniq
   end
 
+  def yachtski_songs
+    total = self.songs.uniq.inject(0) {|sum, song| sum + song.yachtski}
+    total / self.songs.uniq.length
+  end
+
+  def yachtski_albums
+    total = self.albums.uniq.inject(0) {|sum, album| sum + album.yachtski}
+    total / self.albums.uniq.length
+  end
+
   def yachtski
-    yachtski_total = self.all_albums.reduce(0) { |sum, album| sum + album.yachtski }
-    yachtski_total / self.all_albums.length
+    song_total = self.songs.uniq.inject(0) {|sum, song| sum + song.yachtski}
+    album_total = self.albums.uniq.inject(0) {|sum, album| sum + album.yachtski}
+
+    (song_total + album_total) / (self.albums.uniq.length + self.songs.uniq.length)
   end
 
 end
