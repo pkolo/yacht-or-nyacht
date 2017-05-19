@@ -42,13 +42,24 @@ body {
 }
 
 .container {
-  overflow: auto;
+  width: 100%;
   position: relative;
 }
 
+.content-wrapper,
+.bg-wrapper {
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
 .content-wrapper {
-  position: relative;
   z-index: 1;
+}
+
+.bg-wrapper {
+  z-index: -1;
 }
 
 /* Styles */

@@ -1,3 +1,38 @@
+<div class="bg-wrapper row">
+  <div class="score-sidebar col-3">
+    <%= erb :'songs/_score_panel', locals: { song: @song } %>
+  </div>
+
+  <div class="personnel-panel col-9">
+
+    <%= erb :'songs/_song_info', locals: { song: @song } %>
+
+    <% if @song.album %>
+      <% if @song.credits.players.any? %>
+        <h3>Song Personnel:</h3>
+        <div class="media-details">
+          <section class="credit-container">
+            <%= erb :'songs/_personnel', locals: { credits: @song.combined_players } %>
+          </section>
+        </div>
+      <% end %>
+
+      <% if @song.album.credits.players.any? %>
+        <h3>Album Personnel:</h3>
+        <div class="media-details">
+          <section class="credit-container">
+            <%= erb :'songs/_personnel', locals: { credits: @song.album.combined_players } %>
+          </section>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <a href="/songs/<%= @song.id %>/edit">Edit entry</a>
+  <% end %>
+</div>
+
+
+
 <div class="content-wrapper row">
   <div class="score-sidebar col-3">
     <%= erb :'songs/_score_panel', locals: { song: @song } %>
