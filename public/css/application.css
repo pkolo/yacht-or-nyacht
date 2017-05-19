@@ -23,6 +23,7 @@
 
 .row {
   margin-bottom: 5px;
+  overflow: auto;
 }
 
 .row::after {
@@ -41,6 +42,13 @@ body {
 }
 
 .container {
+  overflow: auto;
+  position: relative;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
 }
 
 /* Styles */
