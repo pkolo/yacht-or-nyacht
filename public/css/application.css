@@ -62,6 +62,17 @@ body {
   z-index: -1;
 }
 
+.sidebar-wrapper {
+  height: 90vh;
+}
+
+.sidebar-content {
+  width: 90%;
+  height: 100%;
+  color: #fff;
+  padding: 0 10px 10px 10px;
+}
+
 /* Styles */
 
 a {
@@ -157,10 +168,6 @@ header a {
 .yt-embed {
 }
 
-.score-sidebar {
-    height: 90vh;
-}
-
 .credit-container {
   /*-webkit-column-break-inside: avoid;
   page-break-inside: avoid;
@@ -182,13 +189,6 @@ header a {
 .column-head {
   font-size: 1.25em;
   margin-bottom: 5px;
-}
-
-.score-box {
-  width: 90%;
-  height: 100%;
-  color: #fff;
-  padding: 0 10px 10px 10px;
 }
 
 .big-score {
