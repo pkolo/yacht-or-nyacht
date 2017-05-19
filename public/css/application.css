@@ -23,7 +23,6 @@
 
 .row {
   margin-bottom: 5px;
-  overflow: auto;
 }
 
 .row::after {
@@ -66,11 +65,9 @@ body {
   height: 90vh;
 }
 
-.sidebar-content {
+.sidebar-bg-shape {
   width: 90%;
   height: 100%;
-  color: #fff;
-  padding: 0 10px 10px 10px;
 }
 
 /* Styles */
@@ -101,6 +98,18 @@ header a {
   text-align: center;
   font-size: 1.5em;
   padding: 10px;
+}
+
+/* Sidebar style */
+.sidebar-section {
+  width: 90%;
+  color: #fff;
+}
+
+.sidebar-title {
+  font-size: 1.15em;
+  text-align: right;
+  padding-right: 10px;
 }
 
 /* Song list style */
@@ -199,7 +208,7 @@ header a {
 .yacht-status {
   padding-bottom: 10px;
   text-align: center;
-  font-size: 1.25em
+  font-size: 1.25em;
 }
 
 .score {

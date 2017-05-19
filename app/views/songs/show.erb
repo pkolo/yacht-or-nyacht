@@ -1,6 +1,6 @@
 <div class="bg-wrapper row">
   <div class="sidebar-wrapper col-3">
-    <div class="sidebar-content">
+    <div class="sidebar-bg-shape">
       <div class="yachtski avg" style="display:none"><%= @song.yachtski %></div>
     </div>
   </div>
@@ -12,38 +12,77 @@
 
 
 
-<div class="content-wrapper row">
-  <div class=" sidebar-wrapper col-3">
-    <div class="sidebar-content">
-      <div class="big-score"><%= @song.yachtski.round(2) %></div>
-      <div class="yacht-status"><%= @song.status %></div>
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-3">
+      <div class="sidebar-section">
+        <div class="big-score"><%= @song.yachtski.round(2) %></div>
+        <div class="yacht-status"><%= @song.status %></div>
+      </div>
+    </div>
+
+    <div class="col-9">
+      <%= erb :'songs/_song_info', locals: { song: @song } %>
     </div>
   </div>
 
-  <div class="personnel-panel col-9">
 
-    <%= erb :'songs/_song_info', locals: { song: @song } %>
-
-    <% if @song.album %>
-      <% if @song.credits.players.any? %>
-        <h3>Song Personnel:</h3>
-        <div class="media-details">
-          <section class="credit-container">
-            <%= erb :'songs/_personnel', locals: { credits: @song.combined_players } %>
-          </section>
+<% if @song.album %>
+  <% if @song.credits.players.any? %>
+    <div class="row">
+      <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
+      <div class="col-3">
+       <div class="sidebar-section">
+         <div class="sidebar-title">Song Personnel</div>
         </div>
-      <% end %>
+      </div>
 
-      <% if @song.album.credits.players.any? %>
-        <h3>Album Personnel:</h3>
-        <div class="media-details">
-          <section class="credit-container">
-            <%= erb :'songs/_personnel', locals: { credits: @song.album.combined_players } %>
-          </section>
-        </div>
-      <% end %>
+      <div class="col-9">
+        &nbsp
+      </div>
     </div>
-  <% else %>
-    <a href="/songs/<%= @song.id %>/edit">Edit entry</a>
+
+    <div class="row">
+      <div class="col-3">
+        &nbsp
+      </div>
+
+      <div class="col-9 media-details">
+        <section class="credit-container">
+          <%= erb :'songs/_personnel', locals: { credits: @song.combined_players } %>
+        </section>
+      </div>
+    </div>
   <% end %>
+
+  <% if @song.album.credits.players.any? %>
+    <div class="row">
+      <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
+      <div class="col-3">
+       <div class="sidebar-section">
+         <div class="sidebar-title">Album Personnel</div>
+        </div>
+      </div>
+
+      <div class="col-9">
+        &nbsp
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        &nbsp
+      </div>
+
+      <div class="col-9 media-details">
+        <section class="credit-container">
+          <%= erb :'songs/_personnel', locals: { credits: @song.album.combined_players } %>
+        </section>
+      </div>
+    </div>
+  <% end %>
+
+<% else %>
+  <a href="/songs/<%= @song.id %>/edit">Edit entry</a>
+<% end %>
 </div>
