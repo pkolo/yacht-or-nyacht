@@ -146,9 +146,9 @@
           &nbsp
         </div>
 
-        <div class="col-9 media-details">
+        <div class="col-9">
           <section class="credit-container">
-            <%= erb :'songs/_personnel', locals: { credits: @song.album.combined_players } %>
+            <%= erb :'songs/_personnel_combine_roles', locals: { credits: @song.album.personnel_combined_roles } %>
           </section>
         </div>
       </div>
