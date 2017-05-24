@@ -41,7 +41,39 @@ body {
 }
 
 .container {
+  width: 100%;
+  position: relative;
 }
+
+.content-wrapper,
+.bg-wrapper {
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+.content-wrapper {
+  z-index: 1;
+}
+
+.content-section {
+  margin-bottom: 30px;
+}
+
+.bg-wrapper {
+  z-index: -1;
+}
+
+.sidebar-wrapper {
+  height: 90vh;
+}
+
+.sidebar-bg-shape {
+  width: 90%;
+  height: 100%;
+}
+
 
 /* Styles */
 
@@ -71,6 +103,19 @@ header a {
   text-align: center;
   font-size: 1.5em;
   padding: 10px;
+}
+
+/* Sidebar style */
+.sidebar-section {
+  width: 90%;
+  color: #fff;
+}
+
+.sidebar-title {
+  font-size: 1.15em;
+  text-align: right;
+  padding-right: 10px;
+  border-bottom: 1px solid #fff;
 }
 
 /* Song list style */
@@ -124,6 +169,14 @@ header a {
 
 /* Song page style */
 
+.song-indiv-score {
+  width: 90%;
+}
+
+.song-info {
+  font-size: 1.25em;
+}
+
 .media-details {
   margin-top: 20px;
   -webkit-column-count: 2; /* Chrome, Safari, Opera */
@@ -136,10 +189,6 @@ header a {
 }
 
 .yt-embed {
-}
-
-.score-sidebar {
-    height: 90vh;
 }
 
 .credit-container {
@@ -165,13 +214,6 @@ header a {
   margin-bottom: 5px;
 }
 
-.score-box {
-  width: 90%;
-  height: 100%;
-  color: #fff;
-  padding: 0 10px 10px 10px;
-}
-
 .big-score {
   font-size: 4.0em;
   text-align: center;
@@ -180,7 +222,7 @@ header a {
 .yacht-status {
   padding-bottom: 10px;
   text-align: center;
-  font-size: 1.25em
+  font-size: 1.25em;
 }
 
 .score {
@@ -199,12 +241,11 @@ header a {
 .big-title {
   font-size: 4.0em;
   font-weight: bold;
-  margin-bottom: -5px;
 }
 
 .artist-credit {
-  font-size: 2.0em;
-  margin-bottom: 5px;
+  font-size: 1.25em;
+  padding-bottom: 10px;
 }
 
 .track-info {
