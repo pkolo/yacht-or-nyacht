@@ -173,6 +173,10 @@ header a {
   width: 90%;
 }
 
+.song-info {
+  font-size: 1.25em;
+}
+
 .media-details {
   margin-top: 20px;
   -webkit-column-count: 2; /* Chrome, Safari, Opera */
