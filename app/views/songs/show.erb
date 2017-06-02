@@ -1,6 +1,6 @@
 <div class="bg-wrapper row">
   <div class="sidebar-wrapper col-3">
-    <div class="sidebar-bg-shape">
+    <div class="sidebar-bg-shape yachtski">
       <div class="yachtski avg" style="display:none"><%= @song.yachtski %></div>
       <div class="big-score"><%= @song.yachtski.round(2) %></div>
       <div class="yacht-status"><%= @song.status %></div>
@@ -64,13 +64,13 @@
 
   <div class="content-section">
     <div class="row">
-      <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
       <div class="col-3">
        <div class="sidebar-section">
          &nbsp
         </div>
       </div>
       <div class="col-9">
+        <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
         <div class="sidebar-title">Track Info</div>
       </div>
     </div>
@@ -99,7 +99,6 @@
   <% if @song.credits.players.any? %>
     <div class="content-section">
       <div class="row">
-        <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
         <div class="col-3">
          <div class="sidebar-section">
            &nbsp
@@ -108,6 +107,7 @@
 
         <div class="col-9">
           <div class="sidebar-title">Track Personnel</div>
+          <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
         </div>
       </div>
 
@@ -128,7 +128,6 @@
   <% if @song.album.credits.players.any? %>
     <div class="content-section">
       <div class="row">
-        <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
         <div class="col-3">
          <div class="sidebar-section">
            &nbsp
@@ -137,6 +136,7 @@
 
         <div class="col-9">
           <div class="sidebar-title">Album Personnel</div>
+          <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
         </div>
       </div>
 
