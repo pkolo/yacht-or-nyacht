@@ -113,9 +113,8 @@ header a {
 
 .sidebar-title {
   font-size: 1.15em;
-  text-align: right;
   padding-right: 10px;
-  border-bottom: 1px solid #fff;
+  padding-bottom: 10px;
 }
 
 /* Song list style */
