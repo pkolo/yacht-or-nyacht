@@ -1,23 +1,49 @@
-<div class="row personnel-container">
+<div class="bg-wrapper row">
+  <div class="sidebar-wrapper col-3">
+    <div class="sidebar-bg-shape yachtski">
+      <div class="yachtski avg" style="display:none"><%= @yachtski %></div>
+      <div class="big-score"><%= @yachtski.round(2) %></div>
+      <div class="yacht-status">Average Yachtski</div>
 
-  <div class="score-sidebar col-3">
-    <div class="score-box">
-      <div class="big-score yachtski avg">
-        <%= @personnel.yachtski.round(2) %>
+      <div class="personnel-panel col-9">
+        &nbsp
       </div>
-      <div class="yacht-status">Yachtski Average</div>
     </div>
   </div>
+</div>
 
-  <div class="col-9 personnel-info">
-    <div class="big-title"><%= @personnel.name %></div>
-    <% if @personnel.song_performances.any? %>
-      <div class="personnel-song-list">
-          <%= erb :'personnel/_song_list', locals: {songs: @song_performances} %>
+<div class="content-wrapper">
+  <div class="row personnel-container">
+
+    <div class="col-3">
+      &nbsp
+    </div>
+
+    <div class="col-9 personnel-info">
+      <div class="content-section">
+        <div class="big-title"><%= @personnel.name %></div>
       </div>
-    <% end %>
+      <% if @personnel.song_performances.any? %>
+        <div class="content-section">
+          <div class="sidebar-title">
+            <div class="yachtski-list-item" style="display:none"><%= @yachtski %></div>
+            Artist Tracklist
+          </div>
+          <div class="personnel-song-list">
+              <%= erb :'personnel/_song_list', locals: {songs: @song_performances} %>
+          </div>
+        </div>
+      <% end %>
 
-    <%= erb :'personnel/_credits', locals: {credits: @song_credits, type: "Song"} %>
-    <%= erb :'personnel/_credits', locals: {credits: @album_credits, type: "Album"} %>
+      <% if @song_credits.any? %>
+        <div class="content-section">
+          <%= erb :'personnel/_credits', locals: {credits: @song_credits, type: "Song"} %>
+        </div>
+      <% end %>
+
+      <% if @album_credits.any? %>
+        <%= erb :'personnel/_credits', locals: {credits: @album_credits, type: "Album"} %>
+      <% end %>
+    </div>
   </div>
 </div>
