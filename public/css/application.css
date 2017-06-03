@@ -113,9 +113,8 @@ header a {
 
 .sidebar-title {
   font-size: 1.15em;
-  text-align: right;
   padding-right: 10px;
-  border-bottom: 1px solid #fff;
+  padding-bottom: 10px;
 }
 
 /* Song list style */
@@ -169,12 +168,12 @@ header a {
 
 /* Song page style */
 
-.song-indiv-score {
+.song-indiv- {
   width: 90%;
 }
 
 .song-info {
-  font-size: 1.25em;
+  font-size: 1.0em;
 }
 
 .media-details {
@@ -226,8 +225,12 @@ header a {
 }
 
 .score {
-  font-size: 1.5em;
+  font-size: 1.15em;
   margin-bottom: 0px;
+}
+
+.side-score {
+  text-align: right;
 }
 
 .host {
@@ -235,7 +238,7 @@ header a {
 }
 
 .score > * {
-  padding: 0 0 0 5px;
+  padding: 0 5px 0 5px;
 }
 
 .big-title {
