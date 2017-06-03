@@ -168,7 +168,7 @@ header a {
 
 /* Song page style */
 
-.song-indiv-score {
+.song-indiv- {
   width: 90%;
 }
 
@@ -225,8 +225,12 @@ header a {
 }
 
 .score {
-  font-size: 1.5em;
+  font-size: 1.15em;
   margin-bottom: 0px;
+}
+
+.side-score {
+  text-align: right;
 }
 
 .host {
@@ -234,7 +238,7 @@ header a {
 }
 
 .score > * {
-  padding: 0 0 0 5px;
+  padding: 0 5px 0 5px;
 }
 
 .big-title {
