@@ -37,12 +37,12 @@
 
       <% if @song_credits.any? %>
         <div class="content-section">
-          <%= erb :'personnel/_credits', locals: {credits: @song_credits, type: "Song"} %>
+          <%= erb :'personnel/_credits', locals: {credits: @song_credits, type: "Song", yachtski: @yachtski} %>
         </div>
       <% end %>
 
       <% if @album_credits.any? %>
-        <%= erb :'personnel/_credits', locals: {credits: @album_credits, type: "Album"} %>
+        <%= erb :'personnel/_credits', locals: {credits: @album_credits, type: "Album", yachtski: @yachtski} %>
       <% end %>
     </div>
   </div>
