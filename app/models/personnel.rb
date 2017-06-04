@@ -53,4 +53,9 @@ class Personnel < ActiveRecord::Base
       (song_total + album_total) / (self.albums.uniq.length + self.songs.uniq.length)
   end
 
+  def active_years
+    chron_credits = self.credits.sort_by {|credit| credit.creditable.year }
+    "#{chron_credits.first.creditable.year} - #{chron_credits.last.creditable.year}"
+  end
+
 end
