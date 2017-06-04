@@ -98,12 +98,12 @@
       <% if @song.album.credits.players.any? %>
         <div class="content-section">
           <div class="sidebar-title">
-            Track Personnel
-            <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
+            Album Personnel
+            <div class="yachtski-list-item" style="display:none"><%= @song.album.yachtski %></div>
           </div>
 
           <section class="credit-container">
-            <%= erb :'songs/_personnel_combine_roles', locals: { credits: @song.personnel_combined_roles } %>
+            <%= erb :'songs/_personnel_combine_roles', locals: { credits: @song.album.personnel_combined_roles } %>
           </section>
         </div>
       <% end %>
