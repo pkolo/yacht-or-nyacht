@@ -111,6 +111,8 @@
       <% end %>
 
     <% else %>
-      <a href="/songs/<%= @song.id %>/edit">Edit entry</a>
+      <% if logged_in? %>
+        <a href="/songs/<%= @song.id %>/edit">Edit entry</a>
+      <% end %>
     <% end %>
 </div>
