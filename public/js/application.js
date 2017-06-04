@@ -27,10 +27,14 @@ $(document).ready(function() {
     // or output as hex if preferred
   };
 
+  function getColor(yachtski) {
+    return (yachtski > 0) ? jayGradient(yachtski / 100) : 'rgb(150,150,150)'
+  }
+
   $('.yachtski').each(function() {
     var $this = $(this);
     var yachtski = $this.text();
-    var color = jayGradient(yachtski / 100);
+    var color = getColor(yachtski);
 
 
     $this.css('background-color', color);
@@ -45,7 +49,7 @@ $(document).ready(function() {
   $('.yachtski-list-item').each(function() {
     var $this = $(this);
     var yachtski = $this.text();
-    var color = jayGradient(yachtski / 100);
+    var color = getColor(yachtski);
 
     $this.siblings('.bullet').css('background-color', color);
     $this.parent().css('border-bottom', `1px solid ${color}`);

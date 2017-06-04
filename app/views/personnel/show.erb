@@ -2,7 +2,7 @@
   <div class="sidebar-wrapper col-3">
     <div class="sidebar-bg-shape yachtski">
       <div class="yachtski avg" style="display:none"><%= @yachtski %></div>
-      <div class="big-score"><%= @yachtski.round(2) %></div>
+      <div class="big-score"><%= @yachtski > 0 ? @yachtski.round(2) : "N/A" %></div>
       <div class="yacht-status">Average Yachtski</div>
 
       <div class="personnel-panel col-9">
@@ -22,6 +22,7 @@
     <div class="col-9 personnel-info">
       <div class="content-section">
         <div class="big-title"><%= @personnel.name %></div>
+        <div class="artist-credit">Active <%= @personnel.active_years %></div>
       </div>
       <% if @personnel.song_performances.any? %>
         <div class="content-section">
@@ -37,12 +38,12 @@
 
       <% if @song_credits.any? %>
         <div class="content-section">
-          <%= erb :'personnel/_credits', locals: {credits: @song_credits, type: "Song"} %>
+          <%= erb :'personnel/_credits', locals: {credits: @song_credits, type: "Song", yachtski: @yachtski} %>
         </div>
       <% end %>
 
       <% if @album_credits.any? %>
-        <%= erb :'personnel/_credits', locals: {credits: @album_credits, type: "Album"} %>
+        <%= erb :'personnel/_credits', locals: {credits: @album_credits, type: "Album", yachtski: @yachtski} %>
       <% end %>
     </div>
   </div>
