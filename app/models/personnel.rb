@@ -49,8 +49,9 @@ class Personnel < ActiveRecord::Base
   def yachtski
       song_total = self.songs.uniq.inject(0) {|sum, song| sum + song.yachtski}
       album_total = self.albums.uniq.inject(0) {|sum, album| sum + album.yachtski}
+      contribution_total = self.albums.uniq.length + self.songs.uniq.length
 
-      (song_total + album_total) / (self.albums.uniq.length + self.songs.uniq.length)
+      contribution_total > 3 ? (song_total + album_total) / (contribution_total) : -1.0
   end
 
   def active_years
