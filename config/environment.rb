@@ -19,6 +19,7 @@ require 'sinatra'
 require "sinatra/reloader" if development?
 
 require 'dotenv/load'
+require 'bcrypt'
 
 require 'erb'
 require 'pry'
