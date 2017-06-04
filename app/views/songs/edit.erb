@@ -1,23 +1,34 @@
-<%= erb :'songs/show' %>
-<br><br>
-<div class="edit-section">
-  <form class="discog-search-form" action="#">
-    <div>
-      <p>Add album / personnel</p>
-      <label>Search by:</label><br>
-      <select multiple size="3" name="options[]">
-        <option selected value="artist">Artist</option>
-        <option selected value="title">Title</option>
-        <option selected value="year">Year</option>
-      </select>
+<% if logged_in? %>
+  <%= erb :'songs/show' %>
+  <div class="edit-section row">
+    <div class="col-3">
+      &nbsp
     </div>
-    <div>
-      <p>Or enter a discog release ID</p>
-      <input type="text" name="discog">
-    </div>
-    <input type="submit">
-  </form>
 
-  <div class="search-results-list">
+    <div class="col-9">
+      <form class="discog-search-form" action="#">
+        <div>
+          <p>Add album / personnel</p>
+          <label>Search by:</label><br>
+          <select multiple size="3" name="options[]">
+            <option selected value="artist">Artist</option>
+            <option selected value="title">Title</option>
+            <option selected value="year">Year</option>
+          </select>
+        </div>
+        <div>
+          <p>Or enter a discog release ID</p>
+          <input type="text" name="discog">
+        </div>
+        <input type="submit">
+      </form>
+
+      <div class="search-results-list">
+      </div>
+    </div>
   </div>
-</div>
+<% else %>
+  <div class="edit-section row">
+    <p>You must be logged in to add song data</p>
+  </div>
+<% end %>
