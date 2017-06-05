@@ -82,14 +82,27 @@ a {
 }
 
 header {
-  font-family: 'Shrikhand', "serif";
+  width: 100%;
+  position: relative;
+  display: inline-block;
   margin-bottom: 15px;
+}
+
+.site-name {
+  font-family: 'Shrikhand', "serif";
   font-size: 3.0em;
   font-weight: 600;
+  float: left;
 }
 
 header a {
   text-decoration: none;
+}
+
+.nav-bar {
+  position: absolute;
+  right: 0px;
+  bottom: 20px;
 }
 
 .search-bar {
