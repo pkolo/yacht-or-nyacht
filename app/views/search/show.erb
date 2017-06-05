@@ -1,0 +1,5 @@
+<h3>Search results for "<%= @q %>"</h3>
+
+<% if @song_results.any? %>
+  <%= erb :'songs/_list', locals: {songs: @song_results} %>
+<% end %>
