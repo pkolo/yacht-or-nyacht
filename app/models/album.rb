@@ -6,6 +6,7 @@ class Album < ActiveRecord::Base
     end
   end
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
+  after_create :create_slug
 
   def artist_list
     artist_data = self.performers.pluck(:id, :name)
@@ -46,4 +47,11 @@ class Album < ActiveRecord::Base
     end
     personnel.uniq
   end
+
+  private
+    def create_slug
+      self.slug = sluggify(self.title, self.id)
+      self.save
+    end
+    
 end
