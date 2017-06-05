@@ -72,7 +72,7 @@
 
             <div class="col-4">
               <% if @song.album %>
-                <div class="row">Album: <a href="/albums/<%= @song.album.id %>"><%= @song.album.title %></a></div>
+                <div class="row">Album: <a href="/albums/<%= @song.album.slug %>"><%= @song.album.title %></a></div>
               <% end %>
               <div class="row">Year: <%= @song.year %></div>
               <div class="row">Episode: <a href="/episodes/<%= @song.episode.id %>"><%= @song.episode.number %></a></div>
@@ -112,7 +112,7 @@
 
     <% else %>
       <% if logged_in? %>
-        <a href="/songs/<%= @song.id %>/edit">Edit entry</a>
+        <a href="/songs/<%= @song.slug %>/edit">Edit entry</a>
       <% end %>
     <% end %>
 </div>
