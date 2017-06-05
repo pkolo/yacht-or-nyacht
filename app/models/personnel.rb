@@ -1,4 +1,7 @@
 class Personnel < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:name]
+
   has_many :credits
   has_many :songs, through: :credits, source: :creditable, source_type: 'Song'
   has_many :albums, through: :credits, source: :creditable, source_type: 'Album'

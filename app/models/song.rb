@@ -3,6 +3,8 @@ require 'uri'
 require 'json'
 
 class Song < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:title]
   belongs_to :episode
   belongs_to :album
 
@@ -49,7 +51,7 @@ class Song < ActiveRecord::Base
   end
 
   def nice_title
-    "#{self.artist_list} - #{self.title} (#{self.year})"
+    "#{self.artist_list} - #{self.title}"
   end
 
   def yachtski
