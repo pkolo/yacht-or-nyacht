@@ -113,6 +113,7 @@ class Song < ActiveRecord::Base
     self.track_no = track_data["position"]
     self.title = track_data["title"]
     self.credits.delete_all
+    self.slug = sluggify(track_data["title"], self.id)
     self.save
 
     if track_data["artists"]

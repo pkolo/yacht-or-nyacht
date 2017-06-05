@@ -44,7 +44,7 @@ post '/songs/:slug/add_personnel' do
   if logged_in?
     @song = Song.find_by(slug: params[:slug])
     @credits = @song.add_personnel(params[:url], true)
-    redirect to("/songs/#{params[:slug]}")
+    redirect to("/songs/#{@song.slug}")
   else
     redirect '/'
   end
