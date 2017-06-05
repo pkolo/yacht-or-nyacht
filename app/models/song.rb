@@ -13,7 +13,7 @@ class Song < ActiveRecord::Base
   end
 
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
-  after_create :create_slug
+  after_save :create_slug
 
   def artist
     self.performers.pluck(:name).first
