@@ -9,7 +9,7 @@ class Album < ActiveRecord::Base
   after_create :create_slug
 
   def artist_list
-    artist_data = self.performers.pluck(:id, :name)
+    artist_data = self.performers.pluck(:slug, :name)
     artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
   end
 
