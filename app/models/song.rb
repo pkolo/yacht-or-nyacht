@@ -31,7 +31,7 @@ class Song < ActiveRecord::Base
 
       players = {
         role: role,
-        personnel: credits.map { |credit| "<a href='/personnel/#{credit.personnel.id}'>#{credit.personnel.name}</a>" }
+        personnel: credits.map { |credit| "<a href='/personnel/#{credit.personnel.slug}'>#{credit.personnel.name}</a>" }
       }
       memo << players
     end
