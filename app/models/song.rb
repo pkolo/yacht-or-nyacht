@@ -183,4 +183,8 @@ class Song < ActiveRecord::Base
     self.all.select {|song| song.yachtski >= 90 }
   end
 
+  def self.title_search(query)
+    self.where("similarity(title, ?) > 0.3", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
+  end
+
 end

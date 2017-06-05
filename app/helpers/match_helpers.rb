@@ -1,7 +1,7 @@
-def is_match?(str1, str2)
+def is_match?(str1, str2, strength=0.85)
   fuzzy = FuzzyStringMatch::JaroWinkler.create( :pure )
   match = fuzzy.getDistance(str1, str2)
-  match >= 0.85
+  match >= strength
 end
 
 def includes_track?(all_tracks, person, track_no)

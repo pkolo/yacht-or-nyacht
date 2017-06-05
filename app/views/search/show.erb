@@ -1,0 +1,23 @@
+<h2>Search results for "<%= @q %>"</h2>
+
+<% if @song_results.any? %>
+  <h3>Song Results</h3>
+  <div class="content-section search-results">
+    <%= erb :'songs/_list', locals: {songs: @song_results} %>
+  </div>
+<% end %>
+
+<% if @personnel_results.any? %>
+  <h3>Personnel Results</h3>
+  <div class="content-section search-results">
+    <% @personnel_results.sort_by {|person| person.yachtski}.reverse.each do |person| %>
+    <div class="row personnel-credit">
+      <div class="yachtski-list-item" style="display:none"><%= person.yachtski %></div>
+      <div class="bullet col-1">&nbsp;</div>
+      <div class="col-10">
+        <a href="/personnel/<%= person.id %>"><%= person.name %></a>
+      </div>
+    </div>
+    <% end %>
+  </div>
+<% end %>
