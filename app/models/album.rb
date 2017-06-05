@@ -1,7 +1,7 @@
 class Album < ActiveRecord::Base
   include PgSearch
-  multisearchable :against => [:title]
-  
+  multisearchable :against => [:title], :using => [:tsearch, :trigram]
+
   has_many :songs
   has_many :credits, as: :creditable do
     def players

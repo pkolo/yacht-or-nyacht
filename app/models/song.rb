@@ -4,7 +4,8 @@ require 'json'
 
 class Song < ActiveRecord::Base
   include PgSearch
-  multisearchable :against => [:title]
+  multisearchable :against => [:title], :using => [:tsearch, :trigram]
+
   belongs_to :episode
   belongs_to :album
 
