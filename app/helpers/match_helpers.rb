@@ -26,3 +26,11 @@ end
 def remove_parens(string)
   string.gsub(/\([^)]*\)/, '')
 end
+
+def song_match(q)
+  Song.all.select { |song| is_match?(remove_parens(song.title.downcase), q.downcase) }
+end
+
+def personnel_match(q)
+  Personnel.all.select { |person| is_match?(person.name.downcase, q.downcase) }
+end
