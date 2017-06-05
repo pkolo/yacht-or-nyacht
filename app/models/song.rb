@@ -13,6 +13,7 @@ class Song < ActiveRecord::Base
   end
 
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
+  after_create :create_slug
 
   def artist
     self.performers.pluck(:name).first
@@ -186,5 +187,11 @@ class Song < ActiveRecord::Base
   def self.title_search(query)
     self.where("similarity(title, ?) > 0.3", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
+
+  private
+    def create_slug
+      self.slug = sluggify(self.title, self.id)
+      self.save
+    end
 
 end
