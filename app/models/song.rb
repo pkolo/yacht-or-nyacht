@@ -20,7 +20,7 @@ class Song < ActiveRecord::Base
   end
 
   def artist_list
-    artist_data = self.performers.pluck(:id, :name)
+    artist_data = self.performers.pluck(:slug, :name)
     artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
   end
 
