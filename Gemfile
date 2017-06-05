@@ -19,3 +19,4 @@ gem 'pry'
 gem 'dotenv'
 
 gem 'fuzzy-string-match'
+gem 'pg_search'
