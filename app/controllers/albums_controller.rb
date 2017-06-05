@@ -1,5 +1,5 @@
-get '/albums/:id' do
-  @album = Album.find(params[:id])
+get '/albums/:slug' do
+  @album = Album.find_by(slug: params[:slug])
   @songs = @album.songs.sort_by { |song| song.yachtski }.reverse
   erb :'albums/show'
 end
