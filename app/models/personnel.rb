@@ -9,7 +9,7 @@ class Personnel < ActiveRecord::Base
   has_many :song_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Song" }, class_name: 'Credit'
   has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
 
-  after_save :create_slug
+  after_create :create_slug
 
   def combined_song_credits
     combined_credits = self.song_credits.uniq.each_with_object([]) do |credit, memo|
