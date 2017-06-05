@@ -1,0 +1,8 @@
+<h3>Search results for "<%= @q %>"</h3>
+
+<% if @song_results.any? %>
+  <div class="content-section">
+  <% @song_results.each do |result| %>
+    <%= "#{result.artist_list} - #{result.title}" %>
+  <% end %>
+<% end %>
