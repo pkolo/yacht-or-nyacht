@@ -1,6 +1,6 @@
 get '/search' do
   @q = params[:q]
-  @song_results = song_match(@q)
-  @personnel_results = personnel_match(@q)
+  @song_results = Song.title_search(@q)
+  @personnel_results = Personnel.name_search(@q)
   erb :'search/show'
 end

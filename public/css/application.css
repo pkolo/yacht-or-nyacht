@@ -189,17 +189,6 @@ header a {
   font-size: 1.0em;
 }
 
-.media-details {
-  margin-top: 20px;
-  -webkit-column-count: 2; /* Chrome, Safari, Opera */
-  -moz-column-count: 2; /* Firefox */
-  column-count: 2;
-}
-
-.media-details > * {
-  margin-bottom: 15px;
-}
-
 .yt-embed {
 }
 
