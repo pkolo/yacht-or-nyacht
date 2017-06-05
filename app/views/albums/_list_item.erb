@@ -3,9 +3,9 @@
   <div class="song-list-box col-1"><%= song.track_no %></div>
   <div class="song-list-box col-5 title">
     <% if song.artist_list == "Various" %>
-      <%= song.artist_list %> - <a href="/songs/<%= song.id %>"><%= song.title %></a>
+      <%= song.artist_list %> - <a href="/songs/<%= song.slug %>"><%= song.title %></a>
     <% else %>
-      <a href="/songs/<%= song.id %>"><%= song.title %></a>
+      <a href="/songs/<%= song.slug %>"><%= song.title %></a>
     <% end %>
   </div>
 

@@ -3,35 +3,35 @@ get '/' do
   erb :'songs/index'
 end
 
-get '/songs/:id' do
-  @song = Song.find(params[:id])
+get '/songs/:slug' do
+  @song = Song.find_by(slug: params[:slug])
   erb :'songs/show'
 end
 
-get '/songs/:id/edit' do
+get '/songs/:slug/edit' do
   if logged_in?
-    @song = Song.find(params[:id])
+    @song = Song.find_by(slug: params[:slug])
     erb :'songs/edit'
   else
     redirect '/'
   end
 end
 
-post '/songs/:id/discog_search' do
+post '/songs/:slug/discog_search' do
   if logged_in?
-    @song = Song.find(params[:id])
+    @song = Song.find_by(slug: params[:slug])
     options = params[:options]
     if params[:discog] != ""
       url = "https://api.discogs.com/releases/" + params[:discog]
       @credits = @song.add_personnel(url, true)
-      redirect to("/songs/#{params[:id]}")
+      redirect to("/songs/#{params[:slug]}")
     end
 
     @results = @song.discog_search(options).sort_by {|result| result["community"]["have"]}.reverse.first(20)
     if Album.match_in(@results)
       url = "https://api.discogs.com/releases/" + Album.match_in(@results).discog_id
       @credits = @song.add_personnel(url, false)
-      redirect to("/songs/#{params[:id]}")
+      redirect to("/songs/#{params[:slug]}")
     else
       erb :'songs/_search_results', layout: false
     end
@@ -40,11 +40,11 @@ post '/songs/:id/discog_search' do
   end
 end
 
-post '/songs/:id/add_personnel' do
+post '/songs/:slug/add_personnel' do
   if logged_in?
-    @song = Song.find(params[:id])
+    @song = Song.find_by(slug: params[:slug])
     @credits = @song.add_personnel(params[:url], true)
-    redirect to("/songs/#{params[:id]}")
+    redirect to("/songs/#{@song.slug}")
   else
     redirect '/'
   end

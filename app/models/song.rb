@@ -13,13 +13,14 @@ class Song < ActiveRecord::Base
   end
 
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
+  after_create :create_slug
 
   def artist
     self.performers.pluck(:name).first
   end
 
   def artist_list
-    artist_data = self.performers.pluck(:id, :name)
+    artist_data = self.performers.pluck(:slug, :name)
     artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
   end
 
@@ -30,7 +31,7 @@ class Song < ActiveRecord::Base
 
       players = {
         role: role,
-        personnel: credits.map { |credit| "<a href='/personnel/#{credit.personnel.id}'>#{credit.personnel.name}</a>" }
+        personnel: credits.map { |credit| "<a href='/personnel/#{credit.personnel.slug}'>#{credit.personnel.name}</a>" }
       }
       memo << players
     end
@@ -112,6 +113,7 @@ class Song < ActiveRecord::Base
     self.track_no = track_data["position"]
     self.title = track_data["title"]
     self.credits.delete_all
+    self.slug = sluggify(track_data["title"], self.id)
     self.save
 
     if track_data["artists"]
@@ -186,5 +188,11 @@ class Song < ActiveRecord::Base
   def self.title_search(query)
     self.where("similarity(title, ?) > 0.3", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
+
+  private
+    def create_slug
+      self.slug = sluggify(self.title, self.id)
+      self.save
+    end
 
 end

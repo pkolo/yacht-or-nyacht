@@ -9,6 +9,8 @@ class Personnel < ActiveRecord::Base
   has_many :song_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Song" }, class_name: 'Credit'
   has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
 
+  after_create :create_slug
+
   def combined_song_credits
     combined_credits = self.song_credits.uniq.each_with_object([]) do |credit, memo|
       combined_credit = {
@@ -62,5 +64,11 @@ class Personnel < ActiveRecord::Base
   def self.name_search(query)
     self.where("similarity(name, ?) > 0.3", query).order("similarity(name, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
+
+  private
+    def create_slug
+      self.slug = sluggify(self.name, self.id)
+      self.save
+    end
 
 end

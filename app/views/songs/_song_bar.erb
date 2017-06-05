@@ -15,7 +15,7 @@
 
     <div class="song-list-box col-6 title">
       <% if song.album %>
-        <i><a href="/albums/<%= song.album.id %>"><%= song.album.title %></a></i>
+        <i><a href="/albums/<%= song.album.slug %>"><%= song.album.title %></a></i>
       <% else %>
         N/A
       <% end %>

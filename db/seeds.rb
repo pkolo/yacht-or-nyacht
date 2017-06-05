@@ -16,3 +16,7 @@ json_res["feed"]["entry"].each do |entry|
   song = Song.create(title: entry["gsx$title"]["$t"], year: entry["gsx$year"]["$t"].to_i, jd_score: entry["gsx$jd"]["$t"].to_f, hunter_score: entry["gsx$hunter"]["$t"].to_f, dave_score: entry["gsx$dave"]["$t"].to_f, steve_score: entry["gsx$steve"]["$t"].to_f, episode: episode)
   song.credits << credit
 end
+
+u = User.new(name: ENV['ADMIN_NAME'])
+u.password = ENV['ADMIN']
+u.save

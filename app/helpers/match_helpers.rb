@@ -26,3 +26,7 @@ end
 def remove_parens(string)
   string.gsub(/\([^)]*\)/, '')
 end
+
+def sluggify(string, id)
+  remove_parens("#{string} #{id}").downcase.gsub(/[^0-9a-z ]/i, '').split(' ').join('-')
+end
