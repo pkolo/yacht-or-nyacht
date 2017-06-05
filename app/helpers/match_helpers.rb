@@ -1,7 +1,7 @@
-def is_match?(str1, str2)
+def is_match?(str1, str2, strength=0.85)
   fuzzy = FuzzyStringMatch::JaroWinkler.create( :pure )
   match = fuzzy.getDistance(str1, str2)
-  match >= 0.85
+  match >= strength
 end
 
 def includes_track?(all_tracks, person, track_no)
@@ -25,12 +25,4 @@ end
 
 def remove_parens(string)
   string.gsub(/\([^)]*\)/, '')
-end
-
-def song_match(q)
-  Song.all.select { |song| is_match?(remove_parens(song.title.downcase), q.downcase) }
-end
-
-def personnel_match(q)
-  Personnel.all.select { |person| is_match?(person.name.downcase, q.downcase) }
 end
