@@ -46,19 +46,24 @@ get '/episodes/:id/songs/new' do
 end
 
 post '/episodes/:id/songs' do
-  data = params[:song]
-  @episode = Episode.find(params[:id])
-  @artist = Artist.find_or_create_by(name: data[:artist])
+  if logged_in?
+    data = params[:song]
+    @episode = Episode.find(params[:id])
+    @artist = Personnel.find_or_create_by(name: data[:artist])
 
-  if @artist
-    @song = Song.new(title: data[:title], year: data[:year], jd_score: data[:jd_score], hunter_score: data[:hunter_score], steve_score: data[:steve_score], dave_score: data[:dave_score])
-    @song.artist = @artist
-    @song.episode = @episode
+    if @artist
+      @song = Song.new(title: data[:title], year: data[:year], jd_score: data[:jd_score], hunter_score: data[:hunter_score], steve_score: data[:steve_score], dave_score: data[:dave_score])
+      @song.episode = @episode
+      @credit = Credit.create(personnel: @artist, role: "Artist")
+      @song.credits << @credit
 
-    if @song.save
-      erb :'/songs/_list_item', layout: false, locals: {song: @song}
-    else
-      "error"
+      if @song.save
+        erb :'/songs/_list_item', layout: false, locals: {song: @song}
+      else
+        "error"
+      end
     end
+  else
+    redirect '/'
   end
 end
