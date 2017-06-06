@@ -8,11 +8,12 @@ class Song < ActiveRecord::Base
 
   has_many :credits, as: :creditable, dependent: :destroy do
     def players
-      where("role != ?", "Artist")
+      where("role NOT IN (?)", ["Artist", "Duet", "Featuring"])
     end
   end
 
-  has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
+  has_many :performers, ->(credit) { where 'credits.role IN (?)', ["Artist"] }, through: :credits, source: :personnel
+  has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
   after_create :create_slug
 
   def artist
@@ -21,7 +22,14 @@ class Song < ActiveRecord::Base
 
   def artist_list
     artist_data = self.performers.pluck(:slug, :name)
-    artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
+    artists = artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
+    if self.features.any?
+      feature_data = self.features.pluck(:slug, :name)
+      features = feature_data.map {|data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
+      [artists, features].join(" w/ ")
+    else
+      artists
+    end
   end
 
   def combined_players
@@ -163,9 +171,9 @@ class Song < ActiveRecord::Base
       new_person = Personnel.find_or_create_by(name: remove_parens(personnel["name"]), discog_id: personnel["id"])
       personnel["role"].split(", ").each do |role|
         if role.include?("Duet")
-          credit = Credit.new(role: "Artist", personnel: new_person)
+          credit = Credit.new(role: "Duet", personnel: new_person)
         elsif role.include?("Featuring")
-          credit = Credit.new(role: "Artist", personnel: new_person)
+          credit = Credit.new(role: "Featuring", personnel: new_person)
         else
           credit = Credit.new(role: role, personnel: new_person)
         end
