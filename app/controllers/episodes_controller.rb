@@ -49,7 +49,7 @@ post '/episodes/:id/songs' do
   if logged_in?
     data = params[:song]
     @episode = Episode.find(params[:id])
-    @artist = Personnel.find_or_create_by(name: data[:artist])
+    @artist = Personnel.find_by("similarity(name, ?) > 0.5", data[:artist])
 
     if @artist
       @song = Song.new(title: data[:title], year: data[:year], jd_score: data[:jd_score], hunter_score: data[:hunter_score], steve_score: data[:steve_score], dave_score: data[:dave_score])
