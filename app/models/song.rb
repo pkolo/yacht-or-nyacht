@@ -6,7 +6,7 @@ class Song < ActiveRecord::Base
   belongs_to :episode
   belongs_to :album
 
-  has_many :credits, as: :creditable do
+  has_many :credits, as: :creditable, dependent: :destroy do
     def players
       where("role != ?", "Artist")
     end
