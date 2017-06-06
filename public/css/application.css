@@ -155,6 +155,20 @@ header a {
   font-weight: 400;
 }
 
+/* Episode page style */
+.add-song-btn {
+  width: 50%;
+}
+
+.song-form-wrapper {
+  border: 1px solid #444;
+  padding: 10px;
+}
+
+.live-score {
+  margin-bottom: 25px;
+}
+
 /* Personnel page style */
 
 .personnel-section {
