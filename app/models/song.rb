@@ -6,7 +6,7 @@ class Song < ActiveRecord::Base
   belongs_to :episode
   belongs_to :album
 
-  has_many :credits, as: :creditable do
+  has_many :credits, as: :creditable, dependent: :destroy do
     def players
       where("role != ?", "Artist")
     end
@@ -109,7 +109,7 @@ class Song < ActiveRecord::Base
     results = api_call(url)
     album = Album.find_or_create_by(year: results["year"], title: results["title"], discog_id: results["id"])
     self.album = album
-    track_data = results["tracklist"].find {|track| is_match?(remove_parens(track["title"]), self.title) }
+    track_data = results["tracklist"].find {|track| is_match?(remove_parens(track["title"]), remove_parens(self.title)) }
     self.track_no = track_data["position"]
     self.title = track_data["title"]
     self.credits.delete_all

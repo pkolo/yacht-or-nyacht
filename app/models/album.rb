@@ -1,6 +1,6 @@
 class Album < ActiveRecord::Base
   has_many :songs
-  has_many :credits, as: :creditable do
+  has_many :credits, as: :creditable, dependent: :destroy do
     def players
       where("role != ?", "Artist")
     end

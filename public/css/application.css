@@ -81,11 +81,16 @@ a {
   color: #444;
 }
 
-header {
-  width: 100%;
+.header {
   position: relative;
   display: inline-block;
+  width: 100%;
   margin-bottom: 15px;
+  border-bottom: 1px solid #aaa;
+}
+
+.header a {
+  text-decoration: none;
 }
 
 .site-name {
@@ -95,14 +100,24 @@ header {
   float: left;
 }
 
-header a {
-  text-decoration: none;
+.nav-bar {
+  float: right;
+  padding-top:25px;
+  text-align: right;
 }
 
-.nav-bar {
-  position: absolute;
-  right: 0px;
-  bottom: 20px;
+.nav-i {
+  display: inline-block;
+  margin-left: 40px;
+}
+
+.nav-i a {
+  padding: 5px;
+}
+
+.nav-i a:hover {
+  background-color: #eee;
+  color: #444;
 }
 
 .search-bar {
@@ -116,6 +131,27 @@ header a {
   text-align: center;
   font-size: 1.5em;
   padding: 10px;
+}
+
+
+.q-bar {
+  padding: 5px;
+  font-size: 0.75em;
+}
+
+::-webkit-input-placeholder { /* Chrome */
+  color: #bbb;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #bbb;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #bbb;
+  opacity: 1;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+  color: #bbb;
+  opacity: 1;
 }
 
 /* Sidebar style */
@@ -153,6 +189,20 @@ header a {
 .title {
   font-size: 1.0em;
   font-weight: 400;
+}
+
+/* Episode page style */
+.add-song-btn {
+  width: 50%;
+}
+
+.song-form-wrapper {
+  border: 1px solid #444;
+  padding: 10px;
+}
+
+.live-score {
+  margin-bottom: 25px;
 }
 
 /* Personnel page style */

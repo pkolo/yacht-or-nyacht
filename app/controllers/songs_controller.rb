@@ -5,6 +5,7 @@ end
 
 get '/songs/:slug' do
   @song = Song.find_by(slug: params[:slug])
+  @subtitle = @song.title
   erb :'songs/show'
 end
 
