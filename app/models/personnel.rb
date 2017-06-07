@@ -19,7 +19,7 @@ class Personnel < ActiveRecord::Base
       }
       memo << combined_credit
     end
-    combined_credits.uniq
+    combined_credits.uniq {|c| c[:media]}
   end
 
   def combined_album_credits
@@ -30,7 +30,7 @@ class Personnel < ActiveRecord::Base
       }
       memo << combined_credit
     end
-    combined_credits.uniq
+    combined_credits.uniq {|c| c[:media]}
   end
 
   def all_song_albums
