@@ -54,7 +54,7 @@ class Song < ActiveRecord::Base
       }
       memo << combined_roles
     end
-    personnel.uniq
+    personnel.uniq {|p| p[:personnel].id }
   end
 
   def nice_title
