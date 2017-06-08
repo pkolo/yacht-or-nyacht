@@ -172,6 +172,19 @@ a {
   border-bottom: 1px solid #aaa;
 }
 
+/* Search page style */
+
+.search-results {
+  margin-top: 10px;
+}
+
+.results-container {
+  -webkit-column-count: 4; /* Chrome, Safari, Opera */
+  -moz-column-count: 4; /* Firefox */
+  column-count: 4;
+}
+
+
 /* Song list style */
 
 .song-list-box {
@@ -214,7 +227,7 @@ a {
 /* Personnel page style */
 
 .personnel-section {
-  margin: 12px 0 20px 0;
+  margin: 5px 0 20px 0;
 }
 
 .personnel-section-head {
@@ -247,13 +260,6 @@ a {
 
 .yt-embed {
 }
-
-.credit-container {
-  /*-webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
-  break-inside: avoid;*/
-}
-
 .credits {
   -webkit-column-break-inside: auto;
   page-break-inside: auto;
