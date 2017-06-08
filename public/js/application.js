@@ -55,9 +55,23 @@ $(document).ready(function() {
     $this.parent().css('border-bottom', `1px solid ${color}`);
   });
 
+  $('.yachtski-result').each(function() {
+    var $this = $(this);
+    var yachtski = $this.text();
+    var color = getColor(yachtski);
+
+    $this.siblings('.bullet').css('background-color', color);
+  });
+
   jQuery.expr[':'].Contains = function(a,i,m){
     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
   };
+
+  $('.q-form').on('click', '.q-btn', function() {
+    var q = $(this).prev('.q-bar').val()
+    window.location.href = `/search?q=${q}`;
+    return false;
+  });
 
   $('#songSearch').keyup(function() {
     var query = $(this).val();

@@ -55,27 +55,31 @@
     </div>
 
     <div class="col-9">
-      <div class="content-section">
+      <div class="page-header">
         <div class="big-title"><%= @song.title %></div>
         <div class="artist-credit">by <%= @song.artist_list %></div>
       </div>
 
 
       <div class="content-section">
-        <div class="sidebar-title">
-          <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
-          Track Info
-        </div>
-
         <div class="personnel-section song-info">
           <div class="row">
 
-            <div class="col-4">
+            <div class="col-8">
               <% if @song.album %>
-                <div class="row">Album: <a href="/albums/<%= @song.album.slug %>"><%= @song.album.title %></a></div>
+                <div class="row">
+                  <div class="col-2">Album:</div>
+                  <div class="col-10"><a href="/albums/<%= @song.album.slug %>"><i><%= @song.album.title %></i></a></div>
+                </div>
               <% end %>
-              <div class="row">Year: <%= @song.year %></div>
-              <div class="row">Episode: <a href="/episodes/<%= @song.episode.id %>"><%= @song.episode.number %></a></div>
+              <div class="row">
+                <div class="col-2">Year:</div>
+                <div class="col-10"><%= @song.year %></div>
+              </div>
+              <div class="row">
+                <div class="col-2">Episode:</div>
+                <div class="col-10"><a href="/episodes/<%= @song.episode.id %>"><%= @song.episode.number %></a></div>
+              </div>
             </div>
 
           </div>
@@ -88,7 +92,6 @@
         <div class="content-section">
           <div class="sidebar-title">
             Track Personnel
-            <div class="yachtski-list-item" style="display:none"><%= @song.yachtski %></div>
           </div>
 
           <section class="credit-container">
@@ -101,7 +104,6 @@
         <div class="content-section">
           <div class="sidebar-title">
             Album Personnel
-            <div class="yachtski-list-item" style="display:none"><%= @song.album.yachtski %></div>
           </div>
 
           <section class="credit-container">
