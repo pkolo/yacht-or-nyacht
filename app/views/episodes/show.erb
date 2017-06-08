@@ -1,3 +1,8 @@
-<h1>Episode: <%= @episode.number %></h1>
-
-<%= erb :'songs/_list', locals: {songs: @songs} %>
+<div class="content-section">
+  <div class="sidebar-title">
+    <%= @episode.title %> Tracklist
+  </div>
+  <div class="personnel-song-list">
+      <%= erb :'songs/_list', locals: {songs: @songs} %>
+  </div>
+</div>
