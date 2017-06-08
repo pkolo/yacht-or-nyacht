@@ -107,7 +107,7 @@ a {
 
 .nav-bar {
   float: right;
-  padding-top:25px;
+  padding-top: 5px;
   text-align: right;
 }
 
@@ -140,8 +140,14 @@ a {
 
 
 .q-bar {
-  padding: 5px;
-  font-size: 0.75em;
+  width: 75%;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #444;
+}
+
+.q-btn {
+  cursor: pointer
 }
 
 ::-webkit-input-placeholder { /* Chrome */
@@ -256,14 +262,6 @@ a {
 
 .song-info {
   font-size: 1.15em;
-}
-
-.yt-embed {
-}
-.credits {
-  -webkit-column-break-inside: auto;
-  page-break-inside: auto;
-  break-inside: auto;
 }
 
 .section-head {
