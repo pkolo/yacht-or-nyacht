@@ -90,13 +90,13 @@ namespace :db do
   desc "Create the databases at #{DB_NAME}"
   task :create do
     puts "Creating development and test databases if they don't exist..."
-    system("createdb #{APP_NAME}_development && createdb #{APP_NAME}_test")
+    system("createdb #{ENV['DATABASE_URL']}")
   end
 
   desc "Drop the database at #{DB_NAME}"
   task :drop do
     puts "Dropping development and test databases..."
-    system("dropdb #{APP_NAME}_development && dropdb #{APP_NAME}_test")
+    system("dropdb #{DB_NAME}")
   end
 
   desc "Migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)."
