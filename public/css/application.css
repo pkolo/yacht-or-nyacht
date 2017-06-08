@@ -57,6 +57,10 @@ body {
   z-index: 1;
 }
 
+.page-header {
+  margin-bottom: 25px;
+}
+
 .content-section {
   margin-bottom: 40px;
 }
@@ -236,7 +240,7 @@ a {
 }
 
 .song-info {
-  font-size: 1.0em;
+  font-size: 1.05em;
 }
 
 .yt-embed {
