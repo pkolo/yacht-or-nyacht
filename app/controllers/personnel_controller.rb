@@ -5,5 +5,6 @@ get '/personnel/:slug' do
   @song_performances = @personnel.song_performances.sort_by {|song| song.yachtski }.reverse
   @song_credits = @personnel.combined_song_credits.sort_by { |credit| credit[:media].yachtski }.reverse
   @album_credits = @personnel.combined_album_credits.sort_by { |credit| credit[:media].yachtski }.reverse
+  @total_credits = @song_performances.length + @song_credits.length + @album_credits.length
   erb :'personnel/show'
 end

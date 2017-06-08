@@ -22,7 +22,7 @@
     <div class="col-9 personnel-info">
       <div class="content-section">
         <div class="big-title"><%= @personnel.name %></div>
-        <div class="artist-credit">Active <%= @personnel.active_years %></div>
+        <div class="artist-credit"><%= @personnel.active_years %> | <%= @total_credits %> credits</div>
       </div>
       <% if @personnel.song_performances.any? %>
         <div class="content-section">
