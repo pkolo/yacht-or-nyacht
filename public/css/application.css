@@ -323,22 +323,3 @@ a {
 .album-score-box {
   width: 95%;
 }
-
-
-/* Artist page style */
-
-.artist-container {
-  margin-top: 50px;
-}
-
-.artist-info {
-
-}
-
-.artist-songs {
-
-}
-
-.artist-name {
-  font-size: 3em;
-}
