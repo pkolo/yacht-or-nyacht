@@ -97,21 +97,22 @@ $(document).ready(function() {
 
   });
 
-  $('.sort-by-jd').on('click', function(e) {
+  $('.sort-link').on('click', function(e) {
     e.preventDefault();
 
-    var $list = $('.song-list')
-    var songs = $.makeArray($list.children('.song-list-item'))
-    var sortedSongs = []
+    var columnName = this.innerText.toLowerCase();
+    var $list = $('.song-list');
+    var songs = $.makeArray($list.children('.song-list-item'));
+    var sortedSongs = [];
 
     var sortBy = $(this).hasClass('desc') ? 'asc' : 'desc';
-    $(this).removeClass('asc').removeClass('desc');
+    $('.sort-link').removeClass('asc').removeClass('desc');
     $(this).addClass(sortBy);
 
     if ( sortBy == 'asc' ) {
       sortedSongs = songs.sort(function(a, b) {
-        var textA = +$(a).find('.jd-score').text();
-        var textB = +$(b).find('.jd-score').text();
+        var textA = +$(a).find(`.${columnName}-score`).text();
+        var textB = +$(b).find(`.${columnName}-score`).text();
 
         if (textA < textB) return 1;
         if (textA > textB) return -1;
@@ -122,8 +123,8 @@ $(document).ready(function() {
 
     if ( sortBy == 'desc' ) {
       sortedSongs = songs.sort(function(a, b) {
-        var textA = +$(a).find('.jd-score').text();
-        var textB = +$(b).find('.jd-score').text();
+        var textA = +$(a).find(`.${columnName}-score`).text();
+        var textB = +$(b).find(`.${columnName}-score`).text();
 
         if (textA > textB) return 1;
         if (textA < textB) return -1;
@@ -137,7 +138,7 @@ $(document).ready(function() {
     $.each(sortedSongs, function() {
         $list.append(this);
     });
-    console.log(sortBy)
+
   });
 
   $('.add-song-form').on('submit', '.song-form', function(e) {
