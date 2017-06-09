@@ -101,8 +101,7 @@ $(document).ready(function() {
     e.preventDefault();
 
     var columnName = this.innerText.toLowerCase();
-    var isNum = $(this).hasClass('num')
-    console.log(isNum)
+    var isNum = $(this).hasClass('num');
     var $list = $('.song-list');
     var songs = $.makeArray($list.children('.song-list-item'));
     var sortedSongs = [];
