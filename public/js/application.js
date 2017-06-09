@@ -97,6 +97,61 @@ $(document).ready(function() {
 
   });
 
+  $('.sort-link').on('click', function(e) {
+    e.preventDefault();
+
+    var columnName = this.innerText.toLowerCase();
+    var isNum = $(this).hasClass('num');
+    var $list = $('.song-list');
+    var songs = $.makeArray($list.children('.song-list-item'));
+    var sortedSongs = [];
+
+    var sortBy = $(this).hasClass('desc') ? 'asc' : 'desc';
+    $('.sort-link').removeClass('asc').removeClass('desc');
+    $(this).addClass(sortBy);
+
+    if ( sortBy == 'desc' ) {
+      sortedSongs = songs.sort(function(a, b) {
+        if (isNum) {
+          var textA = +$(a).find(`.${columnName}-column`).text();
+          var textB = +$(b).find(`.${columnName}-column`).text();
+        } else {
+          var textA = $(a).find(`.${columnName}-column`).text();
+          var textB = $(b).find(`.${columnName}-column`).text();
+        }
+
+        if (textA < textB) return 1;
+        if (textA > textB) return -1;
+
+        return 0;
+      });
+    }
+
+    if ( sortBy == 'asc' ) {
+      sortedSongs = songs.sort(function(a, b) {
+        if (isNum) {
+          var textA = +$(a).find(`.${columnName}-column`).text();
+          var textB = +$(b).find(`.${columnName}-column`).text();
+        } else {
+          var textA = $(a).find(`.${columnName}-column`).text();
+          var textB = $(b).find(`.${columnName}-column`).text();
+        }
+
+        if (textA > textB) return 1;
+        if (textA < textB) return -1;
+
+        return 0;
+      });
+    }
+
+    $list.empty();
+
+    $.each(sortedSongs, function() {
+        $list.append(this);
+    });
+
+  });
+
   $('.add-song-form').on('submit', '.song-form', function(e) {
     e.preventDefault();
     $.ajax({
