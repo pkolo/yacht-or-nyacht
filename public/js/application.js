@@ -97,6 +97,49 @@ $(document).ready(function() {
 
   });
 
+  $('.sort-by-jd').on('click', function(e) {
+    e.preventDefault();
+
+    var $list = $('.song-list')
+    var songs = $.makeArray($list.children('.song-list-item'))
+    var sortedSongs = []
+
+    var sortBy = $(this).hasClass('desc') ? 'asc' : 'desc';
+    $(this).removeClass('asc').removeClass('desc');
+    $(this).addClass(sortBy);
+
+    if ( sortBy == 'asc' ) {
+      sortedSongs = songs.sort(function(a, b) {
+        var textA = +$(a).find('.jd-score').text();
+        var textB = +$(b).find('.jd-score').text();
+
+        if (textA < textB) return 1;
+        if (textA > textB) return -1;
+
+        return 0;
+      });
+    }
+
+    if ( sortBy == 'desc' ) {
+      sortedSongs = songs.sort(function(a, b) {
+        var textA = +$(a).find('.jd-score').text();
+        var textB = +$(b).find('.jd-score').text();
+
+        if (textA > textB) return 1;
+        if (textA < textB) return -1;
+
+        return 0;
+      });
+    }
+
+    $list.empty();
+
+    $.each(sortedSongs, function() {
+        $list.append(this);
+    });
+    console.log(sortBy)
+  });
+
   $('.add-song-form').on('submit', '.song-form', function(e) {
     e.preventDefault();
     $.ajax({
