@@ -65,7 +65,7 @@
         <div class="personnel-section song-info">
           <div class="row">
 
-            <div class="col-8">
+            <div class="col-7">
               <% if @song.album %>
                 <div class="row">
                   <div class="col-2">Album:</div>
@@ -80,6 +80,10 @@
                 <div class="col-2">Episode:</div>
                 <div class="col-10"><a href="/episodes/<%= @song.episode.id %>"><%= @song.episode.number %></a></div>
               </div>
+            </div>
+
+            <div class="col-5 yt-embed">
+              <iframe width="375" height="75" src="https://www.youtube.com/embed/<%= @song.yt_id %>?rel=0" frameborder="0" allowfullscreen></iframe>
             </div>
 
           </div>

@@ -197,6 +197,20 @@ class Song < ActiveRecord::Base
     self.where("similarity(title, ?) > 0.3", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
 
+  def get_youtube_id
+    base = "https://www.googleapis.com/youtube/v3/search?"
+    q = "part=snippet&type=video&videoEmbeddable=true&q=#{self.artist.downcase.gsub(/[^0-9a-z ]/i, '')} #{self.title.downcase.gsub(/[^0-9a-z ]/i, '')}&key=#{ENV['YT_KEY']}"
+    res = api_call(base+q)
+    vid_data = res["items"].first
+    vid_id = vid_data["id"]["videoId"]
+    self.yt_id = vid_id
+    self.save
+  end
+
+  def self.youtube_writer
+    self.all.each { |song| song.get_youtube_id }
+  end
+
   private
     def create_slug
       self.slug = sluggify(self.title, self.id)
