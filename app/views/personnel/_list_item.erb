@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="song-list-box yachtski avg col-1"><%= song.yachtski.round(2) %></div>
+  <div class="song-list-box yachtski avg col-1 yachtski-column"><%= song.yachtski.round(2) %></div>
   <div class="song-list-box col-5 title">
     <% if song.artist_list == "Various" %>
       <%= song.artist_list %> - <a href="/songs/<%= song.slug %>"><%= song.title %></a>
@@ -7,11 +7,13 @@
       <a href="/songs/<%= song.slug %>"><%= song.title %></a>
     <% end %>
   </div>
-  <div class="song-list-box col-1"><%= song.year %></div>
+  <div class="hideable">
+    <div class="song-list-box col-1"><%= song.year %></div>
 
-  <div class="song-list-box yachtski col-1"><%= song.jd_score %></div>
-  <div class="song-list-box yachtski col-1"><%= song.hunter_score %></div>
-  <div class="song-list-box yachtski col-1"><%= song.steve_score %></div>
-  <div class="song-list-box yachtski col-1"><%= song.dave_score %></div>
-  <div class="song-list-box col-1"><a href="/episodes/<%= song.episode.id %>"><%= song.episode.number %></a></div>
+    <div class="song-list-box yachtski col-1"><%= song.jd_score %></div>
+    <div class="song-list-box yachtski col-1"><%= song.hunter_score %></div>
+    <div class="song-list-box yachtski col-1"><%= song.steve_score %></div>
+    <div class="song-list-box yachtski col-1"><%= song.dave_score %></div>
+    <div class="song-list-box col-1"><a href="/episodes/<%= song.episode.id %>"><%= song.episode.number %></a></div>
+  </div>
 </div>

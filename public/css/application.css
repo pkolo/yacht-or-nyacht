@@ -437,4 +437,30 @@ a {
     text-align: right;
   }
 
+  /* Personnel page responsive */
+
+  .personnel-info {
+    text-align: center;
+    width:100%;
+  }
+
+  .personnel-song-list {
+    text-align: left;
+  }
+
+  .personnel-credits-list {
+    text-align: left;
+  }
+
+  .credit-link {
+    float: right;
+    width: 92%;
+  }
+
+  .role-row {
+    margin-top: 5px;
+    width: 85%;
+    font-size: .75em;
+  }
+
 }
