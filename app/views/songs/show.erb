@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  <div class="col-9">
+  <div class="col-9 hideable">
     &nbsp
   </div>
 </div>
@@ -48,13 +48,13 @@
 
 <div class="content-wrapper">
   <div class="row">
-    <div class="col-3">
+    <div class="col-3 hideable">
       <div class="sidebar-section">
         &nbsp
       </div>
     </div>
 
-    <div class="col-9">
+    <div class="col-9 song-details">
       <div class="page-header">
         <div class="big-title"><%= @song.title %></div>
         <div class="artist-credit">by <%= @song.artist_list %></div>
@@ -65,20 +65,20 @@
         <div class="personnel-section song-info">
           <div class="row">
 
-            <div class="col-7">
+            <div class="col-7 full-width-res">
               <% if @song.album %>
                 <div class="row">
-                  <div class="col-2">Album:</div>
-                  <div class="col-10"><a href="/albums/<%= @song.album.slug %>"><i><%= @song.album.title %></i></a></div>
+                  <div class="col-2 hideable">Album:</div>
+                  <div class="col-10 full-width-res"><a href="/albums/<%= @song.album.slug %>"><i><%= @song.album.title %></i></a></div>
                 </div>
               <% end %>
               <div class="row">
-                <div class="col-2">Year:</div>
-                <div class="col-10"><%= @song.year %></div>
+                <div class="col-2 hideable">Year:</div>
+                <div class="col-10 full-width-res"><%= @song.year %></div>
               </div>
               <div class="row">
-                <div class="col-2">Episode:</div>
-                <div class="col-10">
+                <div class="col-2 hideable">Episode:</div>
+                <div class="col-10 full-width-res">
                   <a href="/episodes/<%= @song.episode.id %>"><%= @song.episode.number %></a>
                   <% if @song.episode.link %> (<a href="<%= @song.episode.link %>" target="_blank">Listen</a>)<% end %>
                 </div>
@@ -86,7 +86,7 @@
             </div>
 
             <% if @song.yt_id %>
-              <div class="col-5">
+              <div class="col-5 full-width-res">
                 <div class="yt-embed">
                   <iframe width="375" height="75" src="https://www.youtube.com/embed/<%= @song.yt_id %>?rel=0" frameborder="0" allowfullscreen></iframe>
                 </div>

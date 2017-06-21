@@ -34,10 +34,11 @@
 /* Layout */
 
 body {
-  max-width: 1200px;
+  max-width: 1250px;
   margin: auto;
   color: #444;
   font-family: 'Lato', sans-serif;
+  padding: 0 15px;
 }
 
 .container {
@@ -334,4 +335,106 @@ a {
 /* Album page style */
 .album-score-box {
   width: 95%;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    padding: 0 5px;
+  }
+
+  .hideable {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+
+  .full-width-res {
+    width: 100%;
+  }
+
+  /* Header responsive */
+
+  .nav-bar {
+    float: none;
+    margin: auto;
+    padding: none;
+    text-align: justify;
+  }
+
+  .nav-i {
+    margin: none;
+  }
+
+  .site-name {
+    font-size: 2.25em;
+    float: none;
+    text-align: center;
+  }
+
+  /* Index responsive */
+
+  .search-bar {
+    max-width: 100%;
+  }
+
+  /* Index song list responsive */
+
+  .yachtski-column {
+    width: 20%;
+  }
+
+  .title {
+    width: 75%;
+  }
+
+  /* Song page responsive */
+
+  .content-wrapper, .bg-wrapper {
+    position: relative;
+  }
+
+  .bg-wrapper {
+    z-index: 1;
+  }
+
+  .sidebar-wrapper {
+    height: 100%;
+    width: 100%;
+  }
+
+  .sidebar-bg-shape {
+    width: 100%;
+  }
+
+  .song-details {
+    width: 100%;
+    text-align: center;
+  }
+
+  .page-header {
+    margin-bottom: 10px;
+  }
+
+  .big-title {
+    font-size: 1.75em;
+  }
+
+  .artist-credit {
+    font-size: 1em;
+  }
+
+  .bullet {
+    margin-right: 5px;
+  }
+
+  .personnel-link {
+    width: inherit;
+  }
+
+  .role {
+    float: right;
+    width: 50%;
+    text-align: right;
+  }
+
 }
