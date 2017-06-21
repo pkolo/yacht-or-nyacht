@@ -463,4 +463,11 @@ a {
     font-size: .75em;
   }
 
+  /* Album page responsive */
+
+  .album-info {
+    width: 100%;
+    text-align: center;
+  }
+
 }
