@@ -336,3 +336,38 @@ a {
 .album-score-box {
   width: 95%;
 }
+
+@media screen and (max-width: 600px) {
+  body {
+    padding: 0 5px;
+  }
+
+  .site-name {
+    font-size: 2.25em;
+    float: none;
+    text-align: center;
+  }
+
+  /* Index responsive */
+
+  .search-bar {
+    max-width: 100%;
+  }
+
+  /* Song list responsive */
+
+  .hideable {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+
+  .yachtski-column {
+    width: 20%;
+  }
+
+  .title {
+    width: 75%;
+  }
+
+}

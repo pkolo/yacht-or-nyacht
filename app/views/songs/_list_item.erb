@@ -7,9 +7,11 @@
     (<span class="year-column num"><%= song.year %></span>)
   </div>
 
-  <div class="song-list-box yachtski jd-column col-1"><%= song.jd_score %></div>
-  <div class="song-list-box yachtski hunter-column col-1"><%= song.hunter_score %></div>
-  <div class="song-list-box yachtski steve-column col-1"><%= song.steve_score %></div>
-  <div class="song-list-box yachtski dave-column col-1"><%= song.dave_score %></div>
-  <div class="song-list-box col-1 episode-column"><a href="/episodes/<%= song.episode.id %>"><%= song.episode.number %></a></div>
+  <div class="hideable">
+    <div class="song-list-box yachtski jd-column col-1"><%= song.jd_score %></div>
+    <div class="song-list-box yachtski hunter-column col-1"><%= song.hunter_score %></div>
+    <div class="song-list-box yachtski steve-column col-1"><%= song.steve_score %></div>
+    <div class="song-list-box yachtski dave-column col-1"><%= song.dave_score %></div>
+    <div class="song-list-box col-1 episode-column"><a href="/episodes/<%= song.episode.id %>"><%= song.episode.number %></a></div>
+  </div>
 </div>
