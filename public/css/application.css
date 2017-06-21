@@ -402,4 +402,20 @@ a {
     width: 100%;
   }
 
+  .song-details {
+    width: 100%;
+  }
+
+  .page-header {
+    text-align: center;
+  }
+
+  .big-title {
+    font-size: 1.75em;
+  }
+
+  .artist-credit {
+    font-size: 1em;
+  }
+
 }
