@@ -435,6 +435,7 @@ a {
     float: right;
     width: 50%;
     text-align: right;
+    font-size: .75em;
   }
 
   /* Personnel page responsive */
@@ -460,7 +461,6 @@ a {
   .role-row {
     margin-top: 5px;
     width: 85%;
-    font-size: .75em;
   }
 
   /* Album page responsive */
@@ -468,6 +468,10 @@ a {
   .album-info {
     width: 100%;
     text-align: center;
+  }
+
+  .song-list-section {
+    text-align: left;
   }
 
 }
