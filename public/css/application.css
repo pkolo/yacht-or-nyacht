@@ -34,10 +34,11 @@
 /* Layout */
 
 body {
-  max-width: 1200px;
+  max-width: 1250px;
   margin: auto;
   color: #444;
   font-family: 'Lato', sans-serif;
+  padding: 0 15px;
 }
 
 .container {
