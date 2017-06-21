@@ -423,4 +423,18 @@ a {
     font-size: 1em;
   }
 
+  .bullet {
+    margin-right: 5px;
+  }
+
+  .personnel-link {
+    width: inherit;
+  }
+
+  .role {
+    float: right;
+    width: 50%;
+    text-align: right;
+  }
+
 }
