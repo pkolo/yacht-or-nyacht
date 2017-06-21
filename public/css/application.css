@@ -342,6 +342,12 @@ a {
     padding: 0 5px;
   }
 
+  .hideable {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+
   /* Header responsive */
 
   .nav-bar {
@@ -367,13 +373,7 @@ a {
     max-width: 100%;
   }
 
-  /* Song list responsive */
-
-  .hideable {
-    visibility: hidden;
-    clear: both;
-    display: none;
-  }
+  /* Index song list responsive */
 
   .yachtski-column {
     width: 20%;
@@ -381,6 +381,25 @@ a {
 
   .title {
     width: 75%;
+  }
+
+  /* Song page responsive */
+
+  .content-wrapper, .bg-wrapper {
+    position: relative;
+  }
+
+  .bg-wrapper {
+    z-index: 1;
+  }
+
+  .sidebar-wrapper {
+    height: 100%;
+    width: 100%;
+  }
+
+  .sidebar-bg-shape {
+    width: 100%;
   }
 
 }
