@@ -342,6 +342,19 @@ a {
     padding: 0 5px;
   }
 
+  /* Header responsive */
+
+  .nav-bar {
+    float: none;
+    margin: auto;
+    padding: none;
+    text-align: justify;
+  }
+
+  .nav-i {
+    margin: none;
+  }
+
   .site-name {
     font-size: 2.25em;
     float: none;
