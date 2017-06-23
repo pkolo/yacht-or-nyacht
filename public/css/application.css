@@ -366,7 +366,7 @@ a {
   }
 
   .site-name {
-    font-size: 2.25em;
+    font-size: 2em;
     float: none;
     text-align: center;
   }
@@ -418,11 +418,11 @@ a {
   }
 
   .big-title {
-    font-size: 2em;
+    font-size: 1.75em;
   }
 
   .artist-credit {
-    font-size: 1.25em;
+    font-size: 1em;
   }
 
   .bullet {
