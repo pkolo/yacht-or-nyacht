@@ -425,6 +425,14 @@ a {
     font-size: 1em;
   }
 
+  .big-score {
+    font-size: 3em;
+  }
+
+  .yacht-status {
+    font-size: 1em;
+  }
+
   .bullet {
     margin-right: 5px;
   }

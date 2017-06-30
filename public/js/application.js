@@ -195,8 +195,8 @@ $(document).ready(function() {
   //   });
   // })
 
-  if ($(window).width() < 500) {
-     $('.page-header').insertBefore('.bg-wrapper');
+  if (screen.width < 500 ) {
+     $('.page-header').insertBefore('.sidebar-wrapper')
   }
 
 });
