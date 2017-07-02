@@ -183,20 +183,17 @@ $(document).ready(function() {
     });
   });
 
-  // $('.search-results-list').on('click', '.add-personnel-btn', function() {
-  //   var id = $(this).attr('id')
-  //   var baseURL = "https://api.discogs.com/releases/"
-  //   $.ajax({
-  //     url: 'add_personnel',
-  //     method: 'POST',
-  //     data: {url: baseURL+id}
-  //   }).done(function(res) {
-  //     console.log("ok")
-  //   });
-  // })
+// Responsive
 
   if (screen.width < 500 ) {
      $('.page-header').insertBefore('.sidebar-wrapper')
+
+     var yachtski = $('.big-score').text()
+
+     $('.sidebar-bg-shape').addClass('row')
+     $('.sidebar-bg-shape').css('background-color', getColor(yachtski))
+     $('.overall-score').addClass('col-5')
+     $('.host-scores').addClass('col-7')
   }
 
 });
