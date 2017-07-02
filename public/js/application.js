@@ -46,6 +46,9 @@ $(document).ready(function() {
 
   });
 
+  var yachtski = $('.big-score').text()
+  $('.sidebar-bg-shape').css('background-color', getColor(yachtski))
+
   $('.yachtski-list-item').each(function() {
     var $this = $(this);
     var yachtski = $this.text();
@@ -192,8 +195,13 @@ $(document).ready(function() {
 
      $('.sidebar-bg-shape').addClass('row')
      $('.sidebar-bg-shape').css('background-color', getColor(yachtski))
-     $('.overall-score').addClass('col-5')
-     $('.host-scores').addClass('col-7')
+     $('.overall-score').addClass('col-6')
+     $('.host-scores').addClass('col-6')
+
+     $('.artist-credit').css('padding-bottom', '5px').css('font-size', '1.2em')
+     $('.info-album').removeClass('col-10').insertAfter('.artist-credit').css('display', 'inline-block')
+     var year = $('.info-year').text()
+     $('.info-year').removeClass('col-10').insertAfter('.info-album').css('display', 'inline-block').css('margin-left', '5px').text(`(${year})`)
   }
 
 });
