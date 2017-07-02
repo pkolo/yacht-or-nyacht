@@ -1,9 +1,11 @@
 <div class="bg-wrapper row">
   <div class="sidebar-wrapper col-3">
     <div class="sidebar-bg-shape yachtski">
-      <div class="yachtski avg" style="display:none"><%= @song.yachtski %></div>
-      <div class="big-score"><%= @song.yachtski.round(2) %></div>
-      <div class="yacht-status"><%= @song.status %></div>
+      <div class="overall-score">
+        <div class="yachtski avg" style="display:none"><%= @song.yachtski %></div>
+        <div class="big-score"><%= @song.yachtski.round(2) %></div>
+        <div class="yacht-status"><%= @song.status %></div>
+      </div>
       <div class="host-scores">
         <div class="row score">
           <div class="col-6 host">
