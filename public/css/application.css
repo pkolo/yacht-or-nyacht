@@ -352,6 +352,10 @@ a {
     width: 100%;
   }
 
+  .big-score {
+    font-size: 2.5em;
+  }
+
   /* Header responsive */
 
   .nav-bar {
@@ -366,7 +370,7 @@ a {
   }
 
   .site-name {
-    font-size: 2.25em;
+    font-size: 2em;
     float: none;
     text-align: center;
   }
@@ -412,16 +416,23 @@ a {
   }
 
   .page-header {
-    margin-bottom: 10px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    text-align: center;
   }
 
   .big-title {
-    font-size: 1.75em;
+    font-size: 2em;
   }
 
   .artist-credit {
     font-size: 1em;
   }
+
+  .yacht-status {
+    font-size: 1em;
+  }
+
 
   .bullet {
     margin-right: 5px;

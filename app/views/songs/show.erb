@@ -1,39 +1,43 @@
 <div class="bg-wrapper row">
   <div class="sidebar-wrapper col-3">
     <div class="sidebar-bg-shape yachtski">
-      <div class="yachtski avg" style="display:none"><%= @song.yachtski %></div>
-      <div class="big-score"><%= @song.yachtski.round(2) %></div>
-      <div class="yacht-status"><%= @song.status %></div>
-      <div class="row score">
-        <div class="col-6 host">
-          JD
-        </div>
-        <div class="yachtski avg side-score col-6">
-          <%= @song.jd_score %>
-        </div>
+      <div class="overall-score">
+        <div class="yachtski avg" style="display:none"><%= @song.yachtski %></div>
+        <div class="big-score"><%= @song.yachtski.round(2) %></div>
+        <div class="yacht-status"><%= @song.status %></div>
       </div>
-      <div class="row score">
-        <div class="col-6 host">
-          Hunter
+      <div class="host-scores">
+        <div class="row score">
+          <div class="col-6 host">
+            JD
+          </div>
+          <div class="yachtski avg side-score col-6">
+            <%= @song.jd_score %>
+          </div>
         </div>
-        <div class="yachtski avg side-score col-6">
-          <%= @song.hunter_score %>
+        <div class="row score">
+          <div class="col-6 host">
+            Hunter
+          </div>
+          <div class="yachtski avg side-score col-6">
+            <%= @song.hunter_score %>
+          </div>
         </div>
-      </div>
-      <div class="row score">
-        <div class="col-6 host">
-          Steve
+        <div class="row score">
+          <div class="col-6 host">
+            Steve
+          </div>
+          <div class="yachtski avg side-score col-6">
+            <%= @song.steve_score %>
+          </div>
         </div>
-        <div class="yachtski avg side-score col-6">
-          <%= @song.steve_score %>
-        </div>
-      </div>
-      <div class="row score">
-        <div class="col-6 host">
-          Dave
-        </div>
-        <div class="yachtski avg side-score col-6">
-          <%= @song.dave_score %>
+        <div class="row score">
+          <div class="col-6 host">
+            Dave
+          </div>
+          <div class="yachtski avg side-score col-6">
+            <%= @song.dave_score %>
+          </div>
         </div>
       </div>
     </div>
@@ -68,17 +72,17 @@
             <div class="col-7 full-width-res">
               <% if @song.album %>
                 <div class="row">
-                  <div class="col-2 hideable">Album:</div>
-                  <div class="col-10 full-width-res"><a href="/albums/<%= @song.album.slug %>"><i><%= @song.album.title %></i></a></div>
+                  <div class="col-2 hideable col-title">Album:</div>
+                  <div class="col-10 info-album"><a href="/albums/<%= @song.album.slug %>"><i><%= @song.album.title %></i></a></div>
                 </div>
               <% end %>
               <div class="row">
-                <div class="col-2 hideable">Year:</div>
-                <div class="col-10 full-width-res"><%= @song.year %></div>
+                <div class="col-2 hideable col-title">Year:</div>
+                <div class="col-10 info-year"><%= @song.year %></div>
               </div>
               <div class="row">
-                <div class="col-2 hideable">Episode:</div>
-                <div class="col-10 full-width-res">
+                <div class="col-2 hideable col-title">Episode:</div>
+                <div class="col-10 hideable info-ep">
                   <a href="/episodes/<%= @song.episode.id %>"><%= @song.episode.number %></a>
                   <% if @song.episode.link %> (<a href="<%= @song.episode.link %>" target="_blank">Listen</a>)<% end %>
                 </div>
