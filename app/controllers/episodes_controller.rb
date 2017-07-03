@@ -52,17 +52,22 @@ post '/episodes/:id/songs' do
     @artist = Personnel.find_by("similarity(name, ?) > 0.5", data[:artist])
 
     if @artist
-      @song = Song.new(title: data[:title], year: data[:year], jd_score: data[:jd_score], hunter_score: data[:hunter_score], steve_score: data[:steve_score], dave_score: data[:dave_score])
-      @song.episode = @episode
       @credit = Credit.create(personnel: @artist, role: "Artist")
-      @song.credits << @credit
-
-      if @song.save
-        erb :'/songs/_list_item', layout: false, locals: {song: @song}
-      else
-        "error"
-      end
+    else
+      @artist = Personnel.create(name: data[:artist])
+      @credit = Credit.create(personnel: @artist, role: "Artist")
     end
+
+    @song = Song.new(title: data[:title], year: data[:year], jd_score: data[:jd_score], hunter_score: data[:hunter_score], steve_score: data[:steve_score], dave_score: data[:dave_score])
+    @song.episode = @episode
+    @song.credits << @credit
+
+    if @song.save
+      erb :'/songs/_list_item', layout: false, locals: {song: @song}
+    else
+      "error"
+    end
+
   else
     redirect '/'
   end
