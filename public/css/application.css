@@ -185,12 +185,23 @@ a {
   border-bottom: 1px solid #aaa;
 }
 
+/* Credit list style */
+
 .credits-list {
   margin-top: 5px;
 }
 
 .credit {
   padding-bottom: 5px;
+}
+
+.bullet {
+  width: 20px;
+  margin-right: 15px;
+}
+
+.personnel-role {
+  text-align: right;
 }
 
 /* Song list style */
@@ -246,46 +257,7 @@ a {
   margin-bottom: 25px;
 }
 
-/* Personnel page style */
-
-.personnel-section {
-  margin: 5px 0 20px 0;
-}
-
-.personnel-section-head {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-}
-
-.bullet {
-  width: 20px;
-  margin-right: 15px;
-}
-
-.personnel-role {
-  text-align: right;
-}
-
 /* Song page style */
-
-.song-indiv- {
-  width: 90%;
-}
-
-.song-info {
-  font-size: 1.15em;
-}
-
-.section-head {
-  margin-top: 15px;
-  margin-bottom: -10px;
-  font-size: 1.25em;
-}
-
-.column-head {
-  font-size: 1.25em;
-  margin-bottom: 5px;
-}
 
 .big-score {
   font-size: 4.0em;
@@ -327,15 +299,6 @@ a {
 .artist-credit {
   font-size: 1.25em;
   padding-bottom: 10px;
-}
-
-.track-info {
-  font-size: 1.25em;
-}
-
-/* Album page style */
-.album-score-box {
-  width: 95%;
 }
 
 @media screen and (max-width: 600px) {
