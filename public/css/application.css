@@ -80,6 +80,17 @@ body {
   height: 100%;
 }
 
+.footer {
+  position: relative;
+  bottom: 10px;
+  text-align: right;
+  color: #aaa;
+}
+
+.footer a {
+  color: #aaa;
+}
+
 
 /* Styles */
 
