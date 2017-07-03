@@ -301,6 +301,18 @@ a {
   padding-bottom: 10px;
 }
 
+/* Medium Style */
+
+@media screen and (max-width: 910px) {
+  .hideable-md {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+}
+
+/* Small Style */
+
 @media screen and (max-width: 600px) {
   body {
     padding: 0 5px;
