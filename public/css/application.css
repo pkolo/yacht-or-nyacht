@@ -41,21 +41,16 @@ body {
   padding: 0 15px;
 }
 
-.container {
+.content-wrapper {
   width: 100%;
   position: relative;
 }
 
-.content-wrapper,
-.bg-wrapper {
-  top: 0;
-  left: 0;
-  right: 0;
-  position: absolute;
+.sidebar-wrapper {
+  padding-right: 25px;
 }
 
-.content-wrapper {
-  z-index: 1;
+.main-wrapper {
 }
 
 .page-header {
@@ -69,15 +64,6 @@ body {
 
 .bg-wrapper {
   z-index: -1;
-}
-
-.sidebar-wrapper {
-  height: 90vh;
-}
-
-.sidebar-bg-shape {
-  width: 90%;
-  height: 100%;
 }
 
 .footer {
@@ -403,28 +389,6 @@ a {
   }
 
   /* Song page responsive */
-
-  .content-wrapper, .bg-wrapper {
-    position: relative;
-  }
-
-  .bg-wrapper {
-    z-index: 1;
-  }
-
-  .sidebar-wrapper {
-    height: 100%;
-    width: 100%;
-  }
-
-  .sidebar-bg-shape {
-    width: 100%;
-  }
-
-  .song-details {
-    width: 100%;
-    text-align: center;
-  }
 
   .page-header {
     padding-bottom: 15px;

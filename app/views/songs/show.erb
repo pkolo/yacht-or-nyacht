@@ -1,12 +1,9 @@
-<div class="content-wrapper">
   <div class="row">
-    <div class="col-3 hideable">
-      <div class="sidebar-section">
-        <%= erb :'songs/_score_panel' %>
-      </div>
+    <div class="col-3 sidebar-wrapper">
+      <%= erb :'songs/_score_panel' %>
     </div>
 
-    <div class="col-9 song-details">
+    <div class="col-9 main-wrapper">
       <div class="page-header">
         <div class="big-title"><%= @song.title %></div>
         <div class="artist-credit">by <%= @song.artist_list %></div>
