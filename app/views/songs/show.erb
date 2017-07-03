@@ -1,46 +1,6 @@
 <div class="bg-wrapper row">
   <div class="sidebar-wrapper col-3">
-    <div class="sidebar-bg-shape yachtski">
-      <div class="overall-score">
-        <div class="yachtski avg" style="display:none"><%= @song.yachtski %></div>
-        <div class="big-score"><%= @song.yachtski.round(2) %></div>
-        <div class="yacht-status"><%= @song.status %></div>
-      </div>
-      <div class="host-scores">
-        <div class="row score">
-          <div class="col-6 host">
-            JD
-          </div>
-          <div class="yachtski avg side-score col-6">
-            <%= @song.jd_score %>
-          </div>
-        </div>
-        <div class="row score">
-          <div class="col-6 host">
-            Hunter
-          </div>
-          <div class="yachtski avg side-score col-6">
-            <%= @song.hunter_score %>
-          </div>
-        </div>
-        <div class="row score">
-          <div class="col-6 host">
-            Steve
-          </div>
-          <div class="yachtski avg side-score col-6">
-            <%= @song.steve_score %>
-          </div>
-        </div>
-        <div class="row score">
-          <div class="col-6 host">
-            Dave
-          </div>
-          <div class="yachtski avg side-score col-6">
-            <%= @song.dave_score %>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= erb :'songs/_score_panel' %>
   </div>
 
   <div class="col-9 hideable">
