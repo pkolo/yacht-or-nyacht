@@ -188,6 +188,11 @@ $(document).ready(function() {
 
 // Responsive
 
+  if (screen.width < 911 ) {
+     $('.title').removeClass('col-6').addClass('col-7')
+  }
+
+
   if (screen.width < 500 ) {
      $('.page-header').insertBefore('.sidebar-wrapper')
 

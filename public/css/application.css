@@ -332,6 +332,18 @@ a {
     font-size: 2.5em;
   }
 
+  .sidebar-wrapper {
+    width: 100%;
+    padding-right: 0;
+    height: 100%;
+  }
+
+  .main-wrapper {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
+
   /* Header responsive */
 
   .nav-bar {
@@ -396,7 +408,7 @@ a {
     width: inherit;
   }
 
-  .role {
+  .personnel-role {
     float: right;
     width: 50%;
     text-align: right;
