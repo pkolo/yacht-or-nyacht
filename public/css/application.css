@@ -307,17 +307,25 @@ a {
 
 /* Medium Style */
 
-/*@media screen and (max-width: 910px) {
-  .hideable-md {
+@media screen and (max-width: 1070px) {
+  .nav-bar {
     visibility: hidden;
     clear: both;
     display: none;
   }
-}*/
+
+  .sidebar-wrapper {
+    font-size: 90%;
+  }
+
+  .list-headers, .song-list {
+    font-size: .85em;
+  }
+}
 
 /* Small Style */
 
-@media screen and (max-width: 911px) {
+@media screen and (max-width: 770px) {
   body {
     padding: 0 5px;
   }
@@ -346,6 +354,10 @@ a {
     text-align: center;
     width: 100%;
     height: 100%;
+  }
+
+  .tracklist .row {
+    font-size: 1em;
   }
 
   /* Header responsive */
