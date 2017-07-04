@@ -188,12 +188,8 @@ $(document).ready(function() {
 
 // Responsive
 
-  if (screen.width < 911 ) {
-     $('.title').removeClass('col-6').addClass('col-7')
-  }
 
-
-  if (screen.width < 500 ) {
+  if ((screen.width < 750 ) {
      $('.page-header').insertBefore('.sidebar-wrapper')
 
      var yachtski = $('.big-score').text()
