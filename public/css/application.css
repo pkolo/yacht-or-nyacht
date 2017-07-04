@@ -186,7 +186,7 @@ a {
 }
 
 .personnel-role {
-  font-size: 0.95em;
+  font-size: 0.90em;
 }
 
 /* Credit list style */
@@ -346,8 +346,8 @@ a {
 
   .sidebar-wrapper {
     width: 100%;
-    padding-right: 0;
     height: 100%;
+    padding: 0 10%;
   }
 
   .main-wrapper {
@@ -358,6 +358,7 @@ a {
 
   .tracklist .row {
     font-size: 1em;
+    text-align: left;
   }
 
   /* Header responsive */
@@ -416,7 +417,8 @@ a {
   }
 
   .host-scores {
-    font-size: 0.85em;
+    font-size: 0.75em;
+    padding: 0;
   }
 
   .bullet {
@@ -438,6 +440,12 @@ a {
     width: 50%;
     text-align: right;
     font-size: .75em;
+  }
+
+  .yt-embed {
+    max-width: 60%;
+    padding: 15%;
+    margin: 0 auto;
   }
 
   /* Personnel page responsive */
