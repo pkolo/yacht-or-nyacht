@@ -1,128 +1,33 @@
-<div class="bg-wrapper row">
-  <div class="sidebar-wrapper col-3">
-    <div class="sidebar-bg-shape yachtski">
-      <div class="overall-score">
-        <div class="yachtski avg" style="display:none"><%= @song.yachtski %></div>
-        <div class="big-score"><%= @song.yachtski.round(2) %></div>
-        <div class="yacht-status"><%= @song.status %></div>
-      </div>
-      <div class="host-scores">
-        <div class="row score">
-          <div class="col-6 host">
-            JD
-          </div>
-          <div class="yachtski avg side-score col-6">
-            <%= @song.jd_score %>
-          </div>
-        </div>
-        <div class="row score">
-          <div class="col-6 host">
-            Hunter
-          </div>
-          <div class="yachtski avg side-score col-6">
-            <%= @song.hunter_score %>
-          </div>
-        </div>
-        <div class="row score">
-          <div class="col-6 host">
-            Steve
-          </div>
-          <div class="yachtski avg side-score col-6">
-            <%= @song.steve_score %>
-          </div>
-        </div>
-        <div class="row score">
-          <div class="col-6 host">
-            Dave
-          </div>
-          <div class="yachtski avg side-score col-6">
-            <%= @song.dave_score %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-9 hideable">
-    &nbsp
-  </div>
-</div>
-
-
-
-<div class="content-wrapper">
   <div class="row">
-    <div class="col-3 hideable">
-      <div class="sidebar-section">
-        &nbsp
-      </div>
+    <div class="col-3 sidebar-wrapper">
+      <%= erb :'songs/_score_panel' %>
     </div>
 
-    <div class="col-9 song-details">
+    <div class="col-9 main-wrapper">
       <div class="page-header">
         <div class="big-title"><%= @song.title %></div>
         <div class="artist-credit">by <%= @song.artist_list %></div>
       </div>
 
-
-      <div class="content-section">
-        <div class="personnel-section song-info">
-          <div class="row">
-
-            <div class="col-7 full-width-res">
-              <% if @song.album %>
-                <div class="row">
-                  <div class="col-2 hideable col-title">Album:</div>
-                  <div class="col-10 info-album"><a href="/albums/<%= @song.album.slug %>"><i><%= @song.album.title %></i></a></div>
-                </div>
-              <% end %>
-              <div class="row">
-                <div class="col-2 hideable col-title">Year:</div>
-                <div class="col-10 info-year"><%= @song.year %></div>
-              </div>
-              <div class="row">
-                <div class="col-2 hideable col-title">Episode:</div>
-                <div class="col-10 hideable info-ep">
-                  <a href="/episodes/<%= @song.episode.id %>"><%= @song.episode.number %></a>
-                  <% if @song.episode.link %> (<a href="<%= @song.episode.link %>" target="_blank">Listen</a>)<% end %>
-                </div>
-              </div>
-            </div>
-
-            <% if @song.yt_id %>
-              <div class="col-5 full-width-res">
-                <div class="yt-embed">
-                  <iframe width="375" height="75" src="https://www.youtube.com/embed/<%= @song.yt_id %>?rel=0" frameborder="0" allowfullscreen></iframe>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
+      <%= erb :'songs/_song_info' %>
 
 
     <% if @song.album %>
       <% if @song.credits.players.any? %>
-        <div class="content-section">
-          <div class="sidebar-title">
+        <div class="page-section personnel">
+          <div class="section-title">
             Track Personnel
           </div>
-
-          <section class="credit-container">
-            <%= erb :'songs/_personnel_combine_roles', locals: { credits: @song.personnel_combined_roles } %>
-          </section>
+          <%= erb :'songs/_personnel_combine_roles', locals: { credits: @song.personnel_combined_roles } %>
         </div>
       <% end %>
 
       <% if @song.album.credits.players.any? %>
-        <div class="content-section">
-          <div class="sidebar-title">
+        <div class="page-section personnel">
+          <div class="section-title">
             Album Personnel
           </div>
-
-          <section class="credit-container">
-            <%= erb :'songs/_personnel_combine_roles', locals: { credits: @song.album.personnel_combined_roles } %>
-          </section>
+          <%= erb :'songs/_personnel_combine_roles', locals: { credits: @song.album.personnel_combined_roles } %>
         </div>
       <% end %>
 

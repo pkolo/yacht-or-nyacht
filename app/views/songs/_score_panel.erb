@@ -1,36 +1,41 @@
-<div class="score-box">
-  <div class="yachtski big-score avg"><%= song.yachtski.round(2) %></div>
-  <div class="yacht-status"><%= song.status %></div>
-  <div class="row score">
-    <div class="yachtski avg col-7">
-      <%= song.jd_score %>
-    </div>
-    <div class="col-5 host">
-      JD
-    </div>
+<div class="sidebar-bg-shape yachtski">
+  <div class="overall-score">
+    <div class="yachtski avg" style="display:none"><%= @song.yachtski %></div>
+    <div class="big-score"><%= @song.yachtski.round(2) %></div>
+    <div class="yacht-status"><%= @song.status %></div>
   </div>
-  <div class="row score">
-    <div class="yachtski avg col-7">
-      <%= song.hunter_score %>
+  <div class="host-scores">
+    <div class="row score">
+      <div class="col-6 host">
+        JD
+      </div>
+      <div class="yachtski avg side-score col-6">
+        <%= @song.jd_score %>
+      </div>
     </div>
-    <div class="col-5 host">
-      Hunter
+    <div class="row score">
+      <div class="col-6 host">
+        Hunter
+      </div>
+      <div class="yachtski avg side-score col-6">
+        <%= @song.hunter_score %>
+      </div>
     </div>
-  </div>
-  <div class="row score">
-    <div class="yachtski avg col-7">
-      <%= song.steve_score %>
+    <div class="row score">
+      <div class="col-6 host">
+        Steve
+      </div>
+      <div class="yachtski avg side-score col-6">
+        <%= @song.steve_score %>
+      </div>
     </div>
-    <div class="col-5 host">
-      Steve
-    </div>
-  </div>
-  <div class="row score">
-    <div class="yachtski avg col-7">
-      <%= song.dave_score %>
-    </div>
-    <div class="col-5 host">
-      Dave
+    <div class="row score">
+      <div class="col-6 host">
+        Dave
+      </div>
+      <div class="yachtski avg side-score col-6">
+        <%= @song.dave_score %>
+      </div>
     </div>
   </div>
 </div>

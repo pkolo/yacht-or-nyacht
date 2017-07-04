@@ -188,13 +188,14 @@ $(document).ready(function() {
 
 // Responsive
 
-  if (screen.width < 500 ) {
+
+  if (screen.width < 770 ) {
      $('.page-header').insertBefore('.sidebar-wrapper')
 
      var yachtski = $('.big-score').text()
 
      $('.sidebar-bg-shape').addClass('row')
-     $('.sidebar-bg-shape').css('background-color', getColor(yachtski))
+     $('sidebar-bg-shape').css('background-color', getColor(yachtski))
      $('.overall-score').addClass('col-6')
      $('.host-scores').addClass('col-6')
 

@@ -41,43 +41,32 @@ body {
   padding: 0 15px;
 }
 
-.container {
+.content-wrapper {
   width: 100%;
   position: relative;
 }
 
-.content-wrapper,
-.bg-wrapper {
-  top: 0;
-  left: 0;
-  right: 0;
-  position: absolute;
-}
-
-.content-wrapper {
-  z-index: 1;
-}
-
-.page-header {
-  margin-bottom: 28px;
-  border-bottom: 1px solid #aaa;
-}
-
-.content-section {
-  margin-bottom: 35px;
-}
-
-.bg-wrapper {
-  z-index: -1;
-}
-
 .sidebar-wrapper {
-  height: 90vh;
+  height: 87vh;
+  padding-right: 25px;
 }
 
 .sidebar-bg-shape {
-  width: 90%;
   height: 100%;
+}
+
+.main-wrapper {
+}
+
+.footer {
+  position: relative;
+  bottom: 10px;
+  text-align: right;
+  color: #aaa;
+}
+
+.footer a {
+  color: #aaa;
 }
 
 
@@ -166,19 +155,6 @@ a {
   opacity: 1;
 }
 
-/* Sidebar style */
-.sidebar-section {
-  width: 90%;
-  color: #fff;
-}
-
-.sidebar-title {
-  font-size: 1.15em;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #aaa;
-}
-
 /* Search page style */
 
 .search-results {
@@ -191,6 +167,46 @@ a {
   column-count: 4;
 }
 
+/* Page styles */
+
+.page-header {
+  margin-bottom: 28px;
+  border-bottom: 1px solid #aaa;
+}
+
+.page-section {
+  margin-bottom: 35px;
+}
+
+.section-title {
+  font-size: 1.15em;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #aaa;
+}
+
+.personnel-role {
+  font-size: 0.90em;
+}
+
+/* Credit list style */
+
+.credits-list {
+  margin-top: 5px;
+}
+
+.credit {
+  padding-bottom: 5px;
+}
+
+.bullet {
+  width: 20px;
+  margin-right: 15px;
+}
+
+.personnel-role {
+  text-align: right;
+}
 
 /* Song list style */
 
@@ -245,50 +261,7 @@ a {
   margin-bottom: 25px;
 }
 
-/* Personnel page style */
-
-.personnel-section {
-  margin: 5px 0 20px 0;
-}
-
-.personnel-section-head {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-}
-
-.personnel-credit {
-  padding-bottom: 5px;
-}
-
-.bullet {
-  width: 20px;
-  margin-right: 15px;
-}
-
-.role {
-  text-align: right;
-}
-
 /* Song page style */
-
-.song-indiv- {
-  width: 90%;
-}
-
-.song-info {
-  font-size: 1.15em;
-}
-
-.section-head {
-  margin-top: 15px;
-  margin-bottom: -10px;
-  font-size: 1.25em;
-}
-
-.column-head {
-  font-size: 1.25em;
-  margin-bottom: 5px;
-}
 
 .big-score {
   font-size: 4.0em;
@@ -299,6 +272,10 @@ a {
   padding-bottom: 10px;
   text-align: center;
   font-size: 1.25em;
+}
+
+.host-scores {
+  padding: 0 10px;
 }
 
 .score {
@@ -328,16 +305,27 @@ a {
   padding-bottom: 10px;
 }
 
-.track-info {
-  font-size: 1.25em;
+/* Medium Style */
+
+@media screen and (max-width: 1070px) {
+  .nav-bar {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+
+  .sidebar-wrapper {
+    font-size: 90%;
+  }
+
+  .list-headers, .song-list {
+    font-size: .85em;
+  }
 }
 
-/* Album page style */
-.album-score-box {
-  width: 95%;
-}
+/* Small Style */
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 770px) {
   body {
     padding: 0 5px;
   }
@@ -354,6 +342,23 @@ a {
 
   .big-score {
     font-size: 2.5em;
+  }
+
+  .sidebar-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 0 10%;
+  }
+
+  .main-wrapper {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tracklist .row {
+    font-size: 1em;
+    text-align: left;
   }
 
   /* Header responsive */
@@ -393,28 +398,6 @@ a {
 
   /* Song page responsive */
 
-  .content-wrapper, .bg-wrapper {
-    position: relative;
-  }
-
-  .bg-wrapper {
-    z-index: 1;
-  }
-
-  .sidebar-wrapper {
-    height: 100%;
-    width: 100%;
-  }
-
-  .sidebar-bg-shape {
-    width: 100%;
-  }
-
-  .song-details {
-    width: 100%;
-    text-align: center;
-  }
-
   .page-header {
     padding-bottom: 15px;
     margin-bottom: 15px;
@@ -422,7 +405,7 @@ a {
   }
 
   .big-title {
-    font-size: 2em;
+    font-size: 1.85em;
   }
 
   .artist-credit {
@@ -433,6 +416,10 @@ a {
     font-size: 1em;
   }
 
+  .host-scores {
+    font-size: 0.75em;
+    padding: 0;
+  }
 
   .bullet {
     margin-right: 5px;
@@ -440,13 +427,25 @@ a {
 
   .personnel-link {
     width: inherit;
+    text-align: left;
   }
 
-  .role {
+  .media-link {
+    width: 92%;
+    text-align: left;
+  }
+
+  .personnel-role {
     float: right;
     width: 50%;
     text-align: right;
     font-size: .75em;
+  }
+
+  .yt-embed {
+    max-width: 60%;
+    padding: 15%;
+    margin: 0 auto;
   }
 
   /* Personnel page responsive */

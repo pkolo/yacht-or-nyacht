@@ -1,17 +1,17 @@
 <% if credits.any? %>
-  <div class="personnel-section">
-    <div class="sidebar-title">
+  <div class="page-section personnel">
+    <div class="section-title">
       <%= type %> Contributions
     </div>
-    <div class="personnel-credits-list personnel-section">
+    <div class="credits-list">
       <% credits.each do |credit| %>
-      <div class="row personnel-credit">
+      <div class="row credit">
         <div class="yachtski-list-item" style="display:none"><%= credit[:media].yachtski %></div>
-        <div class="bullet col-1">&nbsp;</div>
-        <div class="col-6 credit-link">
+        <div class="col-1 bullet">&nbsp;</div>
+        <div class="col-6 media-link">
           <%= credit[:media].artist_list %> - <a href="/<%= type.downcase + 's' %>/<%= credit[:media].slug %>"><%= credit[:media].title %></a>
         </div>
-        <div class="col-5 role role-row">
+        <div class="col-5 personnel-role">
           <%= credit[:roles].join(', ') %>
         </div>
       </div>

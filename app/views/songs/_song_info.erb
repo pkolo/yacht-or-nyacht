@@ -1,3 +1,29 @@
-<div class="big-title">"<%= song.title %>"</div>
-<div class="artist-credit"><%= song.artist_list %> | <%= song.year %></div>
-<%= erb :'songs/_song_bar', locals: {song: @song} %>
+<div class="row page-section details">
+  <div class="col-7 full-width-res">
+    <% if @song.album %>
+      <div class="row">
+        <div class="col-2 hideable col-title">Album:</div>
+        <div class="col-10 info-album"><a href="/albums/<%= @song.album.slug %>"><i><%= @song.album.title %></i></a></div>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="col-2 hideable col-title">Year:</div>
+      <div class="col-10 info-year"><%= @song.year %></div>
+    </div>
+    <div class="row">
+      <div class="col-2 hideable col-title">Episode:</div>
+      <div class="col-10 hideable info-ep">
+        <a href="/episodes/<%= @song.episode.id %>"><%= @song.episode.number %></a>
+        <% if @song.episode.link %> (<a href="<%= @song.episode.link %>" target="_blank">Listen</a>)<% end %>
+      </div>
+    </div>
+  </div>
+
+  <% if @song.yt_id %>
+    <div class="col-5 full-width-res">
+      <div class="yt-embed">
+        <iframe width="375" height="75" src="https://www.youtube.com/embed/<%= @song.yt_id %>?rel=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  <% end %>
+</div>
