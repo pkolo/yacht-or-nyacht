@@ -185,6 +185,10 @@ a {
   border-bottom: 1px solid #aaa;
 }
 
+.personnel-role {
+  font-size: 0.95em;
+}
+
 /* Credit list style */
 
 .credits-list {
@@ -388,7 +392,7 @@ a {
   }
 
   .big-title {
-    font-size: 2em;
+    font-size: 1.85em;
   }
 
   .artist-credit {
@@ -399,6 +403,9 @@ a {
     font-size: 1em;
   }
 
+  .host-scores {
+    font-size: 0.85em;
+  }
 
   .bullet {
     margin-right: 5px;
@@ -406,6 +413,12 @@ a {
 
   .personnel-link {
     width: inherit;
+    text-align: left;
+  }
+
+  .media-link {
+    width: 92%;
+    text-align: left;
   }
 
   .personnel-role {
