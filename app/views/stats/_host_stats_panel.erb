@@ -13,7 +13,7 @@
 
     <% dissents[:yacht].each do |dissent| %>
       <div class="dissent">
-        <%= dissent[:song].artist.name %> - <%= dissent[:song].title %> (<%= dissent[:dissent].round(2) %> pts)
+        <%= dissent[:song].artist_list %> - <%= dissent[:song].title %> (<%= dissent[:dissent].round(2) %> pts)
       </div>
     <% end %>
 
@@ -21,7 +21,7 @@
 
     <% dissents[:nyacht].each do |dissent| %>
       <div class="dissent">
-        <%= dissent[:song].artist.name %> - <%= dissent[:song].title %> (<%= dissent[:dissent].round(2) %> pts)
+        <%= dissent[:song].artist_list %> - <%= dissent[:song].title %> (<%= dissent[:dissent].round(2) %> pts)
       </div>
     <% end %>
   </div>
@@ -31,8 +31,8 @@
     <% disagreements.each do |disagreement| %>
       <div class="disagreement">
         <div class="name">vs <%= nice_name(disagreement[:host]) %>:</div>
-        <p>Yacht: <%= disagreement[:yacht][:artist] %> - <%= disagreement[:yacht][:song_title] %> (<%= disagreement[:yacht][:disagreement] %> pt difference)</p>
-        <p>Nyacht: <%= disagreement[:nyacht][:artist] %> - <%= disagreement[:nyacht][:song_title] %> (<%= disagreement[:nyacht][:disagreement] %> pt difference)</p>
+        <p>Yacht: <%= disagreement[:yacht][:song].artist_list %> - <%= disagreement[:yacht][:song].title %> (<%= disagreement[:yacht][:disagreement] %> pt difference)</p>
+        <p>Nyacht: <%= disagreement[:nyacht][:song].artist_list %> - <%= disagreement[:nyacht][:song].title %> (<%= disagreement[:nyacht][:disagreement] %> pt difference)</p>
       </div>
     <% end %>
   </div>

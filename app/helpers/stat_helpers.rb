@@ -79,7 +79,7 @@ end
 
 # takes column names
 def disagreement(host, other_host)
-  disagreements = Song.all.map {|song| {song_id: song.id, song_title: song.title, artist: song.artist.name, disagreement: (song.send(host) - song.send(other_host))}}
+  disagreements = Song.all.map {|song| {song: song, disagreement: (song.send(host) - song.send(other_host))}}
   disagreements.sort_by {|song| song[:disagreement]}.reverse
 end
 
