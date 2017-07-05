@@ -1,5 +1,5 @@
 <div class="main-wrapper">
-  <% @hosts.each_with_index do |host, index| %>
-      <%= erb :'stats/_host_stats_panel', locals: {host: host} %>
+  <% @stats.each do |host_stats| %>
+      <%= erb :'stats/_host_stats_panel', locals: {host_stats: host_stats} %>
   <% end %>
 </div>

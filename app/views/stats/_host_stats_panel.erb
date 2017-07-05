@@ -1,12 +1,10 @@
 <div class="stats-wrapper">
-  <% total_yacht = total_yacht_pct(host) %>
-  <% disagreements = all_disagreements(host) %>
-  <% dissents = dissent(host) %>
-
-  <div class="host-name"><%= nice_name(host) %></div>
+  <div class="host-name"><%= host_stats[:host] %></div>
   <div class="page-section">
-    <div class="host-stat">Total Yacht Percentage: <%= total_yacht[:pct].round(2) %>% (<%= total_yacht[:count] %> / <%= Song.all.length %>)</div>
-    <div class="host-stat">Absolute mean deviation: <%= avg_deviation(host).round(3) %></div>
+    <div class="host-stat">
+      Essential: <%= host_stats[:yacht_count][:essential] %>, Yacht: <%= host_stats[:yacht_count][:yacht] %>, Nyacht: <%= host_stats[:yacht_count][:nyacht] %>
+    </div>
+    <div class="host-stat">Average deviation from the mean: <%= host_stats[:avg_deviation_from_mean].round(3) %></div>
   </div>
 
   <div class="row">

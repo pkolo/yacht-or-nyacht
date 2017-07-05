@@ -1,5 +1,5 @@
 def host_stats_serializer
-  hosts = ["jd", "hunter", "steve", "dave"]
+  hosts = ["jd"]
   host_stats = hosts.inject([]) do |memo, host|
     stats = {
       host: nice_name(host),
