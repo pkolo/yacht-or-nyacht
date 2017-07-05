@@ -5,7 +5,9 @@ def host_stats_serializer
       host: nice_name(host),
       yacht_count: yacht_count(host),
       avg_deviation_from_mean: avg_deviation(host),
-      dissents: dissents(host)
+      dissents: dissents(host),
+      disagreements: all_disagreements(host),
+      weird_essentials: weird_essentials(host)
     }
     memo << stats
   end
@@ -71,7 +73,7 @@ def dissents(host)
   dissents = Song.all.map do |song|
     other_total = other_hosts.inject(0) {|sum, other_host_score| sum + song.send(other_host_score)}
     other_avg = other_total / other_hosts.length
-    {song: song, host_score: song.send(host), avg_without_host: other_avg, dissent: (song.send(host) - other_avg)}
+    {song: {title: song.title, artists: song.artist_json, slug: song.slug}, host_score: song.send(host), avg_without_host: other_avg, dissent: (song.send(host) - other_avg)}
   end
 
   dissents.sort_by! {|song| song[:dissent]}.reverse
@@ -85,7 +87,7 @@ def all_disagreements(host)
     disagreements = disagreement(host, other_host)
     memo <<
       {
-        host: other_host[0..-7],
+        host: nice_name(other_host[0..-7]),
         yacht: disagreements.first,
         nyacht: disagreements.last
       }
@@ -94,11 +96,19 @@ end
 
 # takes column names
 def disagreement(host, other_host)
-  disagreements = Song.all.map {|song| {song: song, disagreement: (song.send(host) - song.send(other_host))}}
+  disagreements = Song.all.map do |song|
+    {
+      song: {title: song.title, artists: song.artist_json, slug: song.slug},
+      disagreement: (song.send(host) - song.send(other_host)),
+      host_score: song.send(host),
+      other_score: song.send(other_host)
+    }
+  end
   disagreements.sort_by {|song| song[:disagreement]}.reverse
 end
 
 def weird_essentials(host)
   host_score = get_column(host)
-  Song.where("#{host_score} >= 90") - Song.essentials
+  essentials = Song.where("#{host_score} >= 90") - Song.essentials
+  essentials.map {|song| {title: song.title, artists: song.artist_json, slug: song.slug, score: song.send(host_score)} }
 end
