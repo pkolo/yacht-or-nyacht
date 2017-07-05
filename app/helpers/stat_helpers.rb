@@ -1,3 +1,16 @@
+def host_stats_serializer
+  hosts = ["jd", "hunter", "steve", "dave"]
+  host_stats = hosts.inject([]) do |memo, host|
+    stats = {
+      host: nice_name(host),
+      yacht_count: yacht_count(host),
+      avg_deviation_from_mean: avg_deviation(host),
+      dissents: dissents(host)
+    }
+    memo << stats
+  end
+end
+
 def get_column(host)
   host + "_score"
 end
@@ -20,9 +33,11 @@ def nice_name(host)
 
 end
 
-def total_yacht_pct(host)
-  total_yacht = Song.where("#{get_column(host)} >= ?", 50).length
-  {count: total_yacht, pct: ((total_yacht / Song.all.length.to_f) * 100).round(2)}
+def yacht_count(host)
+  total_essential = Song.where("#{get_column(host)} >= ?", 90).length
+  total_yacht = Song.where("#{get_column(host)} >= ? AND #{get_column(host)} < ?", 50, 90).length
+  total_nyacht = Song.where("#{get_column(host)} < ?", 50).length
+  {essential: total_essential, yacht: total_yacht, nyacht: total_nyacht}
 end
 
 def avg_deviation(host)
@@ -49,14 +64,14 @@ def avg_host_deviations
   avg_dev
 end
 
-def dissent(host)
+def dissents(host)
   other_hosts = get_other_hosts(host)
   host = get_column(host)
 
   dissents = Song.all.map do |song|
     other_total = other_hosts.inject(0) {|sum, other_host_score| sum + song.send(other_host_score)}
     other_avg = other_total / other_hosts.length
-    {song: song, dissent: (song.send(host) - other_avg)}
+    {song: song, host_score: song.send(host), avg_without_host: other_avg, dissent: (song.send(host) - other_avg)}
   end
 
   dissents.sort_by! {|song| song[:dissent]}.reverse
