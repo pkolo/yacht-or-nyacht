@@ -305,6 +305,13 @@ a {
   padding-bottom: 10px;
 }
 
+/* Host stats style */
+
+.host-name {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
 /* Medium Style */
 
 @media screen and (max-width: 1070px) {

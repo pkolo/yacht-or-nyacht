@@ -1,4 +1,4 @@
 get '/stats' do
-  @hosts = ["jd", "hunter", "steve", "dave"]
+  @hosts = ["jd"]
   erb :'stats/_hosts'
 end
