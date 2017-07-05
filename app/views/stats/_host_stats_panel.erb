@@ -9,31 +9,39 @@
 
   <div class="row">
     <div class="page-section col-6">
-      <div class="section-title">Largest 'Yacht' Dissents:</div>
-      <% dissents[:yacht].each do |dissent| %>
+      <div class="section-title">Largest 'Yacht' Dissents</div>
+      <% host_stats[:dissents][:yacht].each do |dissent| %>
         <div class="dissent">
-          <%= dissent[:song].artist_list %> - <%= dissent[:song].title %> (<%= dissent[:dissent].round(2) %> pts)
+          <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> - <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %> (<%= dissent[:dissent].round(2) %> pts)
         </div>
       <% end %>
     </div>
 
     <div class="page-section col-6">
-      <div class="section-title">Largest 'Nyacht' Dissents:</div>
-      <% dissents[:nyacht].each do |dissent| %>
+      <div class="section-title">Largest 'Nyacht' Dissents</div>
+      <% host_stats[:dissents][:nyacht].each do |dissent| %>
         <div class="dissent">
-          <%= dissent[:song].artist_list %> - <%= dissent[:song].title %> (<%= dissent[:dissent].round(2) %> pts)
+          <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> - <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %> (<%= dissent[:dissent].round(2) %> pts)
         </div>
       <% end %>
     </div>
   </div>
 
   <div class="page-section">
-    <div class="section-title">Largest disagreements:</div>
-    <% disagreements.each do |disagreement| %>
+    <div class="section-title">Largest disagreements</div>
+    <% host_stats[:disagreements].each do |disagreement| %>
+      <% yacht = disagreement[:yacht] %>
+      <% nyacht = disagreement[:nyacht] %>
       <div class="disagreement">
-        <div class="name">vs <%= nice_name(disagreement[:host]) %>:</div>
-        <p>Yacht: <%= disagreement[:yacht][:song].artist_list %> - <%= disagreement[:yacht][:song].title %> (<%= disagreement[:yacht][:disagreement] %> pt difference)</p>
-        <p>Nyacht: <%= disagreement[:nyacht][:song].artist_list %> - <%= disagreement[:nyacht][:song].title %> (<%= disagreement[:nyacht][:disagreement] %> pt difference)</p>
+        <div class="name">vs <%= disagreement[:host] %>:</div>
+        <p>
+          Yacht: <%= yacht[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
+                 <%= "<a href='/songs/#{yacht[:song][:slug]}'>#{yacht[:song][:title]}</a>" %> (<%= yacht[:disagreement].round(2) %> pts)
+        </p>
+        <p>
+          Nyacht: <%= nyacht[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
+                 <%= "<a href='/songs/#{nyacht[:song][:slug]}'>#{nyacht[:song][:title]}</a>" %> (<%= nyacht[:disagreement].round(2) %> pts)
+        </p>
       </div>
     <% end %>
   </div>
