@@ -32,6 +32,11 @@ class Song < ActiveRecord::Base
     end
   end
 
+  def artist_json
+    artist_data = self.performers.pluck(:slug, :name)
+    artists = artist_data.map { |data| {slug: data[0], name: data[1]} }
+  end
+
   def combined_players
     roles = self.credits.players.pluck(:role).uniq
     roles.each_with_object([]) do |role, memo|
