@@ -1,7 +1,5 @@
-def host_stats_serializer
-  hosts = ["jd"]
-  host_stats = hosts.inject([]) do |memo, host|
-    stats = {
+def host_stats_serializer(host)
+  host_stats = {
       host: nice_name(host),
       yacht_count: yacht_count(host),
       avg_deviation_from_mean: avg_deviation(host),
@@ -9,8 +7,6 @@ def host_stats_serializer
       disagreements: all_disagreements(host),
       weird_essentials: weird_essentials(host)
     }
-    memo << stats
-  end
 end
 
 def get_column(host)

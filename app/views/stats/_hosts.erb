@@ -23,8 +23,6 @@
   </div>
 
   <div class="col-9 main-wrapper">
-    <% @stats.each do |host_stats| %>
-        <%= erb :'stats/_host_stats_panel', locals: {host_stats: host_stats} %>
-    <% end %>
+    <%= erb :'stats/_host_stats_panel', locals: {host_stats: @stats} %>
   </div>
 </div>
