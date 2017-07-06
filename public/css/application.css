@@ -312,15 +312,15 @@ a {
   margin-bottom: 15px;
 }
 
-.dissent-list {
+.stat-list {
   padding: 0 10px 0 0;
 }
 
-.dissent.list-headers {
+.stat.list-headers {
   font-size: 85%;
 }
 
-.dissent > * {
+.stat > * {
   padding: 5px;
 }
 
