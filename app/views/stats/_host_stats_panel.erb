@@ -8,7 +8,7 @@
           <span class="nyacht">Nyacht: <%= host_stats[:yacht_count][:nyacht][:count] %></span>
         </div>
         <div>
-          Average deviation from Yachtski: <%= host_stats[:avg_deviation_from_mean].round(3) %> pts
+          Average Deviation from Yachtski: <%= host_stats[:avg_deviation_from_mean].round(3) %> pts
         </div>
       </div>
     </div>
@@ -25,12 +25,12 @@
   </div>
 
   <div class="page-section">
-    <div class="section-title">Largest 'Yacht' disagreements</div>
+    <div class="section-title">Largest 'Yacht' Disagreements</div>
     <%= erb :'stats/_disagreements', locals: {all_disagreements: host_stats[:disagreements], status: :yacht, host: host_stats[:host] } %>
   </div>
 
   <div class="page-section">
-    <div class="section-title">Largest 'Nyacht' disagreements</div>
+    <div class="section-title">Largest 'Nyacht' Disagreements</div>
     <%= erb :'stats/_disagreements', locals: {all_disagreements: host_stats[:disagreements], status: :nyacht, host: host_stats[:host] } %>
   </div>
 
