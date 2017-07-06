@@ -313,7 +313,11 @@ a {
 }
 
 .dissent-list {
-  padding: 10px 10px 0 0;
+  padding: 0 10px 0 0;
+}
+
+.dissent.list-headers {
+  font-size: 85%;
 }
 
 .dissent > * {
