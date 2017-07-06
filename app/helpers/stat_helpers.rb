@@ -1,5 +1,5 @@
 def host_stats_serializer
-  hosts = ["dave"]
+  hosts = ["jd"]
   host_stats = hosts.inject([]) do |memo, host|
     stats = {
       host: nice_name(host),
@@ -111,5 +111,5 @@ end
 def weird_essentials(host)
   host_score = get_column(host)
   essentials = Song.where("#{host_score} >= 90") - Song.essentials
-  essentials.map {|song| {title: song.title, artists: song.artist_json, slug: song.slug, score: song.send(host_score)} }
+  essentials.map {|song| {title: song.title, artists: song.artist_json, slug: song.slug, score: song.send(host_score), yachtski: song.yachtski} }
 end

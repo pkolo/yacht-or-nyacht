@@ -100,13 +100,23 @@
 
   <div class="page-section">
     <div class="section-title">Weird Essentials</div>
-    <% host_stats[:weird_essentials].each do |song| %>
-      <div>
-        <%= song[:score] %> -
-        <%= song[:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
-        <%= "<a href='/songs/#{song[:slug]}'>#{song[:title]}</a>" %>
+    <div class="stat-list">
+      <div class="stat row list-headers">
+        <div class="col-2"><%= host_stats[:host].split(' ').first %></div>
+        <div class="col-8">Song</div>
+        <div class="col-2">Yachtski</div>
       </div>
-    <% end %>
+      <% host_stats[:weird_essentials].each do |song| %>
+        <div class="stat row">
+          <div class="col-2 yachtski"><%= song[:score] %></div>
+          <div class="col-8">
+            <%= song[:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
+            <%= "<a href='/songs/#{song[:slug]}'>#{song[:title]}</a>" %>
+          </div>
+          <div class="col-2 yachtski avg"><%= song[:yachtski] %></div>
+        </div>
+      <% end %>
+    </div>
   </div>
 
 </div>
