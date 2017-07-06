@@ -312,6 +312,14 @@ a {
   margin-bottom: 15px;
 }
 
+.dissent-list {
+  padding: 10px 10px 0 0;
+}
+
+.dissent > * {
+  padding: 5px;
+}
+
 /* Medium Style */
 
 @media screen and (max-width: 1070px) {
