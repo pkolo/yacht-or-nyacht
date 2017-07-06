@@ -20,7 +20,8 @@
             <div class="dissent row">
               <div class="col-2 yachtski"><%= dissent[:host_score] %></div>
               <div class="col-8">
-                <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> - <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %>
+                <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
+                <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %>
               </div>
               <div class="col-2 yachtski avg"><%= dissent[:avg_without_host].round(2) %></div>
             </div>
@@ -40,7 +41,8 @@
           <div class="dissent row">
             <div class="col-2 yachtski"><%= dissent[:host_score] %></div>
             <div class="col-8">
-              <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> - <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %>
+              <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
+              <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %>
             </div>
             <div class="col-2 yachtski avg"><%= dissent[:avg_without_host].round(2) %></div>
           </div>

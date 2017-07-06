@@ -101,7 +101,8 @@ def disagreement(host, other_host)
       song: {title: song.title, artists: song.artist_json, slug: song.slug},
       disagreement: (song.send(host) - song.send(other_host)),
       host_score: song.send(host),
-      other_score: song.send(other_host)
+      other_score: song.send(other_host),
+      yachtski: song.yachtski
     }
   end
   disagreements.sort_by {|song| song[:disagreement]}.reverse
