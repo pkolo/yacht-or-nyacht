@@ -7,37 +7,15 @@
     <div class="host-stat">Average deviation from the mean: <%= host_stats[:avg_deviation_from_mean].round(3) %></div>
   </div>
 
-  <div class="row">
-    <div class="page-section col-6">
-      <div class="section-title">Largest 'Yacht' Dissents</div>
-        <div class="stat-list">
-          <div class="stat row list-headers">
-            <div class="col-2"><%= host_stats[:host].split(' ').first %></div>
-            <div class="col-8">Song</div>
-            <div class="col-2">Others</div>
-          </div>
-          <% host_stats[:dissents][:yacht].each do |dissent| %>
-            <div class="stat row">
-              <div class="col-2 yachtski"><%= dissent[:host_score] %></div>
-              <div class="col-8">
-                <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
-                <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %>
-              </div>
-              <div class="col-2 yachtski avg"><%= dissent[:avg_without_host].round(2) %></div>
-            </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="page-section col-6">
-      <div class="section-title">Largest 'Nyacht' Dissents</div>
+  <div class="page-section">
+    <div class="section-title">Largest 'Yacht' Dissents</div>
       <div class="stat-list">
         <div class="stat row list-headers">
           <div class="col-2"><%= host_stats[:host].split(' ').first %></div>
           <div class="col-8">Song</div>
           <div class="col-2">Others</div>
         </div>
-        <% host_stats[:dissents][:nyacht].each do |dissent| %>
+        <% host_stats[:dissents][:yacht].each do |dissent| %>
           <div class="stat row">
             <div class="col-2 yachtski"><%= dissent[:host_score] %></div>
             <div class="col-8">
@@ -46,56 +24,39 @@
             </div>
             <div class="col-2 yachtski avg"><%= dissent[:avg_without_host].round(2) %></div>
           </div>
-        <% end %>
-      </div>
+      <% end %>
     </div>
   </div>
 
   <div class="page-section">
-    <div class="row">
-      <div class="col-6 section-title">Largest 'Yacht' disagreements</div>
-      <div class="col-6 section-title">Largest 'Nyacht' disagreements</div>
-    </div>
-    <% host_stats[:disagreements].each do |disagreement| %>
-      <% yacht = disagreement[:yacht] %>
-      <% nyacht = disagreement[:nyacht] %>
-
-        <div class="row">
-          <div class="col-6 stat-list">
-            <div class="stat row list-headers">
-              <div class="col-2"><%= host_stats[:host].split(' ').first %></div>
-              <div class="col-8">Song</div>
-              <div class="col-2"><%= disagreement[:host].split(' ').first %></div>
-            </div>
-            <div class="stat row">
-              <div class="yachtski avg" style="display:none"><%= yacht[:yachtski] %></div>
-              <div class="col-2 yachtski"><%= yacht[:host_score] %></div>
-              <div class="col-8">
-                <%= yacht[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
-                <%= "<a href='/songs/#{yacht[:song][:slug]}'>#{yacht[:song][:title]}</a>" %>
-              </div>
-              <div class="col-2 yachtski"><%= yacht[:other_score] %></div>
-            </div>
+    <div class="section-title">Largest 'Nyacht' Dissents</div>
+    <div class="stat-list">
+      <div class="stat row list-headers">
+        <div class="col-2"><%= host_stats[:host].split(' ').first %></div>
+        <div class="col-8">Song</div>
+        <div class="col-2">Others</div>
+      </div>
+      <% host_stats[:dissents][:nyacht].each do |dissent| %>
+        <div class="stat row">
+          <div class="col-2 yachtski"><%= dissent[:host_score] %></div>
+          <div class="col-8">
+            <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
+            <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %>
           </div>
-
-          <div class="col-6">
-            <div class="stat row list-headers">
-              <div class="col-2"><%= host_stats[:host].split(' ').first %></div>
-              <div class="col-8">Song</div>
-              <div class="col-2"><%= disagreement[:host].split(' ').first %></div>
-            </div>
-            <div class="stat row">
-              <div class="yachtski avg" style="display:none"><%= nyacht[:yachtski] %></div>
-              <div class="col-2 yachtski"><%= nyacht[:host_score] %></div>
-              <div class="col-8">
-                <%= nyacht[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
-                <%= "<a href='/songs/#{nyacht[:song][:slug]}'>#{nyacht[:song][:title]}</a>" %>
-              </div>
-              <div class="col-2 yachtski"><%= nyacht[:other_score] %></div>
-            </div>
-          </div>
+          <div class="col-2 yachtski avg"><%= dissent[:avg_without_host].round(2) %></div>
         </div>
-    <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="page-section">
+    <div class="section-title">Largest 'Yacht' disagreements</div>
+    <%= erb :'stats/_disagreements', locals: {all_disagreements: host_stats[:disagreements], status: :yacht, host: host_stats[:host] } %>
+  </div>
+
+  <div class="page-section">
+    <div class="section-title">Largest 'Nyacht' disagreements</div>
+    <%= erb :'stats/_disagreements', locals: {all_disagreements: host_stats[:disagreements], status: :nyacht, host: host_stats[:host] } %>
   </div>
 
   <div class="page-section">

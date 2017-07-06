@@ -313,7 +313,6 @@ a {
 }
 
 .stat-list {
-  padding: 0 10px 0 0;
 }
 
 .stat.list-headers {
@@ -321,7 +320,8 @@ a {
 }
 
 .stat > * {
-  padding: 10px;
+  padding: 5px;
+  text-align: center;
 }
 
 /* Medium Style */
