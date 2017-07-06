@@ -72,6 +72,18 @@ body {
 
 /* Styles */
 
+.essential {
+  color: rgb(117, 191, 131);
+}
+
+.yacht {
+  color: rgb(218, 208, 109);
+}
+
+.nyacht {
+  color: rgb(232, 133, 113);
+}
+
 a {
   color: #444;
 }
@@ -337,6 +349,10 @@ a {
 
 /* Host stats style */
 
+.stats-header {
+  margin-bottom: 20px;
+}
+
 .host-name {
   font-size: 2.5em;
   margin-bottom: 15px;
@@ -351,6 +367,10 @@ a {
 
 .stat {
   display: flex;
+}
+
+.row.large {
+  font-size: 1.05em;
 }
 
 .stat > * {

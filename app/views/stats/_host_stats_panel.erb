@@ -1,10 +1,17 @@
 <div class="stats-wrapper">
-  <div class="host-name"><%= host_stats[:host] %></div>
-  <div class="page-section">
-    <div class="host-stat">
-      Essential: <%= host_stats[:yacht_count][:essential] %>, Yacht: <%= host_stats[:yacht_count][:yacht] %>, Nyacht: <%= host_stats[:yacht_count][:nyacht] %>
+  <div class="stats-header">
+    <div class="host-name"><%= host_stats[:host] %></div>
+      <div class="row large">
+        <div>
+          <span class="essential">Essential: <%= host_stats[:yacht_count][:essential][:count] %></span>,
+          <span class="yacht">Yacht: <%= host_stats[:yacht_count][:yacht][:count] %></span>,
+          <span class="nyacht">Nyacht: <%= host_stats[:yacht_count][:nyacht][:count] %></span>
+        </div>
+        <div>
+          Average deviation from Yachtski: <%= host_stats[:avg_deviation_from_mean].round(3) %> pts
+        </div>
+      </div>
     </div>
-    <div class="host-stat">Average deviation from the mean: <%= host_stats[:avg_deviation_from_mean].round(3) %></div>
   </div>
 
   <div class="page-section">
