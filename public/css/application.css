@@ -430,6 +430,25 @@ a {
     padding: 0 10%;
   }
 
+  .bg {
+    background-color: #fff;
+  }
+
+  .sidebar-menu {
+    text-align: center;
+    padding: 10px;
+    font-size: 75%;
+  }
+
+  .menu-i {
+    padding: 0 10px;;
+    display: inline-block;
+  }
+
+  .host-name {
+    margin-top: 10px;
+  }
+
   .main-wrapper {
     text-align: center;
     width: 100%;
