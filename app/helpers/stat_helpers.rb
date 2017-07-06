@@ -73,7 +73,7 @@ def dissents(host)
   dissents = Song.all.map do |song|
     other_total = other_hosts.inject(0) {|sum, other_host_score| sum + song.send(other_host_score)}
     other_avg = other_total / other_hosts.length
-    {song: {title: song.title, artists: song.artist_json, slug: song.slug}, host_score: song.send(host), avg_without_host: other_avg, dissent: (song.send(host) - other_avg)}
+    {song: {title: song.title, artists: song.artist_json, slug: song.slug}, yachtski: song.yachtski, host_score: song.send(host), avg_without_host: other_avg, dissent: (song.send(host) - other_avg)}
   end
 
   dissents.sort_by! {|song| song[:dissent]}.reverse
