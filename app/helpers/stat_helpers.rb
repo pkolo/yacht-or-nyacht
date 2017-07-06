@@ -1,12 +1,18 @@
 def host_stats_serializer(host)
-  host_stats = {
-      host: nice_name(host),
-      yacht_count: yacht_count(host),
-      avg_deviation_from_mean: avg_deviation(host),
-      dissents: dissents(host),
-      disagreements: all_disagreements(host),
-      weird_essentials: weird_essentials(host)
-    }
+  if valid_host?(host)
+    host_stats = {
+        host: nice_name(host),
+        yacht_count: yacht_count(host),
+        avg_deviation_from_mean: avg_deviation(host),
+        dissents: dissents(host),
+        disagreements: all_disagreements(host),
+        weird_essentials: weird_essentials(host)
+      }
+  end
+end
+
+def valid_host?(host)
+  ["jd", "hunter", "steve", "dave"].include?(host)
 end
 
 def get_column(host)
@@ -35,7 +41,12 @@ def yacht_count(host)
   total_essential = Song.where("#{get_column(host)} >= ?", 90).length
   total_yacht = Song.where("#{get_column(host)} >= ? AND #{get_column(host)} < ?", 50, 90).length
   total_nyacht = Song.where("#{get_column(host)} < ?", 50).length
-  {essential: total_essential, yacht: total_yacht, nyacht: total_nyacht}
+  total = Song.count.to_f
+  {
+    essential: {count: total_essential, pct: (total_essential / total) * 100},
+    yacht: {count: total_yacht, pct: (total_yacht / total) * 100},
+    nyacht: {count: total_nyacht, pct: (total_nyacht / total) * 100},
+  }
 end
 
 def avg_deviation(host)
