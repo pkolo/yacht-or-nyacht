@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-3 sidebar-wrapper">
+    <div class="sidebar-bg-shape">
+      <div class="big-score bg" style="display:none">100.0</div>
+      <div class="sidebar-menu">
+        <div class="menu-header hideable">Host Stats</div>
+        <div class="menu-list">
+          <div class="menu-i">
+            <a href="/stats/jd">JD Ryznar</a>
+          </div>
+          <div class="menu-i">
+            <a href="/stats/hunter">Hunter Stair</a>
+          </div>
+          <div class="menu-i">
+            <a href="/stats/steve">Steve Huey</a>
+          </div>
+          <div class="menu-i">
+            <a href="/stats/dave">Dave Lyons</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-9 main-wrapper">
+    <%= erb :'stats/_host_stats_panel', locals: {host_stats: @stats} %>
+  </div>
+</div>

@@ -72,6 +72,18 @@ body {
 
 /* Styles */
 
+.essential {
+  color: rgb(117, 191, 131);
+}
+
+.yacht {
+  color: rgb(218, 208, 109);
+}
+
+.nyacht {
+  color: rgb(232, 133, 113);
+}
+
 a {
   color: #444;
 }
@@ -305,6 +317,74 @@ a {
   padding-bottom: 10px;
 }
 
+/* Sidebar menu style */
+
+.sidebar-menu {
+  color: #fff;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.menu-header {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+.menu-list {
+  font-size: 1.25em;
+}
+
+.menu-i {
+  margin-bottom: 5px;
+}
+
+.menu-i > a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.menu-i > a:hover {
+  text-decoration: underline;
+}
+
+/* Host stats style */
+
+.stats-header {
+  margin-bottom: 20px;
+}
+
+.host-name {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+.stat-list {
+}
+
+.stat.list-headers {
+  font-size: 85%;
+}
+
+.stat {
+  display: flex;
+}
+
+.row.large {
+  font-size: 1.05em;
+}
+
+.stat > * {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat > .title {
+  display: block;
+  text-align: center;
+}
+
 /* Medium Style */
 
 @media screen and (max-width: 1070px) {
@@ -348,6 +428,25 @@ a {
     width: 100%;
     height: 100%;
     padding: 0 10%;
+  }
+
+  .bg {
+    background-color: #fff;
+  }
+
+  .sidebar-menu {
+    text-align: center;
+    padding: 10px;
+    font-size: 75%;
+  }
+
+  .menu-i {
+    padding: 0 10px;;
+    display: inline-block;
+  }
+
+  .host-name {
+    margin-top: 10px;
   }
 
   .main-wrapper {

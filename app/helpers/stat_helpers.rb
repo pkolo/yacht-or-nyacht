@@ -1,3 +1,20 @@
+def host_stats_serializer(host)
+  if valid_host?(host)
+    host_stats = {
+        host: nice_name(host),
+        yacht_count: yacht_count(host),
+        avg_deviation_from_mean: avg_deviation(host),
+        dissents: dissents(host),
+        disagreements: all_disagreements(host),
+        weird_essentials: weird_essentials(host)
+      }
+  end
+end
+
+def valid_host?(host)
+  ["jd", "hunter", "steve", "dave"].include?(host)
+end
+
 def get_column(host)
   host + "_score"
 end
@@ -20,9 +37,16 @@ def nice_name(host)
 
 end
 
-def total_yacht_pct(host)
-  total_yacht = Song.where("#{get_column(host)} >= ?", 50).length
-  {count: total_yacht, pct: ((total_yacht / Song.all.length.to_f) * 100).round(2)}
+def yacht_count(host)
+  total_essential = Song.where("#{get_column(host)} >= ?", 90).length
+  total_yacht = Song.where("#{get_column(host)} >= ? AND #{get_column(host)} < ?", 50, 90).length
+  total_nyacht = Song.where("#{get_column(host)} < ?", 50).length
+  total = Song.count.to_f
+  {
+    essential: {count: total_essential, pct: (total_essential / total) * 100},
+    yacht: {count: total_yacht, pct: (total_yacht / total) * 100},
+    nyacht: {count: total_nyacht, pct: (total_nyacht / total) * 100},
+  }
 end
 
 def avg_deviation(host)
@@ -49,14 +73,14 @@ def avg_host_deviations
   avg_dev
 end
 
-def dissent(host)
+def dissents(host)
   other_hosts = get_other_hosts(host)
   host = get_column(host)
 
   dissents = Song.all.map do |song|
     other_total = other_hosts.inject(0) {|sum, other_host_score| sum + song.send(other_host_score)}
     other_avg = other_total / other_hosts.length
-    {song: song, dissent: (song.send(host) - other_avg)}
+    {song: {title: song.title, artists: song.artist_json, slug: song.slug}, yachtski: song.yachtski, host_score: song.send(host), avg_without_host: other_avg, dissent: (song.send(host) - other_avg)}
   end
 
   dissents.sort_by! {|song| song[:dissent]}.reverse
@@ -70,7 +94,7 @@ def all_disagreements(host)
     disagreements = disagreement(host, other_host)
     memo <<
       {
-        host: other_host[0..-7],
+        host: nice_name(other_host[0..-7]),
         yacht: disagreements.first,
         nyacht: disagreements.last
       }
@@ -79,11 +103,21 @@ end
 
 # takes column names
 def disagreement(host, other_host)
-  disagreements = Song.all.map {|song| {song_id: song.id, song_title: song.title, artist: song.artist.name, disagreement: (song.send(host) - song.send(other_host))}}
+  disagreements = Song.all.map do |song|
+    {
+      song: {title: song.title, artists: song.artist_json, slug: song.slug},
+      disagreement: (song.send(host) - song.send(other_host)),
+      host_score: song.send(host),
+      other_score: song.send(other_host),
+      yachtski: song.yachtski
+    }
+  end
   disagreements.sort_by {|song| song[:disagreement]}.reverse
 end
 
 def weird_essentials(host)
   host_score = get_column(host)
-  Song.where("#{host_score} >= 90") - Song.essentials
+  essentials = Song.where("#{host_score} >= 90") - Song.essentials
+  essentials = essentials.map {|song| {title: song.title, artists: song.artist_json, slug: song.slug, score: song.send(host_score), yachtski: song.yachtski} }
+  essentials = essentials.sort_by { |essential| essential[:score] }.reverse
 end

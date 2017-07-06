@@ -1,0 +1,23 @@
+<% all_disagreements.each do |disagreement| %>
+  <% if disagreement[status] %>
+    <% y_o_n = disagreement[status] %>
+    <div class="row">
+      <div class="stat-list">
+        <div class="stat row list-headers">
+          <div class="col-2"><%= host.split(' ').first %></div>
+          <div class="col-8">&nbsp</div>
+          <div class="col-2"><%= disagreement[:host].split(' ').first %></div>
+        </div>
+        <div class="stat row">
+          <div class="yachtski avg" style="display:none"><%= y_o_n[:yachtski] %></div>
+          <div class="col-2 yachtski"><%= y_o_n[:host_score] %></div>
+          <div class="col-8 title">
+            <%= y_o_n[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
+            <%= "<a href='/songs/#{y_o_n[:song][:slug]}'>#{y_o_n[:song][:title]}</a>" %>
+          </div>
+          <div class="col-2 yachtski"><%= y_o_n[:other_score] %></div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
