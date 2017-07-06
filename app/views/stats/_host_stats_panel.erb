@@ -38,7 +38,7 @@
       <% host_stats[:weird_essentials].each do |song| %>
         <div class="stat row">
           <div class="col-2 yachtski"><%= song[:score] %></div>
-          <div class="col-8">
+          <div class="col-8 title">
             <%= song[:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
             <%= "<a href='/songs/#{song[:slug]}'>#{song[:title]}</a>" %>
           </div>
