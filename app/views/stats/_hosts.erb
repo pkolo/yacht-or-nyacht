@@ -1,5 +1,13 @@
-<div class="main-wrapper">
-  <% @stats.each do |host_stats| %>
-      <%= erb :'stats/_host_stats_panel', locals: {host_stats: host_stats} %>
-  <% end %>
+<div class="row">
+  <div class="col-3 sidebar-wrapper">
+    <div class="sidebar-bg-shape">
+      <div class="big-score" style="display:none">100.0</div>
+    </div>
+  </div>
+
+  <div class="col-9 main-wrapper">
+    <% @stats.each do |host_stats| %>
+        <%= erb :'stats/_host_stats_panel', locals: {host_stats: host_stats} %>
+    <% end %>
+  </div>
 </div>
