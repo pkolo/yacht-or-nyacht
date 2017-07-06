@@ -1,0 +1,17 @@
+<div class="stat-list">
+  <div class="stat row list-headers">
+    <div class="col-2"><%= host.split(' ').first %></div>
+    <div class="col-8">&nbsp</div>
+    <div class="col-2">Others</div>
+  </div>
+  <% dissents[status].each do |dissent| %>
+    <div class="stat row">
+      <div class="col-2 yachtski"><%= dissent[:host_score] %></div>
+      <div class="col-8">
+        <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
+        <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %>
+      </div>
+      <div class="col-2 yachtski avg"><%= dissent[:avg_without_host].round(2) %></div>
+    </div>
+<% end %>
+</div>

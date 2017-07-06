@@ -9,44 +9,12 @@
 
   <div class="page-section">
     <div class="section-title">Largest 'Yacht' Dissents</div>
-      <div class="stat-list">
-        <div class="stat row list-headers">
-          <div class="col-2"><%= host_stats[:host].split(' ').first %></div>
-          <div class="col-8">&nbsp</div>
-          <div class="col-2">Others</div>
-        </div>
-        <% host_stats[:dissents][:yacht].each do |dissent| %>
-          <div class="stat row">
-            <div class="col-2 yachtski"><%= dissent[:host_score] %></div>
-            <div class="col-8">
-              <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
-              <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %>
-            </div>
-            <div class="col-2 yachtski avg"><%= dissent[:avg_without_host].round(2) %></div>
-          </div>
-      <% end %>
-    </div>
+    <%= erb :'stats/_dissent', locals: {host: host_stats[:host], dissents: host_stats[:dissents], status: :yacht} %>
   </div>
 
   <div class="page-section">
     <div class="section-title">Largest 'Nyacht' Dissents</div>
-    <div class="stat-list">
-      <div class="stat row list-headers">
-        <div class="col-2"><%= host_stats[:host].split(' ').first %></div>
-        <div class="col-8">&nbsp</div>
-        <div class="col-2">Others</div>
-      </div>
-      <% host_stats[:dissents][:nyacht].each do |dissent| %>
-        <div class="stat row">
-          <div class="col-2 yachtski"><%= dissent[:host_score] %></div>
-          <div class="col-8">
-            <%= dissent[:song][:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
-            <%= "<a href='/songs/#{dissent[:song][:slug]}'>#{dissent[:song][:title]}</a>" %>
-          </div>
-          <div class="col-2 yachtski avg"><%= dissent[:avg_without_host].round(2) %></div>
-        </div>
-      <% end %>
-    </div>
+    <%= erb :'stats/_dissent', locals: {host: host_stats[:host], dissents: host_stats[:dissents], status: :nyacht} %>
   </div>
 
   <div class="page-section">
