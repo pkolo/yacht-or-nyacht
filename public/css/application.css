@@ -305,6 +305,36 @@ a {
   padding-bottom: 10px;
 }
 
+/* Sidebar menu style */
+
+.sidebar-menu {
+  color: #fff;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.menu-header {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+.menu-list {
+  font-size: 1.25em;
+}
+
+.menu-i {
+  margin-bottom: 5px;
+}
+
+.menu-i > a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.menu-i > a:hover {
+  text-decoration: underline;
+}
+
 /* Host stats style */
 
 .host-name {
