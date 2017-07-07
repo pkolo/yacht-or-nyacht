@@ -1,15 +1,5 @@
 require 'json'
 
-def cache_stats
-  hosts = ["jd", "hunter", "steve", "dave"]
-  hosts.each do |host|
-    stats = host_stats_serializer(host)
-    File.open("app/cache/#{host}.json","w+") do |f|
-      f.write(stats.to_json)
-    end
-  end
-end
-
 def host_stats_serializer(host)
   if valid_host?(host)
     host_stats = {
