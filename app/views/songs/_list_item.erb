@@ -3,7 +3,12 @@
 
   <div class="song-list-box col-6 title">
     <span class="artist-column">
-      <%= song['artists'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %> -
+      <%= song['artists'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %>
+      <% if song['features'].any? %>
+        w/ <%= song['features'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %>
+      <% end %>
+    </span>
+    <span class="separator"> - </span>
     <span class="title-column"><a href="/songs/<%= song['slug'] %>"><%= song['title'] %></a></span>
     (<span class="year-column num"><%= song['year'] %></span>)
   </div>
