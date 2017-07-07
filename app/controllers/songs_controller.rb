@@ -1,5 +1,6 @@
 get '/' do
-  @songs = Song.all.sort_by {|song| song.yachtski}.reverse
+  cache = File.read("app/cache/index.json")
+  @songs = JSON.parse(cache)
   erb :'songs/index'
 end
 
