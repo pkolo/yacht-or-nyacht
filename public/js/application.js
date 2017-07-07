@@ -28,7 +28,7 @@ $(document).ready(function() {
   };
 
   function getColor(yachtski) {
-    return (yachtski > 0) ? jayGradient(yachtski / 100) : 'rgb(150,150,150)'
+    return (yachtski >= 0) ? jayGradient(yachtski / 100) : 'rgb(150,150,150)'
   }
 
   $('.yachtski').each(function() {
