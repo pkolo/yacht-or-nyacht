@@ -27,7 +27,8 @@ class Song < ActiveRecord::Base
         jd: self.jd_score,
         hunter: self.hunter_score,
         steve: self.steve_score,
-        dave: self.dave_score
+        dave: self.dave_score,
+        yachtski: self.yachtski
       },
       episode: {
         id: self.episode.id,
