@@ -1,10 +1,9 @@
 require 'json'
 
 get '/stats' do
-  host = ["jd"].sample
+  host = ["jd", "steve", "hunter", "dave"].sample
   cache = File.read("app/cache/#{host}.json")
   @stats = JSON.parse(cache)
-  binding.pry
   erb :'stats/_hosts'
 end
 
