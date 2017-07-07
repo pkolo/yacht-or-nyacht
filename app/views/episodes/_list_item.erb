@@ -1,0 +1,17 @@
+<div class="row song-list-item">
+  <div class="song-list-box yachtski avg col-1 yachtski-column"><%= song.yachtski.round(2) %></div>
+
+  <div class="song-list-box col-6 title">
+    <span class="artist-column"><%= song.artist_list %></a> -
+    <span class="title-column"><a href="/songs/<%= song.slug %>"><%= song.title %></a></span>
+    (<span class="year-column num"><%= song.year %></span>)
+  </div>
+
+  <div class="hideable">
+    <div class="song-list-box yachtski jd-column col-1"><%= song.jd_score %></div>
+    <div class="song-list-box yachtski hunter-column col-1"><%= song.hunter_score %></div>
+    <div class="song-list-box yachtski steve-column col-1"><%= song.steve_score %></div>
+    <div class="song-list-box yachtski dave-column col-1"><%= song.dave_score %></div>
+    <div class="song-list-box col-1 episode-column hideable-md"><a href="/episodes/<%= song.episode.id %>"><%= song.episode.number %></a></div>
+  </div>
+</div>

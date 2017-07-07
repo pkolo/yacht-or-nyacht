@@ -16,6 +16,27 @@ class Song < ActiveRecord::Base
   has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
   after_create :create_slug
 
+  def serialize
+    {
+      slug: self.slug,
+      title: self.title,
+      year: self.year,
+      artists: self.artist_json,
+      features: self.feature_json,
+      scores: {
+        jd: self.jd_score,
+        hunter: self.hunter_score,
+        steve: self.steve_score,
+        dave: self.dave_score,
+        yachtski: self.yachtski
+      },
+      episode: {
+        id: self.episode.id,
+        number: self.episode.number
+      }
+    }
+  end
+
   def artist
     self.performers.pluck(:name).first
   end
@@ -35,6 +56,11 @@ class Song < ActiveRecord::Base
   def artist_json
     artist_data = self.performers.pluck(:slug, :name)
     artists = artist_data.map { |data| {slug: data[0], name: data[1]} }
+  end
+
+  def feature_json
+    feature_data = self.features.pluck(:slug, :name)
+    features = feature_data.map { |data| {slug: data[0], name: data[1]} }
   end
 
   def combined_players
