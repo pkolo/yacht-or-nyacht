@@ -1,14 +1,14 @@
 <div class="stats-wrapper">
   <div class="stats-header">
-    <div class="host-name"><%= host_stats[:host] %></div>
+    <div class="host-name"><%= stats["host"] %></div>
       <div class="row large">
         <div>
-          <span class="essential">Essential: <%= host_stats[:yacht_count][:essential][:count] %></span>,
-          <span class="yacht">Yacht: <%= host_stats[:yacht_count][:yacht][:count] %></span>,
-          <span class="nyacht">Nyacht: <%= host_stats[:yacht_count][:nyacht][:count] %></span>
+          <span class="essential">Essential: <%= stats["yacht_count"]["essential"]["count"] %></span>,
+          <span class="yacht">Yacht: <%= stats["yacht_count"]["yacht"]["count"] %></span>,
+          <span class="nyacht">Nyacht: <%= stats["yacht_count"]["nyacht"]["count"] %></span>
         </div>
         <div>
-          Average Deviation from Yachtski: <%= host_stats[:avg_deviation_from_mean].round(3) %> pts
+          Average Deviation from Yachtski: <%= stats["avg_deviation_from_mean"].round(3) %> pts
         </div>
       </div>
     </div>
@@ -16,40 +16,40 @@
 
   <div class="page-section">
     <div class="section-title">Largest 'Yacht' Dissents</div>
-    <%= erb :'stats/_dissent', locals: {host: host_stats[:host], dissents: host_stats[:dissents], status: :yacht} %>
+    <%= erb :'stats/_dissent', locals: {host: stats["host"], dissents: stats["dissents"], status: "yacht"} %>
   </div>
 
   <div class="page-section">
     <div class="section-title">Largest 'Nyacht' Dissents</div>
-    <%= erb :'stats/_dissent', locals: {host: host_stats[:host], dissents: host_stats[:dissents], status: :nyacht} %>
+    <%= erb :'stats/_dissent', locals: {host: stats["host"], dissents: stats["dissents"], status: "nyacht"} %>
   </div>
 
   <div class="page-section">
     <div class="section-title">Largest 'Yacht' Disagreements</div>
-    <%= erb :'stats/_disagreements', locals: {all_disagreements: host_stats[:disagreements], status: :yacht, host: host_stats[:host] } %>
+    <%= erb :'stats/_disagreements', locals: {all_disagreements: stats["disagreements"], status: "yacht", host: stats["host"] } %>
   </div>
 
   <div class="page-section">
     <div class="section-title">Largest 'Nyacht' Disagreements</div>
-    <%= erb :'stats/_disagreements', locals: {all_disagreements: host_stats[:disagreements], status: :nyacht, host: host_stats[:host] } %>
+    <%= erb :'stats/_disagreements', locals: {all_disagreements: stats["disagreements"], status: "nyacht", host: stats["host"] } %>
   </div>
 
   <div class="page-section">
     <div class="section-title">Weird Essentials</div>
     <div class="stat-list">
       <div class="stat row list-headers">
-        <div class="col-2"><%= host_stats[:host].split(' ').first %></div>
+        <div class="col-2"><%= stats["host"].split(' ').first %></div>
         <div class="col-8">&nbsp</div>
         <div class="col-2">Yachtski</div>
       </div>
-      <% host_stats[:weird_essentials].each do |song| %>
+      <% stats["weird_essentials"].each do |song| %>
         <div class="stat row">
-          <div class="col-2 yachtski"><%= song[:score] %></div>
+          <div class="col-2 yachtski"><%= song['score'] %></div>
           <div class="col-8 title">
-            <%= song[:artists].map {|artist| "<a href='/personnel/#{artist[:slug]}'>#{artist[:name]}</a>" }.join(", ") %> -
-            <%= "<a href='/songs/#{song[:slug]}'>#{song[:title]}</a>" %>
+            <%= song["artists"].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %> -
+            <%= "<a href='/songs/#{song['slug']}'>#{song['title']}</a>" %>
           </div>
-          <div class="col-2 yachtski avg"><%= song[:yachtski] %></div>
+          <div class="col-2 yachtski avg"><%= song['yachtski'] %></div>
         </div>
       <% end %>
     </div>
