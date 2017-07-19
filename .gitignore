@@ -25,5 +25,3 @@ chromedriver.log
 bin/
 .env
 *.swp
-
-app/cache/*
