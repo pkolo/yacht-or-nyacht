@@ -64,7 +64,7 @@ post '/episodes/:id/songs' do
     @song.credits << @credit
 
     if @song.save
-      erb :'/songs/_list_item', layout: false, locals: {song: @song}
+      erb :'/episodes/_list_item', layout: false, locals: {song: @song}
     else
       "error"
     end
