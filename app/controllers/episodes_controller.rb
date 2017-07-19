@@ -30,6 +30,7 @@ end
 get '/episodes/:id/edit' do
   if logged_in?
     @episode = Episode.find(params[:id])
+    @songs = @episode.songs.sort_by { |song| song.yachtski }.reverse
     erb :'episodes/edit'
   else
     redirect '/'
