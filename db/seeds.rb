@@ -2,7 +2,7 @@ require 'json'
 require 'net/http'
 require 'uri'
 
-uri = URI.parse("https://spreadsheets.google.com/feeds/list/182FzE4GNjjyw8RN9R7fLIOl5GIV-ax00JNuxgdhaUgA/od6/public/values?alt=json")
+uri = URI.parse("https://spreadsheets.google.com/feeds/list/#{ENV['GDOC_KEY']}/od6/public/values?alt=json")
 
 response = Net::HTTP.get_response(uri)
 
