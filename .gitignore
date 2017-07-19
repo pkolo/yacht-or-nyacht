@@ -26,4 +26,4 @@ bin/
 .env
 *.swp
 
-app/cache
+app/cache/*
