@@ -31,6 +31,19 @@ module DiscogHelper
     q
   end
 
+  def credits_quality
+    q = "type=release&token=#{ENV['DISCOG_TOKEN']}&artist=Toto&track=Rosanna&year=1982"
+    url = "https://api.discogs.com/database/search?#{q}"
+    response = api_call(url)
+    results = response["results"].sort_by {|result| result['community']['have']}
+    binding.pry
+    deep_results = results.last(20).map do |result|
+      url = "https://api.discogs.com/releases/#{result['id']}"
+      api_call(url)
+    end
+    deep_results
+  end
+
   def includes_track?(all_tracks, person, track_no)
     extract_range = person["tracks"].split(", ").map do |track|
       if track.include?("to")
