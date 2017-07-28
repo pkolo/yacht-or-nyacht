@@ -13,6 +13,12 @@ get '/songs/search' do
   erb :'songs/search'
 end
 
+post '/songs/search' do
+  search_options = {artist: params[:artist], title: params[:title], year: params[:year]}
+  results = DiscogHelper.credits_quality(search_options)
+  results.to_s
+end
+
 get '/songs/:slug' do
   @song = Song.find_by(slug: params[:slug])
   @subtitle = @song.title
