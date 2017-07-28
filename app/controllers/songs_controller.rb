@@ -34,7 +34,7 @@ post '/songs/:slug/discog_search' do
       redirect to("/songs/#{params[:slug]}")
     end
 
-    @results = DiscogHelper.search(options).sort_by {|result| result["community"]["have"]}.reverse.first(20)
+    @results = DiscogHelper.search(options, @song).sort_by {|result| result["community"]["have"]}.reverse.first(20)
     if Album.match_in(@results)
       url = "https://api.discogs.com/releases/" + Album.match_in(@results).discog_id
       @credits = @song.add_personnel(url, false)

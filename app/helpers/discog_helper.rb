@@ -6,26 +6,26 @@ module DiscogHelper
     result = JSON.parse(response.body)
   end
 
-  def search(options)
-    q = self.build_query(options)
+  def search(options, media)
+    q = build_query(options, media)
     url = "https://api.discogs.com/database/search?#{q}"
     response = api_call(url)
     response["results"]
   end
 
-  def build_query(options)
+  def build_query(options, media)
     q = "type=release&token=#{ENV['DISCOG_TOKEN']}"
 
     if options.include?("artist")
-      q += "&artist=#{self.artist.gsub(/[^0-9a-z ]/i, '')}"
+      q += "&artist=#{media.artist.gsub(/[^0-9a-z ]/i, '')}"
     end
 
     if options.include?("title")
-      q += "&track=#{self.title}"
+      q += "&track=#{media.title}"
     end
 
     if options.include?("year")
-      q += "&year=#{self.year}"
+      q += "&year=#{media.year}"
     end
 
     q
