@@ -31,9 +31,8 @@ module DiscogHelper
     q
   end
 
-  def credits_quality
-    title = "Rosanna"
-    q = "type=release&token=#{ENV['DISCOG_TOKEN']}&artist=Toto&track=Rosanna&year=1982"
+  def credits_quality(options)
+    q = "type=release&token=#{ENV['DISCOG_TOKEN']}&artist=#{options[:artist]}&track=#{options[:title]}&year=#{options[:year]}"
     url = "https://api.discogs.com/database/search?#{q}"
     response = api_call(url)
     results = response["results"].sort_by {|result| result['community']['have']}
