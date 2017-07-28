@@ -32,16 +32,37 @@ module DiscogHelper
   end
 
   def credits_quality
+    title = "Rosanna"
     q = "type=release&token=#{ENV['DISCOG_TOKEN']}&artist=Toto&track=Rosanna&year=1982"
     url = "https://api.discogs.com/database/search?#{q}"
     response = api_call(url)
     results = response["results"].sort_by {|result| result['community']['have']}
-    binding.pry
     deep_results = results.last(20).map do |result|
       url = "https://api.discogs.com/releases/#{result['id']}"
       api_call(url)
     end
-    deep_results
+
+    results_with_count = deep_results.map do |result|
+      {
+        result: result,
+        credit_count: credit_count(result)
+      }
+    end
+
+    results_with_count.sort_by {|result| result[:credit_count]}.reverse
+  end
+
+  def credit_count(result)
+    count = 0
+    count += result["artists"].length
+
+    if result["tracklist"]
+      count += result["tracklist"].sum {|track| track["extraartists"] ? track["extraartists"].length : 0}
+    end
+
+    if result["extraartists"]
+      count += result["extraartists"].length
+    end
   end
 
   def includes_track?(all_tracks, person, track_no)
