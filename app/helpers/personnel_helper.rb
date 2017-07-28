@@ -1,7 +1,14 @@
 module PersonnelHelper
 
   def build_list(result, title)
-    album_personnel = result["extraartists"].inject([]) do |memo, credit|
+    # Pulls track-specific data from result
+    track_data = result["tracklist"].find {|track| is_match?(remove_parens(track["title"]), remove_parens(title)) }
+    track_no = track_data["position"]
+    title = track_data["title"]
+
+    # Isolates album-only credits and adds them to output hash
+    album_credits = result["extraartists"].select{|artist| artist["tracks"] == "" }
+    album_personnel = album_credits.inject([]) do |memo, credit|
       if Personnel.find_by(discog_id: credit["id"])
         person = Personnel.find_by(discog_id: credit["id"])
         memo << {name: person.name, role: credit["role"], id: person.id, yachtski: person.yachtski}
@@ -9,10 +16,29 @@ module PersonnelHelper
         memo << {name: credit["name"], role: credit["role"], id: person.id, yachtski: -1}
       end
     end
-    album_personnel
+
+    other_credits = result["extraartists"] - album_credits # Isolates track-specific credits from general album credits
+    all_tracks = result["tracklist"].map {|track| track["position"]} # Creates an array of track positions
+    track_credits = other_credits.select {|credit| credit_in_track_range?(all_tracks, credit, track_no)} # Finds single-song credits within a range
+    track_credits += track_data["extraartists"] if track_data["extraartists"]
+
+    track_personnel = track_credits.inject([]) do |memo, credit|
+      if Personnel.find_by(discog_id: credit["id"])
+        person = Personnel.find_by(discog_id: credit["id"])
+        memo << {name: person.name, role: credit["role"], id: person.id, yachtski: person.yachtski}
+      else
+        memo << {name: credit["name"], role: credit["role"], id: person.id, yachtski: -1}
+      end
+    end
+
+    {
+      album_personnel: album_personnel,
+      track_personnel: track_personnel
+    }
+
   end
 
-  def includes_track?(all_tracks, person, track_no)
+  def credit_in_track_range?(all_tracks, person, track_no)
     extract_range = person["tracks"].split(", ").map do |track|
       if track.include?("to")
         range = track.split(" to ")
