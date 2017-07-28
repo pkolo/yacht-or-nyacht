@@ -2,9 +2,11 @@ require 'net/http'
 require 'uri'
 require 'json'
 require_relative '../helpers/discog_helper'
+require_relative '../helpers/personnel_helper'
 
 class Song < ActiveRecord::Base
   include DiscogHelper
+  include PersonnelHelper
 
   belongs_to :episode
   belongs_to :album
@@ -173,7 +175,7 @@ class Song < ActiveRecord::Base
 
     other_personnel = results["extraartists"] - album_personnel
     all_tracks = results["tracklist"].map {|track| track["position"]}
-    track_personnel = other_personnel.select {|person| DiscogHelper.includes_track?(all_tracks, person, self.track_no)}
+    track_personnel = other_personnel.select {|person| PersonnelHelper.credit_in_track_range?(all_tracks, person, self.track_no)}
     track_personnel += track_data["extraartists"] if track_data["extraartists"]
 
     track_personnel.each do |personnel|
