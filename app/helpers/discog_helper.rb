@@ -19,4 +19,35 @@ module DiscogHelper
     extract_range.flatten.include?(track_no)
   end
 
+  def api_call(url)
+    uri = URI.parse(url)
+    response = Net::HTTP.get_response(uri)
+    result = JSON.parse(response.body)
+  end
+
+  def discog_search(options)
+    q = self.build_query(options)
+    url = "https://api.discogs.com/database/search?#{q}"
+    response = api_call(url)
+    response["results"]
+  end
+
+  def build_query(options)
+    q = "type=release&token=#{ENV['DISCOG_TOKEN']}"
+
+    if options.include?("artist")
+      q += "&artist=#{self.artist.gsub(/[^0-9a-z ]/i, '')}"
+    end
+
+    if options.include?("title")
+      q += "&track=#{self.title}"
+    end
+
+    if options.include?("year")
+      q += "&year=#{self.year}"
+    end
+
+    q
+  end
+
 end
