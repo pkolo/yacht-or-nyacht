@@ -1,6 +1,15 @@
 module PersonnelHelper
 
   def build_list(result, title)
+    album_personnel = result["extraartists"].inject([]) do |memo, credit|
+      if Personnel.find_by(discog_id: credit["id"])
+        person = Personnel.find_by(discog_id: credit["id"])
+        memo << {name: person.name, role: credit["role"], id: person.id, yachtski: person.yachtski}
+      else
+        memo << {name: credit["name"], role: credit["role"], id: person.id, yachtski: -1}
+      end
+    end
+    album_personnel
   end
 
   def includes_track?(all_tracks, person, track_no)
