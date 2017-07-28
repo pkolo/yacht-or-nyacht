@@ -9,6 +9,10 @@ get '/' do
   erb :'songs/index'
 end
 
+get '/songs/search' do
+  erb :'songs/search'
+end
+
 get '/songs/:slug' do
   @song = Song.find_by(slug: params[:slug])
   @subtitle = @song.title
