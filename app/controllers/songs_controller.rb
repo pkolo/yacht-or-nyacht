@@ -1,3 +1,7 @@
+require_relative '../helpers/discog_helper'
+
+include DiscogHelper
+
 get '/' do
   cache = File.read("app/cache/index.json")
   res = JSON.parse(cache)
@@ -30,7 +34,7 @@ post '/songs/:slug/discog_search' do
       redirect to("/songs/#{params[:slug]}")
     end
 
-    @results = @song.discog_search(options).sort_by {|result| result["community"]["have"]}.reverse.first(20)
+    @results = DiscogHelper.search(options).sort_by {|result| result["community"]["have"]}.reverse.first(20)
     if Album.match_in(@results)
       url = "https://api.discogs.com/releases/" + Album.match_in(@results).discog_id
       @credits = @song.add_personnel(url, false)
