@@ -11,9 +11,9 @@ module PersonnelHelper
     album_personnel = album_credits.inject([]) do |memo, credit|
       if Personnel.find_by(discog_id: credit["id"])
         person = Personnel.find_by(discog_id: credit["id"])
-        memo << {name: person.name, role: credit["role"], id: person.id, yachtski: person.yachtski}
+        memo << {name: person.name, role: credit["role"], slug: person.slug, yachtski: person.yachtski}
       else
-        memo << {name: credit["name"], role: credit["role"], id: person.id, yachtski: -1}
+        memo << {name: credit["name"], role: credit["role"], yachtski: -1}
       end
     end
 
@@ -25,9 +25,9 @@ module PersonnelHelper
     track_personnel = track_credits.inject([]) do |memo, credit|
       if Personnel.find_by(discog_id: credit["id"])
         person = Personnel.find_by(discog_id: credit["id"])
-        memo << {name: person.name, role: credit["role"], id: person.id, yachtski: person.yachtski}
+        memo << {name: person.name, role: credit["role"], slug: person.slug, yachtski: person.yachtski}
       else
-        memo << {name: credit["name"], role: credit["role"], id: person.id, yachtski: -1}
+        memo << {name: credit["name"], role: credit["role"], yachtski: -1}
       end
     end
 
