@@ -31,6 +31,11 @@ module PersonnelHelper
       end
     end
 
+    album_personnel = album_personnel.group_by {|credit| credit[:name]}
+    album_personnel = album_personnel.map {|k,v| {name: k, yachtski: v.first[:yachtski], slug: v.first[:slug], roles: v.map{|p| p[:role]} } }
+    track_personnel = track_personnel.group_by {|credit| credit[:name]}
+    track_personnel = track_personnel.map {|k,v| {name: k, yachtski: v.first[:yachtski], slug: v.first[:slug], roles: v.map{|p| p[:role]} } }
+
     {
       title: title,
       album_personnel: album_personnel.sort_by {|credit| credit[:yachtski]}.reverse,
