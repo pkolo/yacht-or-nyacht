@@ -187,7 +187,7 @@ $(document).ready(function() {
   });
 
   $('#song-checker-form').submit(function(e) {
-    $(this).append('Loading...');
+    $('.loading').append('<p>Loading...</p><p>(This might take a while)</p>');
   });
 
 // Responsive
