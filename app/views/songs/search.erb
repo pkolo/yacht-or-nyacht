@@ -1,8 +1,24 @@
-<div class="song-checker">
-  <form id="song-checker-form" method="POST" action="/songs/search">
-    Artist: <input type="text" name="artist"></input><br>
-    Title: <input type="text" name="title"></input><br>
-    Year: <input type="text" name="year"></input><br>
-    <button class="song-checker-btn">Submit</button>
-  </form>
+<div class="row">
+  <div class="col-3 sidebar-wrapper">
+    <div class="sidebar-bg-shape yachtski">
+      <div class="yachtski avg" style="display:none">150</div>
+      <div class="big-score" style="display:none">150</div>
+      <div class="yacht-status"></div>
+    </div>
+  </div>
+
+  <div class="col-9 main-wrapper">
+    <div class="page-header">
+      <div class="big-title">Personnel Checker</div>
+      <div class="artist-credit">&nbsp</div>
+    </div>
+    <div class="song-checker">
+      <form id="song-checker-form" method="POST" action="/songs/search">
+        Artist: <input type="text" name="artist"></input><br>
+        Title: <input type="text" name="title"></input><br>
+        Year: <input type="text" name="year"></input><br>
+        <button class="song-checker-btn">Submit</button>
+      </form>
+    </div>
+  </div>
 </div>
