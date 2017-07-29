@@ -9,8 +9,8 @@
 
   <div class="col-9 main-wrapper">
     <div class="page-header">
-      <div class="big-title"><%= @main_result["title"] %></div>
-      <div class="artist-credit">&nbsp</div>
+      <div class="big-title"><%= @main_result_details[:title] %></div>
+      <div class="artist-credit">by <%= @main_result["artists"].map {|a| a["name"]}.join(', ') %></div>
     </div>
 
     <% if @main_result_details[:track_personnel].any? %>

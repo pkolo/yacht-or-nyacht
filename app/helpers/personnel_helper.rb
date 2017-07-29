@@ -32,6 +32,7 @@ module PersonnelHelper
     end
 
     {
+      title: title,
       album_personnel: album_personnel,
       track_personnel: track_personnel
     }
