@@ -2,7 +2,7 @@ module PersonnelHelper
 
   def build_list(result, title)
     # Pulls track-specific data from result
-    track_data = result["tracklist"].find {|track| is_match?(remove_parens(track["title"]), remove_parens(title)) }
+    track_data = result["tracklist"].find {|track| is_match?(remove_parens(track["title"].downcase), remove_parens(title.downcase)) }
     track_no = track_data["position"]
     title = track_data["title"]
 
