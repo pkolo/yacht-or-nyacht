@@ -13,7 +13,7 @@ module PersonnelHelper
         person = Personnel.find_by(discog_id: credit["id"])
         memo << {name: person.name, role: credit["role"], slug: person.slug, yachtski: person.yachtski}
       else
-        memo << {name: credit["name"], role: credit["role"], yachtski: -1}
+        memo << {name: credit["name"], role: credit["role"], yachtski: -1, slug: nil}
       end
     end
 
@@ -27,14 +27,14 @@ module PersonnelHelper
         person = Personnel.find_by(discog_id: credit["id"])
         memo << {name: person.name, role: credit["role"], slug: person.slug, yachtski: person.yachtski}
       else
-        memo << {name: credit["name"], role: credit["role"], yachtski: -1}
+        memo << {name: credit["name"], role: credit["role"], yachtski: -1, slug: nil}
       end
     end
 
     {
       title: title,
-      album_personnel: album_personnel,
-      track_personnel: track_personnel
+      album_personnel: album_personnel.sort_by {|credit| credit[:yachtski]}.reverse,
+      track_personnel: track_personnel.sort_by {|credit| credit[:yachtski]}.reverse
     }
 
   end
