@@ -53,7 +53,9 @@ module DiscogHelper
 
   def credit_count(result)
     count = 0
-    count += result["artists"].length
+    if result["artists"]
+      count += result["artists"].length
+    end
 
     if result["tracklist"]
       count += result["tracklist"].sum {|track| track["extraartists"] ? track["extraartists"].length : 0}
