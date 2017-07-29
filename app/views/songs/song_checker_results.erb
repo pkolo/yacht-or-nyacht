@@ -54,7 +54,7 @@
               <% end %>
             </div>
             <div class="col-7 personnel-role">
-              <%= credit[:role] %>
+              <%= credit[:roles].join(', ') %>
             </div>
           </div>
           <% end %>
@@ -80,7 +80,7 @@
               <% end %>
             </div>
             <div class="col-7 personnel-role">
-              <%= credit[:role] %>
+              <%= credit[:roles].join(', ') %>
             </div>
           </div>
           <% end %>
