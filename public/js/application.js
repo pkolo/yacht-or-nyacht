@@ -186,6 +186,10 @@ $(document).ready(function() {
     });
   });
 
+  $('#song-checker-form').submit(function(e) {
+    $(this).append('Loading...');
+  });
+
 // Responsive
 
 

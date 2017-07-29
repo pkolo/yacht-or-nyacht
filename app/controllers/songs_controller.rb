@@ -19,8 +19,8 @@ post '/songs/search' do
   search_options = {artist: params[:artist], title: params[:title], year: params[:year]}
   @results = DiscogHelper.credits_quality(search_options)
   @main_result = @results.first[:result]
-  @main_result_personnel = PersonnelHelper.build_list(@main_result, params[:title])
-  erb :'songs/_song_checker_results'
+  @main_result_details = PersonnelHelper.build_list(@main_result, params[:title])
+  erb :'songs/song_checker_results'
 end
 
 get '/songs/:slug' do
