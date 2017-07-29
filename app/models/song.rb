@@ -1,8 +1,13 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require_relative '../helpers/discog_helper'
+require_relative '../helpers/personnel_helper'
 
 class Song < ActiveRecord::Base
+  include DiscogHelper
+  include PersonnelHelper
+
   belongs_to :episode
   belongs_to :album
 
@@ -119,33 +124,8 @@ class Song < ActiveRecord::Base
     }
   end
 
-  def build_query(options)
-    q = "type=release&token=#{ENV['DISCOG_TOKEN']}"
-
-    if options.include?("artist")
-      q += "&artist=#{self.artist.gsub(/[^0-9a-z ]/i, '')}"
-    end
-
-    if options.include?("title")
-      q += "&track=#{self.title}"
-    end
-
-    if options.include?("year")
-      q += "&year=#{self.year}"
-    end
-
-    q
-  end
-
-  def discog_search(options)
-    q = self.build_query(options)
-    url = "https://api.discogs.com/database/search?#{q}"
-    response = api_call(url)
-    response["results"]
-  end
-
   def add_personnel(url, add_album_personnel)
-    results = api_call(url)
+    results = DiscogHelper.api_call(url)
     album = Album.find_or_create_by(year: results["year"], title: results["title"], discog_id: results["id"])
     self.album = album
     track_data = results["tracklist"].find {|track| is_match?(remove_parens(track["title"]), remove_parens(self.title)) }
@@ -195,7 +175,7 @@ class Song < ActiveRecord::Base
 
     other_personnel = results["extraartists"] - album_personnel
     all_tracks = results["tracklist"].map {|track| track["position"]}
-    track_personnel = other_personnel.select {|person| includes_track?(all_tracks, person, self.track_no)}
+    track_personnel = other_personnel.select {|person| PersonnelHelper.credit_in_track_range?(all_tracks, person, self.track_no)}
     track_personnel += track_data["extraartists"] if track_data["extraartists"]
 
     track_personnel.each do |personnel|
@@ -212,12 +192,6 @@ class Song < ActiveRecord::Base
       end
     end
     self.credits
-  end
-
-  def api_call(url)
-    uri = URI.parse(url)
-    response = Net::HTTP.get_response(uri)
-    result = JSON.parse(response.body)
   end
 
   def self.essentials

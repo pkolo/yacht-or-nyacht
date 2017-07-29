@@ -385,6 +385,12 @@ a {
   text-align: center;
 }
 
+/* Personnel Checker style */
+
+.song-checker input {
+  width: 100%;
+}
+
 /* Medium Style */
 
 @media screen and (max-width: 1070px) {

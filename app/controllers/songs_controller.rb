@@ -1,8 +1,31 @@
+require_relative '../helpers/discog_helper'
+require_relative '../helpers/personnel_helper'
+
+include DiscogHelper
+include PersonnelHelper
+
 get '/' do
   cache = File.read("app/cache/index.json")
   res = JSON.parse(cache)
   @songs = res.sort_by {|song| song['scores']['yachtski']}.reverse
   erb :'songs/index'
+end
+
+get '/songs/search' do
+  if params[:title]
+    search_options = {artist: params[:artist], title: params[:title], year: params[:year]}
+    @results = DiscogHelper.credits_quality(search_options)
+    if @results.any?
+      @main_result = @results.first[:result]
+      @main_result_details = PersonnelHelper.build_list(@main_result, params[:title])
+      erb :'songs/song_checker_results'
+    else
+      @error = "No results."
+      erb :'songs/search'
+    end
+  else
+    erb :'songs/search'
+  end
 end
 
 get '/songs/:slug' do
@@ -30,7 +53,7 @@ post '/songs/:slug/discog_search' do
       redirect to("/songs/#{params[:slug]}")
     end
 
-    @results = @song.discog_search(options).sort_by {|result| result["community"]["have"]}.reverse.first(20)
+    @results = DiscogHelper.search(options, @song).sort_by {|result| result["community"]["have"]}.reverse.first(20)
     if Album.match_in(@results)
       url = "https://api.discogs.com/releases/" + Album.match_in(@results).discog_id
       @credits = @song.add_personnel(url, false)

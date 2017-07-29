@@ -186,6 +186,11 @@ $(document).ready(function() {
     });
   });
 
+  $('#song-checker-form').submit(function(e) {
+    $('.loading').empty();
+    $('.loading').append('<h3>Loading...</h3><p>(This might take a while)</p>');
+  });
+
 // Responsive
 
 

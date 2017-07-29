@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-3 sidebar-wrapper">
+    <div class="sidebar-bg-shape yachtski">
+      <div class="yachtski avg" style="display:none">75</div>
+      <div class="big-score" style="display:none">75</div>
+      <div class="yacht-status"></div>
+    </div>
+  </div>
+
+  <div class="col-9 main-wrapper">
+    <div class="page-header">
+      <div class="big-title">Personnel Checker</div>
+      <div class="artist-credit">&nbsp</div>
+    </div>
+    <div class="row">
+      <p class="col-10" style="line-height:1.5em;">Enter a song's artist, title, and year.
+        The app will find the Discogs entry with the most
+        extensive credits, and check those credits against
+        the Yacht Or Nyacht personnel database. The Discogs
+        search API is fairly inflexible, so make sure you've spelled
+        everything correctly and have the correct year.</p>
+    </div>
+    <div class="page-section song-checker col-5">
+      <form id="song-checker-form" method="GET" action="/songs/search">
+        <div class="row">
+          <div class="col-2">
+            Artist:
+          </div>
+          <div class="col-10">
+            <input type="text" name="artist"></input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            Title:
+          </div>
+          <div class="col-10">
+            <input type="text" name="title"></input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            Year:
+          </div>
+          <div class="col-10">
+            <input type="text" name="year"></input>
+          </div>
+        </div>
+        <div class="row">
+          <button class="song-checker-btn">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-1">&nbsp</div>
+
+    <div class="page-section loading col-6">
+      <% if @error %>
+        <h3 style="color:#b00">No results.</h3>
+      <% end %>
+    </div>
+  </div>
+</div>
