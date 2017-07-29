@@ -12,6 +12,12 @@
       <div class="big-title">Personnel Checker</div>
       <div class="artist-credit">&nbsp</div>
     </div>
+    <div class="row">
+      <p class="col-10" style="line-height:1.5em;">Enter a song's artist, title, and year.
+        The app will find the Discogs entry with the most
+        extensive credits, and check those credits against
+        the Yacht Or Nyacht personnel database.</p>
+    </div>
     <div class="page-section song-checker col-5">
       <form id="song-checker-form" method="POST" action="/songs/search">
         <div class="row">
@@ -47,6 +53,9 @@
     <div class="col-1">&nbsp</div>
 
     <div class="page-section loading col-6">
+      <% if @error %>
+        <h3 style="color:#b00">No results.</h3>
+      <% end %>
     </div>
   </div>
 </div>
