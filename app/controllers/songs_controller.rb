@@ -12,18 +12,18 @@ get '/' do
 end
 
 get '/songs/search' do
-  erb :'songs/search'
-end
-
-post '/songs/search' do
-  search_options = {artist: params[:artist], title: params[:title], year: params[:year]}
-  @results = DiscogHelper.credits_quality(search_options)
-  if @results.any?
-    @main_result = @results.first[:result]
-    @main_result_details = PersonnelHelper.build_list(@main_result, params[:title])
-    erb :'songs/song_checker_results'
+  if params[:title]
+    search_options = {artist: params[:artist], title: params[:title], year: params[:year]}
+    @results = DiscogHelper.credits_quality(search_options)
+    if @results.any?
+      @main_result = @results.first[:result]
+      @main_result_details = PersonnelHelper.build_list(@main_result, params[:title])
+      erb :'songs/song_checker_results'
+    else
+      @error = "No results."
+      erb :'songs/search'
+    end
   else
-    @error = "No results."
     erb :'songs/search'
   end
 end
