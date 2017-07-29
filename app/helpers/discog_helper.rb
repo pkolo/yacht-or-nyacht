@@ -35,8 +35,8 @@ module DiscogHelper
     q = "type=release&token=#{ENV['DISCOG_TOKEN']}&artist=#{options[:artist]}&track=#{options[:title]}&year=#{options[:year]}"
     url = "https://api.discogs.com/database/search?#{q}"
     response = api_call(url)
-    results = response["results"].sort_by {|result| result['community']['have']}
-    deep_results = results.reverse[0..20].map do |result|
+    results = response["results"].sort_by {|result| result['community']['have']}.reverse
+    deep_results = results[0...25].map do |result|
       url = "https://api.discogs.com/releases/#{result['id']}"
       api_call(url)
     end
@@ -64,6 +64,7 @@ module DiscogHelper
     if result["extraartists"]
       count += result["extraartists"].length
     end
+    count
   end
 
 end
