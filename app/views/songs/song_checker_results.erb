@@ -25,15 +25,14 @@
           <div class="col-2 hideable col-title">Year:</div>
           <div class="col-10 info-year"><%= @main_result["year"] %></div>
         </div>
-
-      <% if @main_result_details["yt_id"] %>
+      </div>
+      <% if @main_result_details[:yt_id] %>
         <div class="col-5 full-width-res">
           <div class="yt-embed">
-            <iframe width="375" height="75" src="https://www.youtube.com/embed/<%= @song.yt_id %>?rel=0" frameborder="0" allowfullscreen></iframe>
+            <iframe width="375" height="75" src="https://www.youtube.com/embed/<%= @main_result_details[:yt_id] %>?rel=0" frameborder="0" allowfullscreen></iframe>
           </div>
         </div>
       <% end %>
-      </div>
     </div>
 
     <% if @main_result_details[:track_personnel].any? %>

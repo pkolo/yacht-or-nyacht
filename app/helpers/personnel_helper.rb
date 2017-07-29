@@ -39,7 +39,8 @@ module PersonnelHelper
     {
       title: title,
       album_personnel: album_personnel.sort_by {|credit| credit[:yachtski]}.reverse,
-      track_personnel: track_personnel.sort_by {|credit| credit[:yachtski]}.reverse
+      track_personnel: track_personnel.sort_by {|credit| credit[:yachtski]}.reverse,
+      yt_id: yt(result["artists"].map {|a| a["name"]}.join(', '), title)
     }
 
   end
@@ -61,6 +62,14 @@ module PersonnelHelper
       end
     end
     extract_range.flatten.include?(track_no)
+  end
+
+  def yt(artist, title)
+    base = "https://www.googleapis.com/youtube/v3/search?"
+    q = "part=snippet&type=video&videoEmbeddable=true&q=#{artist.downcase.gsub(/[^0-9a-z ]/i, '')} #{title.downcase.gsub(/[^0-9a-z ]/i, '')}&key=#{ENV['YT_KEY']}"
+    res = api_call(base+q)
+    vid_data = res["items"].first
+    vid_data["id"]["videoId"]
   end
 
 end
