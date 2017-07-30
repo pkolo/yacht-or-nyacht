@@ -18,9 +18,9 @@ get '/songs/search' do
     if @results.any?
       @main_result = @results.first[:result]
       @main_result_details = PersonnelHelper.build_list(@main_result, params[:title])
-      erb :'songs/song_checker_results'
+      erb :'songs/_song_checker_results', layout: false
     else
-      @error = "No results."
+      @error = "No results. Make sure your information is correct."
       erb :'songs/search'
     end
   else
