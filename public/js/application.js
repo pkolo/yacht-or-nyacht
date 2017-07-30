@@ -191,7 +191,7 @@ $(document).ready(function() {
     $('.loading').empty();
     $('.loading').append('<h3>Loading...</h3><p>(This might take a while)</p>');
     $.ajax({
-      url: '/songs/search',
+      url: '/personnel-checker',
       method: 'GET',
       data: $(this).serialize()
     }).done(function(res) {

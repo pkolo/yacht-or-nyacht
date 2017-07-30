@@ -12,7 +12,7 @@ get '/' do
   erb :'songs/index'
 end
 
-get '/songs/search' do
+get '/personnel-checker' do
   if request.xhr?
     search_options = {artist: params[:artist], title: params[:title], year: params[:year]}
     @results = DiscogHelper.credits_quality(search_options)
