@@ -1,0 +1,78 @@
+<div class="page-header">
+  <div class="big-title"><%= @main_result_details[:title] %></div>
+  <div class="artist-credit">
+    by <%= @main_result["artists"].map {|a| a["name"]}.join(', ') %>
+  </div>
+</div>
+
+<div class="row page-section details">
+  <div class="col-7 full-width-res">
+    <div class="row">
+      <div class="col-2 hideable col-title">Album:</div>
+      <div class="col-10 info-album"><i><a href="<%= @main_result['uri']%>" target="_blank"><%= @main_result["title"] %></a></i></div>
+    </div>
+    <div class="row">
+      <div class="col-2 hideable col-title">Year:</div>
+      <div class="col-10 info-year"><%= @main_result["year"] %></div>
+    </div>
+  </div>
+  <% if @main_result_details[:yt_id] %>
+    <div class="col-5 full-width-res">
+      <div class="yt-embed">
+        <iframe width="375" height="75" src="https://www.youtube.com/embed/<%= @main_result_details[:yt_id] %>?rel=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @main_result_details[:track_personnel].any? %>
+  <div class="page-section personnel">
+    <div class="section-title">
+      Track Personnel
+    </div>
+    <div class="credits-list">
+      <% @main_result_details[:track_personnel].each do |credit| %>
+      <div class="row credit">
+        <div class="yachtski-list-item" style="display:none"><%= credit[:yachtski] %></div>
+        <div class="col-1 bullet">&nbsp;</div>
+        <div class="col-4 personnel-link">
+          <% if credit[:slug] %>
+            <a href="/personnel/<%= credit[:slug] %>"><%= credit[:name] %></a>
+          <% else %>
+            <%= credit[:name] %>
+          <% end %>
+        </div>
+        <div class="col-7 personnel-role">
+          <%= credit[:roles].join(', ') %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% if @main_result_details[:album_personnel].any? %>
+  <div class="page-section personnel">
+    <div class="section-title">
+      Album Personnel
+    </div>
+    <div class="credits-list">
+      <% @main_result_details[:album_personnel].each do |credit| %>
+      <div class="row credit">
+        <div class="yachtski-list-item" style="display:none"><%= credit[:yachtski] %></div>
+        <div class="col-1 bullet">&nbsp;</div>
+        <div class="col-4 personnel-link">
+          <% if credit[:slug] %>
+            <a href="/personnel/<%= credit[:slug] %>"><%= credit[:name] %></a>
+          <% else %>
+            <%= credit[:name] %>
+          <% end %>
+        </div>
+        <div class="col-7 personnel-role">
+          <%= credit[:roles].join(', ') %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

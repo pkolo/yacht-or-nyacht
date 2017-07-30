@@ -186,9 +186,34 @@ $(document).ready(function() {
     });
   });
 
-  $('#song-checker-form').submit(function(e) {
+  $('body').on('submit', '#song-checker-form', function(e) {
+    e.preventDefault();
     $('.loading').empty();
     $('.loading').append('<h3>Loading...</h3><p>(This might take a while)</p>');
+    $.ajax({
+      url: '/personnel-checker',
+      method: 'GET',
+      data: $(this).serialize()
+    }).done(function(res) {
+      if (res['status'] == 'success') {
+        $('.main-wrapper').empty();
+        $('.main-wrapper').append(res['content']);
+        $('.yachtski-list-item').each(function() {
+          var $this = $(this);
+          var yachtski = $this.text();
+          var color = getColor(yachtski);
+
+          $this.siblings('.bullet').css('background-color', color);
+          $this.parent().css('border-bottom', `1px solid ${color}`);
+        })
+      }
+
+      if (res['status'] == 'error') {
+        $('.loading').empty();
+        $('.loading').append(`<h3>${res['message']}</h3>`);
+      }
+
+    });
   });
 
 // Responsive

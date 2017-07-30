@@ -1,5 +1,6 @@
 require_relative '../helpers/discog_helper'
 require_relative '../helpers/personnel_helper'
+require 'json'
 
 include DiscogHelper
 include PersonnelHelper
@@ -11,17 +12,18 @@ get '/' do
   erb :'songs/index'
 end
 
-get '/songs/search' do
-  if params[:title]
+get '/personnel-checker' do
+  if request.xhr?
     search_options = {artist: params[:artist], title: params[:title], year: params[:year]}
     @results = DiscogHelper.credits_quality(search_options)
     if @results.any?
       @main_result = @results.first[:result]
       @main_result_details = PersonnelHelper.build_list(@main_result, params[:title])
-      erb :'songs/song_checker_results'
+      content_type :json
+      {status: 'success', content: (erb :'songs/_song_checker_results', layout: false)}.to_json
     else
-      @error = "No results."
-      erb :'songs/search'
+      content_type :json
+      {status: 'error', message: 'There are no matching results. Make sure you have the correct information.'}.to_json
     end
   else
     erb :'songs/search'
