@@ -1,20 +1,18 @@
-<div class="song-list-section">
-  <div class="row list-headers">
-    <div class="song-list-box col-1 yachtski-column">Yachtski</div>
-    <div class="song-list-box col-1 hideable">Track</div>
-    <div class="song-list-box col-5 title">Song</div>
-    <div class="hideable">
-      <div class="song-list-box col-1">JD</div>
-      <div class="song-list-box col-1">Hunter</div>
-      <div class="song-list-box col-1">Steve</div>
-      <div class="song-list-box col-1">Dave</div>
-      <div class="song-list-box col-1">Ep #</div>
-    </div>
+<div class="row list-headers">
+  <div class="song-list-box col-1 yachtski-column"><a class="sort-link num" href="#">Yachtski</a></div>
+  <div class="song-list-box col-1 hideable"><a class="sort-link" href="#">Track</a></div>
+  <div class="song-list-box col-5 title"><a class="sort-link" href="#">Title</a></div>
+  <div class="hideable">
+    <div class="song-list-box col-1"><a class="sort-link num" href="#">JD</a></div>
+    <div class="song-list-box col-1"><a class="sort-link num" href="#">Hunter</a></div>
+    <div class="song-list-box col-1"><a class="sort-link num" href="#">Steve</a></div>
+    <div class="song-list-box col-1"><a class="sort-link num" href="#">Dave</a></div>
+    <div class="song-list-box col-1"><a class="sort-link" href="#">Episode</a></div>
   </div>
+</div>
 
-  <div class="song-list">
-    <% songs.each do |song| %>
-     <%= erb :'albums/_list_item', locals: {song: song} %>
-    <% end %>
-  </div>
+<div class="song-list">
+  <% songs.each do |song| %>
+   <%= erb :'albums/_list_item', locals: {song: song} %>
+  <% end %>
 </div>
