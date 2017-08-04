@@ -21,7 +21,8 @@ class Song < ActiveRecord::Base
   has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
   after_create :create_slug
 
-  def serialize
+  # Creates a hash of song data, used by cache for index page
+  def to_json
     {
       slug: self.slug,
       title: self.title,
