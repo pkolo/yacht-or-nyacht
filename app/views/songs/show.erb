@@ -9,9 +9,9 @@
       <div class="big-title"><%= @song['title'] %></div>
       <div class="artist-credit">
         by
-        <%= @personnel['artists'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %>
+        <%= @personnel['artists'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %>
         <% if @personnel['features'] %>
-          w/ <%= @personnel['features'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %>
+          w/ <%= @personnel['features'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %>
         <% end %>
       </div>
     </div>
