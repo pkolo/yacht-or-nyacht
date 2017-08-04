@@ -1,9 +1,9 @@
 require_relative '../serializers/album_serializers'
-require_relative '../helpers/creditable_helpers'
+require_relative '../serializers/creditable_serializers'
 
 class Album < ActiveRecord::Base
   include AlbumSerializers
-  include CreditableHelpers
+  include CreditableSerializers
 
   has_many :songs
   has_many :credits, as: :creditable, dependent: :destroy do

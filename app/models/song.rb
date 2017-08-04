@@ -3,13 +3,13 @@ require 'uri'
 require 'json'
 require_relative '../helpers/discog_helpers'
 require_relative '../helpers/personnel_helpers'
-require_relative '../helpers/creditable_helpers'
+require_relative '../serializers/creditable_serializers'
 require_relative '../serializers/song_serializers'
 
 class Song < ActiveRecord::Base
   include DiscogHelpers
   include PersonnelHelpers
-  include CreditableHelpers
+  include CreditableSerializers
   include SongSerializers
 
   belongs_to :episode

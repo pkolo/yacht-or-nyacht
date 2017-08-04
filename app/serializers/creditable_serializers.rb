@@ -1,4 +1,4 @@
-module CreditableHelpers
+module CreditableSerializers
 
   def serialize_credits(credits_list)
     # Combine players by name, combine their roles
