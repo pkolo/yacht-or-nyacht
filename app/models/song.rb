@@ -39,18 +39,6 @@ class Song < ActiveRecord::Base
     self.performers.pluck(:name).first
   end
 
-  def artist_list
-    artist_data = self.performers.pluck(:slug, :name)
-    artists = artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
-    if self.features.any?
-      feature_data = self.features.pluck(:slug, :name)
-      features = feature_data.map {|data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
-      [artists, features].join(" w/ ")
-    else
-      artists
-    end
-  end
-
   def artist_json
     artist_data = self.performers.pluck(:slug, :name)
     artists = artist_data.map { |data| {slug: data[0], name: data[1]} }
@@ -174,10 +162,6 @@ class Song < ActiveRecord::Base
     vid_id = vid_data["id"]["videoId"]
     self.yt_id = vid_id
     self.save
-  end
-
-  def self.youtube_writer
-    self.all.each { |song| song.get_youtube_id }
   end
 
   private
