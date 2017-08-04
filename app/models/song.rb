@@ -34,6 +34,7 @@ class Song < ActiveRecord::Base
   has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
   after_create :create_slug
   after_create :get_youtube_id
+  after_create :get_yachtski
 
   def artist
     self.performers.pluck(:name).first
@@ -47,10 +48,6 @@ class Song < ActiveRecord::Base
   def feature_json
     feature_data = self.features.pluck(:slug, :name)
     features = feature_data.map { |data| {slug: data[0], name: data[1]} }
-  end
-
-  def yachtski
-    (self.dave_score + self.jd_score + self.hunter_score + self.steve_score) / 4.0
   end
 
   def status
@@ -161,6 +158,11 @@ class Song < ActiveRecord::Base
     vid_data = res["items"].first
     vid_id = vid_data["id"]["videoId"]
     self.yt_id = vid_id
+    self.save
+  end
+
+  def get_yachtski
+    self.yachtski = (self.dave_score + self.jd_score + self.hunter_score + self.steve_score) / 4.0
     self.save
   end
 
