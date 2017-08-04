@@ -8,7 +8,7 @@ include PersonnelHelpers
 get '/' do
   cache = File.read("app/cache/index.json")
   res = JSON.parse(cache)
-  @songs = res.sort_by {|song| song['scores']['yachtski']}.reverse
+  @songs = res.sort_by {|song| song['yachtski']}.reverse
   erb :'songs/index'
 end
 
