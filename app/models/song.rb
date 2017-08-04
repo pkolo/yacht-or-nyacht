@@ -12,7 +12,7 @@ class Song < ActiveRecord::Base
   belongs_to :album
 
   has_many :credits, as: :creditable, dependent: :destroy do
-    def players
+    def player_credits
       where("role NOT IN (?)", ["Artist", "Duet", "Featuring"])
     end
   end
@@ -76,10 +76,10 @@ class Song < ActiveRecord::Base
 
   def personnel_combined_roles
     # Combine players by name, combine their roles
-    personnel = self.credits.players.each_with_object([]) do |credit, memo|
+    personnel = self.credits.player_credits.each_with_object([]) do |credit, memo|
       combined_roles = {
         personnel: credit.personnel,
-        roles: self.credits.players.where(personnel_id: credit.personnel.id).pluck(:role)
+        roles: self.credits.player_credits.where(personnel_id: credit.personnel.id).pluck(:role)
       }
       memo << combined_roles
     end
