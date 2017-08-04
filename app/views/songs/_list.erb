@@ -12,6 +12,6 @@
 
 <div class="song-list">
   <% songs.each do |song| %>
-   <%= erb :'songs/_list_item', locals: {song: song} %>
+   <%= erb :'songs/_list_item', locals: {song: song, personnel: song['personnel']} %>
   <% end %>
 </div>

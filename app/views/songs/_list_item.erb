@@ -3,9 +3,9 @@
 
   <div class="song-list-box col-6 title">
     <span class="artist-column">
-      <%= song['artists'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %>
-      <% if song['features'].any? %>
-        w/ <%= song['features'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %>
+      <%= personnel['artists'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %>
+      <% if personnel['features'] %>
+        w/ <%= personnel['features'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %>
       <% end %>
     </span>
     <span class="separator"> - </span>
