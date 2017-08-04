@@ -15,6 +15,14 @@ class Song < ActiveRecord::Base
     def player_credits
       where("role NOT IN (?)", ["Artist", "Duet", "Featuring"])
     end
+
+    def artist_credits
+      where 'role IN (?)', ["Artist"]
+    end
+
+    def feature_credits
+      where 'role IN (?)', ["Duet", "Featuring"]
+    end
   end
 
   has_many :players, ->(credit) { where("credits.role NOT IN (?)", ["Artist", "Duet", "Featuring"]) }, through: :credits, source: :personnel
@@ -42,9 +50,9 @@ class Song < ActiveRecord::Base
         number: self.episode.number
       },
       personnel: {
-        artists: self.performers.map {|p| p.serialize(self)},
-        features: self.features.map {|p| p.serialize(self)},
-        players: self.credits.players.map {|p| p.serialize(self)}
+        artists: self.serialize_credits(self.credits.artist_credits),
+        features: self.serialize_credits(self.credits.feature_credits),
+        players: self.serialize_credits(self.credits.player_credits)
       }
     }
   end
@@ -75,16 +83,16 @@ class Song < ActiveRecord::Base
     features = feature_data.map { |data| {slug: data[0], name: data[1]} }
   end
 
-  def personnel_combined_roles
+  def serialize_credits(credits_list)
     # Combine players by name, combine their roles
-    personnel = self.credits.player_credits.each_with_object([]) do |credit, memo|
+    personnel = credits_list.uniq { |p| p[:personnel].id }.each_with_object([]) do |credit, memo|
       combined_roles = {
         personnel: credit.personnel,
-        roles: self.credits.player_credits.where(personnel_id: credit.personnel.id).pluck(:role)
+        yachtski: credit.personnel.yachtski,
+        roles: credits_list.where(personnel_id: credit.personnel.id).pluck(:role)
       }
       memo << combined_roles
     end
-    personnel.uniq {|p| p[:personnel].id }
   end
 
   def yachtski
