@@ -24,7 +24,7 @@
         <div class="section-title">
           Track Personnel
         </div>
-        <%= erb :'songs/_credits_list', locals: { credits: @personnel['players'] } %>
+        <%= erb :'credits/_media_credits_list', locals: { credits: @personnel['players'] } %>
       </div>
     <% end %>
 
@@ -33,7 +33,7 @@
         <div class="section-title">
           Album Personnel
         </div>
-        <%= erb :'songs/_credits_list', locals: { credits: @album['personnel'] } %>
+        <%= erb :'credits/_media_credits_list', locals: { credits: @album['personnel'] } %>
       </div>
     <% end %>
 
