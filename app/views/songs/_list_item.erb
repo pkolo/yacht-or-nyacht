@@ -1,9 +1,9 @@
 <div class="row song-list-item">
-  <div class="song-list-box yachtski avg col-1 yachtski-column"><%= song["scores"]["yachtski"].round(2) %></div>
+  <div class="song-list-box yachtski avg col-1 yachtski-column"><%= song["yachtski"].round(2) %></div>
 
   <div class="song-list-box col-6 title">
     <span class="artist-column">
-      <%= personnel['artists'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %>
+      <%= song['artists'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %>
       <% if personnel['features'] %>
         w/ <%= personnel['features'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %>
       <% end %>
