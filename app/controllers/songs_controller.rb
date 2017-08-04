@@ -38,7 +38,7 @@ get '/songs/:slug' do
   @scores = @song['scores']
   @personnel = @song['personnel']
   @subtitle = @song['title']
-  erb :'songs/new_show'
+  erb :'songs/show'
 end
 
 get '/songs/:slug/edit' do
