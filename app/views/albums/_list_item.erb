@@ -4,7 +4,7 @@
   <div class="song-list-box col-5 title-column">
 
     <% if @album['artists'].find {|artist| artist['name'] == "Various"} %>
-      <%= song['personnel']['artists'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %> -
+      <%= song['artists'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %> -
     <% end %>
     <a href="<%= song['resource_url'] %>"><%= song['title'] %></a>
   </div>
