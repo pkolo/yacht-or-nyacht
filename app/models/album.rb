@@ -1,7 +1,11 @@
+require_relative '../serializers/album_serializers'
+
 class Album < ActiveRecord::Base
+  include AlbumSerializers
+
   has_many :songs
   has_many :credits, as: :creditable, dependent: :destroy do
-    def players
+    def player_credits
       where("role != ?", "Artist")
     end
   end
