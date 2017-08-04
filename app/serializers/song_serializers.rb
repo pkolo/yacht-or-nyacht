@@ -18,8 +18,8 @@ module SongSerializers
         yachtski: self.yachtski
       },
       episode: {
-        id: self.episode.id,
-        number: self.episode.number
+        number: self.episode.number,
+        resource_url: "/episodes/#{self.episode.id}"
       },
       personnel: {
         artists: self.serialize_credits(self.credits.artist_credits)
