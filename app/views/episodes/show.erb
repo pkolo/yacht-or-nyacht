@@ -1,6 +1,6 @@
 <div class="content-section">
   <div class="sidebar-title">
-    <%= @episode.title %> <% if @episode.link %>(<a href="<%= @episode.link %>" target="_blank">Listen</a>) <% end %>
+    <%= @episode['title'] %> <% if @episode['podcast_url'] %>(<a href="<%= @episode['pocast_url'] %>" target="_blank">Listen</a>) <% end %>
   </div>
   <div class="personnel-song-list">
       <%= erb :'episodes/_list', locals: {songs: @songs} %>

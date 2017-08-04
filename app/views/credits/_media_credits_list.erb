@@ -1,0 +1,16 @@
+<% if credits.any? %>
+  <div class="credits-list">
+    <% credits.sort_by {|credit| credit['yachtski']}.reverse.each do |credit| %>
+    <div class="row credit">
+      <div class="yachtski-list-item" style="display:none"><%= credit['yachtski'] %></div>
+      <div class="col-1 bullet">&nbsp;</div>
+      <div class="col-4 personnel-link">
+        <a href="<%= credit['resource_url'] %>"><%= credit['name'] %></a>
+      </div>
+      <div class="col-7 personnel-role">
+        <%= credit['roles'].join(', ') %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+<% end %>

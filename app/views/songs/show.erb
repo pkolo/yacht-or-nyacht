@@ -1,39 +1,46 @@
-  <div class="row">
-    <div class="col-3 sidebar-wrapper">
-      <%= erb :'songs/_score_panel' %>
+<div class="row">
+  <div class="col-3 sidebar-wrapper">
+    <%= erb :'songs/_score_panel', locals: {scores: @scores, song: @song} %>
+  </div>
+
+  <div class="col-9 main-wrapper">
+
+    <div class="page-header">
+      <div class="big-title"><%= @song['title'] %></div>
+      <div class="artist-credit">
+        by
+        <%= @song['artists'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %>
+        <% if @personnel['features'] %>
+          w/ <%= @personnel['features'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %>
+        <% end %>
+      </div>
     </div>
 
-    <div class="col-9 main-wrapper">
-      <div class="page-header">
-        <div class="big-title"><%= @song.title %></div>
-        <div class="artist-credit">by <%= @song.artist_list %></div>
+    <%= erb :'songs/_song_info' %>
+
+  <% if @album %>
+    <% if @personnel['players'].any? %>
+      <div class="page-section personnel">
+        <div class="section-title">
+          Track Personnel
+        </div>
+        <%= erb :'credits/_media_credits_list', locals: { credits: @personnel['players'] } %>
       </div>
-
-      <%= erb :'songs/_song_info' %>
-
-
-    <% if @song.album %>
-      <% if @song.credits.players.any? %>
-        <div class="page-section personnel">
-          <div class="section-title">
-            Track Personnel
-          </div>
-          <%= erb :'songs/_personnel_combine_roles', locals: { credits: @song.personnel_combined_roles } %>
-        </div>
-      <% end %>
-
-      <% if @song.album.credits.players.any? %>
-        <div class="page-section personnel">
-          <div class="section-title">
-            Album Personnel
-          </div>
-          <%= erb :'songs/_personnel_combine_roles', locals: { credits: @song.album.personnel_combined_roles } %>
-        </div>
-      <% end %>
-
-    <% else %>
-      <% if logged_in? %>
-        <a href="/songs/<%= @song.slug %>/edit">Edit entry</a>
-      <% end %>
     <% end %>
+
+    <% if @album['personnel'].any? %>
+      <div class="page-section personnel">
+        <div class="section-title">
+          Album Personnel
+        </div>
+        <%= erb :'credits/_media_credits_list', locals: { credits: @album['personnel'] } %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <% if logged_in? %>
+      <a href="/songs/<%= @song.slug %>/edit">Edit entry</a>
+    <% end %>
+  <% end %>
+  </div>
 </div>

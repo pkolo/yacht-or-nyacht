@@ -11,7 +11,7 @@ def cache_stats
 end
 
 def cache_index
-  all_songs = Song.all.map {|song| song.to_json}
+  all_songs = Song.all.map {|song| song.serialize}
   File.open("app/cache/index.json","w+") do |f|
     f.write(all_songs.to_json)
   end

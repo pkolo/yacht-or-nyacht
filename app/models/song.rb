@@ -1,62 +1,42 @@
 require 'net/http'
 require 'uri'
 require 'json'
-require_relative '../helpers/discog_helper'
-require_relative '../helpers/personnel_helper'
+require_relative '../helpers/discog_helpers'
+require_relative '../helpers/personnel_helpers'
+require_relative '../serializers/creditable_serializers'
+require_relative '../serializers/song_serializers'
 
 class Song < ActiveRecord::Base
-  include DiscogHelper
-  include PersonnelHelper
+  include DiscogHelpers
+  include PersonnelHelpers
+  include CreditableSerializers
+  include SongSerializers
 
   belongs_to :episode
   belongs_to :album
 
   has_many :credits, as: :creditable, dependent: :destroy do
-    def players
+    def player_credits
       where("role NOT IN (?)", ["Artist", "Duet", "Featuring"])
+    end
+
+    def artist_credits
+      where 'role IN (?)', ["Artist"]
+    end
+
+    def feature_credits
+      where 'role IN (?)', ["Duet", "Featuring"]
     end
   end
 
+  has_many :players, ->(credit) { where("credits.role NOT IN (?)", ["Artist", "Duet", "Featuring"]) }, through: :credits, source: :personnel
   has_many :performers, ->(credit) { where 'credits.role IN (?)', ["Artist"] }, through: :credits, source: :personnel
   has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
   after_create :create_slug
-
-  # Creates a hash of song data, used by cache for index page
-  def to_json
-    {
-      slug: self.slug,
-      title: self.title,
-      year: self.year,
-      artists: self.artist_json,
-      features: self.feature_json,
-      scores: {
-        jd: self.jd_score,
-        hunter: self.hunter_score,
-        steve: self.steve_score,
-        dave: self.dave_score,
-        yachtski: self.yachtski
-      },
-      episode: {
-        id: self.episode.id,
-        number: self.episode.number
-      }
-    }
-  end
+  after_create :get_youtube_id
 
   def artist
     self.performers.pluck(:name).first
-  end
-
-  def artist_list
-    artist_data = self.performers.pluck(:slug, :name)
-    artists = artist_data.map { |data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
-    if self.features.any?
-      feature_data = self.features.pluck(:slug, :name)
-      features = feature_data.map {|data| "<a href='/personnel/#{data[0]}'>#{data[1]}</a>"}.join(", ")
-      [artists, features].join(" w/ ")
-    else
-      artists
-    end
   end
 
   def artist_json
@@ -67,31 +47,6 @@ class Song < ActiveRecord::Base
   def feature_json
     feature_data = self.features.pluck(:slug, :name)
     features = feature_data.map { |data| {slug: data[0], name: data[1]} }
-  end
-
-  def combined_players
-    roles = self.credits.players.pluck(:role).uniq
-    roles.each_with_object([]) do |role, memo|
-      credits = self.credits.players.where(role: role)
-
-      players = {
-        role: role,
-        personnel: credits.map { |credit| "<a href='/personnel/#{credit.personnel.slug}'>#{credit.personnel.name}</a>" }
-      }
-      memo << players
-    end
-  end
-
-  def personnel_combined_roles
-    # Combine players by name, combine their roles
-    personnel = self.credits.players.each_with_object([]) do |credit, memo|
-      combined_roles = {
-        personnel: credit.personnel,
-        roles: self.credits.players.where(personnel_id: credit.personnel.id).pluck(:role)
-      }
-      memo << combined_roles
-    end
-    personnel.uniq {|p| p[:personnel].id }
   end
 
   def yachtski
@@ -122,7 +77,7 @@ class Song < ActiveRecord::Base
   end
 
   def add_personnel(url, add_album_personnel)
-    results = DiscogHelper.api_call(url)
+    results = DiscogHelpers.api_call(url)
     album = Album.find_or_create_by(year: results["year"], title: results["title"], discog_id: results["id"])
     self.album = album
     track_data = results["tracklist"].find {|track| is_match?(remove_parens(track["title"]), remove_parens(self.title)) }
@@ -172,7 +127,7 @@ class Song < ActiveRecord::Base
 
     other_personnel = results["extraartists"] - album_personnel
     all_tracks = results["tracklist"].map {|track| track["position"]}
-    track_personnel = other_personnel.select {|person| PersonnelHelper.credit_in_track_range?(all_tracks, person, self.track_no)}
+    track_personnel = other_personnel.select {|person| PersonnelHelpers.credit_in_track_range?(all_tracks, person, self.track_no)}
     track_personnel += track_data["extraartists"] if track_data["extraartists"]
 
     track_personnel.each do |personnel|
@@ -207,10 +162,6 @@ class Song < ActiveRecord::Base
     vid_id = vid_data["id"]["videoId"]
     self.yt_id = vid_id
     self.save
-  end
-
-  def self.youtube_writer
-    self.all.each { |song| song.get_youtube_id }
   end
 
   private

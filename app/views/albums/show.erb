@@ -1,32 +1,37 @@
 <div class="row">
-    <div class="col-3 sidebar-wrapper">
-      <div class="sidebar-bg-shape yachtski">
-        <div class="yachtski avg" style="display:none"><%= @album.yachtski %></div>
-        <div class="big-score"><%= @album.yachtski.round(2) %></div>
-        <div class="yacht-status">Average Yachtski</div>
+  <div class="col-3 sidebar-wrapper">
+    <div class="sidebar-bg-shape yachtski">
+      <div class="yachtski avg" style="display:none"><%= @album['yachtski'] %></div>
+      <div class="big-score"><%= @album['yachtski'].round(2) %></div>
+      <div class="yacht-status">Average Yachtski</div>
+    </div>
+  </div>
+
+  <div class="col-9 main-wrapper">
+
+    <div class="page-header">
+      <div class="big-title"><i><%= @album['title'] %></i></div>
+      <div class="artist-credit">
+        by
+        <%= @album['artists'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(', ') %>
+        | <%= @album['year'] %>
       </div>
     </div>
 
-    <div class="col-9 main-wrapper">
-      <div class="page-header">
-        <div class="big-title"><i><%= @album.title %></i></div>
-        <div class="artist-credit">by <%= @album.artist_list %> | <%= @album.year %></div>
+    <div class="page-section tracklist">
+      <div class="section-title">
+        Album Tracklist
       </div>
+        <%= erb :'albums/_song_list', locals: { songs: @songs } %>
+    </div>
 
-      <div class="page-section tracklist">
-        <div class="section-title">
-          Album Tracklist
-        </div>
-          <%= erb :'albums/_song_list', locals: { songs: @songs } %>
-      </div>
-
+    <% if @album['personnel'].any? %>
       <div class="page-section personnel">
         <div class="section-title">
           Album Personnel
         </div>
-        <%= erb :'songs/_personnel_combine_roles', locals: { credits: @album.personnel_combined_roles } %>
+        <%= erb :'credits/_media_credits_list', locals: { credits: @album['personnel'] } %>
       </div>
-    </div>
-
+    <% end %>
   </div>
 </div>

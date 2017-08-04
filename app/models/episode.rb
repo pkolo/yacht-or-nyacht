@@ -1,4 +1,8 @@
+require_relative '../serializers/episode_serializers'
+
 class Episode < ActiveRecord::Base
+  include EpisodeSerializers
+
   has_many :songs
 
   validates :number, uniqueness: true

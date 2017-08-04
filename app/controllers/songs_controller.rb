@@ -1,24 +1,24 @@
-require_relative '../helpers/discog_helper'
-require_relative '../helpers/personnel_helper'
+require_relative '../helpers/discog_helpers'
+require_relative '../helpers/personnel_helpers'
 require 'json'
 
-include DiscogHelper
-include PersonnelHelper
+include DiscogHelpers
+include PersonnelHelpers
 
 get '/' do
   cache = File.read("app/cache/index.json")
   res = JSON.parse(cache)
-  @songs = res.sort_by {|song| song['scores']['yachtski']}.reverse
+  @songs = res.sort_by {|song| song['yachtski']}.reverse
   erb :'songs/index'
 end
 
 get '/personnel-checker' do
   if request.xhr?
     search_options = {artist: params[:artist], title: params[:title], year: params[:year]}
-    @results = DiscogHelper.credits_quality(search_options)
+    @results = DiscogHelpers.credits_quality(search_options)
     if @results.any?
       @main_result = @results.first[:result]
-      @main_result_details = PersonnelHelper.build_list(@main_result, params[:title])
+      @main_result_details = PersonnelHelpers.build_list(@main_result, params[:title])
       content_type :json
       {status: 'success', content: (erb :'songs/_song_checker_results', layout: false)}.to_json
     else
@@ -31,8 +31,14 @@ get '/personnel-checker' do
 end
 
 get '/songs/:slug' do
-  @song = Song.find_by(slug: params[:slug])
-  @subtitle = @song.title
+  # This is redundant, meant to mimic API call
+  song = Song.find_by(slug: params[:slug]).serialize({extended: true}).to_json
+  @song = JSON.parse(song)
+  @episode = @song['episode']
+  @album = @song['album']
+  @scores = @song['scores']
+  @personnel = @song['personnel']
+  @subtitle = @song['title']
   erb :'songs/show'
 end
 
@@ -55,7 +61,7 @@ post '/songs/:slug/discog_search' do
       redirect to("/songs/#{params[:slug]}")
     end
 
-    @results = DiscogHelper.search(options, @song).sort_by {|result| result["community"]["have"]}.reverse.first(20)
+    @results = DiscogHelpers.search(options, @song).sort_by {|result| result["community"]["have"]}.reverse.first(20)
     if Album.match_in(@results)
       url = "https://api.discogs.com/releases/" + Album.match_in(@results).discog_id
       @credits = @song.add_personnel(url, false)

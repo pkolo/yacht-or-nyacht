@@ -22,8 +22,10 @@ post '/episodes' do
 end
 
 get '/episodes/:id' do
-  @episode = Episode.find(params[:id])
-  @songs = @episode.songs.sort_by { |song| song.yachtski }.reverse
+  episode = Episode.find(params[:id]).serialize.to_json
+  @episode = JSON.parse(episode)
+
+  @songs = @episode['tracklist'].sort_by { |song| song['yachtski'] }.reverse
   erb :'episodes/show'
 end
 
