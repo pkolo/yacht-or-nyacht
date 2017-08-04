@@ -31,10 +31,15 @@ get '/personnel-checker' do
 end
 
 get '/songs/:slug' do
-  @song = Song.find_by(slug: params[:slug]).serialize({extended: true}).to_json
-  binding.pry
+  # This is redundant, meant to mimic API call
+  song = Song.find_by(slug: params[:slug]).serialize({extended: true}).to_json
+  @song = JSON.parse(song)
+  
+  @scores = @song['scores']
+  @personnel = @song['personnel']
   @subtitle = @song['title']
-  erb :'songs/show'
+  binding.pry
+  erb :'songs/new_show'
 end
 
 get '/songs/:slug/edit' do
