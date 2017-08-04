@@ -8,6 +8,7 @@
   </div>
 
   <div class="col-9 main-wrapper">
+
     <div class="page-header">
       <div class="big-title"><i><%= @album['title'] %></i></div>
       <div class="artist-credit">
@@ -16,5 +17,13 @@
         | <%= @album['year'] %>
       </div>
     </div>
+
+    <div class="page-section tracklist">
+      <div class="section-title">
+        Album Tracklist
+      </div>
+        <%= erb :'albums/_song_list', locals: { songs: @songs } %>
+    </div>
+
   </div>
 </div>
