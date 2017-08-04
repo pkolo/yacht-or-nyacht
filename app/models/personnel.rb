@@ -1,7 +1,9 @@
+require_relative '../helpers/creditable_helpers'
 require_relative '../serializers/personnel_serializers'
 
 class Personnel < ActiveRecord::Base
   include PersonnelSerializers
+  include CreditableHelpers
 
   has_many :credits
   has_many :songs, through: :credits, source: :creditable, source_type: 'Song'
@@ -14,28 +16,6 @@ class Personnel < ActiveRecord::Base
   has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
 
   after_create :create_slug
-
-  def combined_song_credits
-    combined_credits = self.song_credits.uniq.each_with_object([]) do |credit, memo|
-      combined_credit = {
-        media: credit.creditable,
-        roles: self.song_credits.where(creditable_id: credit.creditable.id).pluck(:role)
-      }
-      memo << combined_credit
-    end
-    combined_credits.uniq {|c| c[:media]}
-  end
-
-  def combined_album_credits
-    combined_credits = self.album_credits.each_with_object([]) do |credit, memo|
-      combined_credit = {
-        media: credit.creditable,
-        roles: self.album_credits.where(creditable_id: credit.creditable.id).pluck(:role)
-      }
-      memo << combined_credit
-    end
-    combined_credits.uniq {|c| c[:media]}
-  end
 
   def all_song_albums
     song_albums = self.songs.map {|song| song.album}.uniq
