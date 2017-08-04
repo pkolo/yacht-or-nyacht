@@ -5,6 +5,7 @@ module AlbumSerializers
       artists: self.serialize_credits(self.credits.artist_credits),
       title: self.title,
       year: self.year,
+      yachtski: self.yachtski,
       resource_url: "/albums/#{self.slug}",
       personnel: self.serialize_credits(self.credits.player_credits)
     }
