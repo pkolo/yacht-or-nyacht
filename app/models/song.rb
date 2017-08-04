@@ -4,11 +4,13 @@ require 'json'
 require_relative '../helpers/discog_helpers'
 require_relative '../helpers/personnel_helpers'
 require_relative '../helpers/creditable_helpers'
+require_relative '../serializers/song_serializers'
 
 class Song < ActiveRecord::Base
   include DiscogHelpers
   include PersonnelHelpers
   include CreditableHelpers
+  include SongSerializers
 
   belongs_to :episode
   belongs_to :album
@@ -32,33 +34,6 @@ class Song < ActiveRecord::Base
   has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
   after_create :create_slug
   after_create :get_youtube_id
-
-  # Creates a hash of song data, used by cache for index page
-  def serialize
-    {
-      slug: self.slug,
-      title: self.title,
-      year: self.year,
-      artists: self.artist_json,
-      features: self.feature_json,
-      scores: {
-        jd: self.jd_score,
-        hunter: self.hunter_score,
-        steve: self.steve_score,
-        dave: self.dave_score,
-        yachtski: self.yachtski
-      },
-      episode: {
-        id: self.episode.id,
-        number: self.episode.number
-      },
-      personnel: {
-        artists: self.serialize_credits(self.credits.artist_credits),
-        features: self.serialize_credits(self.credits.feature_credits),
-        players: self.serialize_credits(self.credits.player_credits)
-      }
-    }
-  end
 
   def artist
     self.performers.pluck(:name).first
