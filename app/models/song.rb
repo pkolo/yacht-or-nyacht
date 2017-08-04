@@ -93,10 +93,6 @@ class Song < ActiveRecord::Base
     personnel.uniq {|p| p[:personnel].id }
   end
 
-  def nice_title
-    "#{self.artist_list} - #{self.title} (#{self.year})"
-  end
-
   def yachtski
     (self.dave_score + self.jd_score + self.hunter_score + self.steve_score) / 4.0
   end
