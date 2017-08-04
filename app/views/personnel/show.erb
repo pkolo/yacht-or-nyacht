@@ -22,5 +22,9 @@
       </div>
     <% end %>
 
+    <% if @song_credits %>
+      <%= erb :'personnel/_credits', locals: {credits: @song_credits, type: "Song", yachtski: @yachtski} %>
+    <% end %>
+
   </div>
 </div>
