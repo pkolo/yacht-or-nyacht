@@ -39,6 +39,11 @@ class Song < ActiveRecord::Base
       episode: {
         id: self.episode.id,
         number: self.episode.number
+      },
+      personnel: {
+        artists: self.performers.map {|p| p.serialize(self)},
+        features: self.features.map {|p| p.serialize(self)},
+        players: self.credits.players.map {|p| p.serialize(self)}
       }
     }
   end
