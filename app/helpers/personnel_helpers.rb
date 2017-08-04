@@ -1,4 +1,4 @@
-module PersonnelHelper
+module PersonnelHelpers
 
   def build_list(result, title)
     # Pulls track-specific data from result

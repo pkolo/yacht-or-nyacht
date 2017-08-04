@@ -1,4 +1,4 @@
-module DiscogHelper
+module DiscogHelpers
 
   def api_call(url)
     uri = URI.parse(url)
