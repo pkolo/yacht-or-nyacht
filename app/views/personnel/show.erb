@@ -9,24 +9,9 @@
 
   <div class="col-9 main-wrapper">
     <div class="page-header">
-      <div class="big-title"><%= @personnel.name %></div>
-      <div class="artist-credit"><%= @personnel.active_years %> | <%= @total_credits %> credits</div>
+      <div class="big-title"><%= @personnel['name'] %></div>
+      <div class="artist-credit"><%= @total_credits %> credits</div>
     </div>
-    <% if @personnel.song_performances.any? %>
-      <div class="page-section tracklist">
-        <div class="section-title">
-          Artist Tracklist
-        </div>
-        <%= erb :'personnel/_song_list', locals: {songs: @song_performances} %>
-      </div>
-    <% end %>
 
-    <% if @song_credits.any? %>
-      <%= erb :'personnel/_credits', locals: {credits: @song_credits, type: "Song", yachtski: @yachtski} %>
-    <% end %>
-
-    <% if @album_credits.any? %>
-      <%= erb :'personnel/_credits', locals: {credits: @album_credits, type: "Album", yachtski: @yachtski} %>
-    <% end %>
   </div>
 </div>
