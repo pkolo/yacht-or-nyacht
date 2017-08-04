@@ -1,8 +1,8 @@
 <div class="sidebar-bg-shape yachtski">
   <div class="overall-score">
-    <div class="yachtski avg" style="display:none"><%= @song.yachtski %></div>
-    <div class="big-score"><%= @song.yachtski.round(2) %></div>
-    <div class="yacht-status"><%= @song.status %></div>
+    <div class="yachtski avg" style="display:none"><%= scores['yachtski'] %></div>
+    <div class="big-score"><%= scores['yachtski'] %></div>
+    <div class="yacht-status"><%= song['status'] %></div>
   </div>
   <div class="host-scores">
     <div class="row score">
@@ -10,7 +10,7 @@
         JD
       </div>
       <div class="yachtski avg side-score col-6">
-        <%= @song.jd_score %>
+        <%= scores['jd'] %>
       </div>
     </div>
     <div class="row score">
@@ -18,7 +18,7 @@
         Hunter
       </div>
       <div class="yachtski avg side-score col-6">
-        <%= @song.hunter_score %>
+        <%= scores['hunter'] %>
       </div>
     </div>
     <div class="row score">
@@ -26,7 +26,7 @@
         Steve
       </div>
       <div class="yachtski avg side-score col-6">
-        <%= @song.steve_score %>
+        <%= scores['steve'] %>
       </div>
     </div>
     <div class="row score">
@@ -34,7 +34,7 @@
         Dave
       </div>
       <div class="yachtski avg side-score col-6">
-        <%= @song.dave_score %>
+        <%= scores['dave'] %>
       </div>
     </div>
   </div>
