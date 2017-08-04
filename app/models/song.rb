@@ -31,6 +31,7 @@ class Song < ActiveRecord::Base
   has_many :performers, ->(credit) { where 'credits.role IN (?)', ["Artist"] }, through: :credits, source: :personnel
   has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
   after_create :create_slug
+  after_create :get_youtube_id
 
   # Creates a hash of song data, used by cache for index page
   def to_json
