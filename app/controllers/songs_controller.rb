@@ -31,8 +31,9 @@ get '/personnel-checker' do
 end
 
 get '/songs/:slug' do
-  @song = Song.find_by(slug: params[:slug])
-  @subtitle = @song.title
+  @song = Song.find_by(slug: params[:slug]).serialize({extended: true}).to_json
+  binding.pry
+  @subtitle = @song['title']
   erb :'songs/show'
 end
 

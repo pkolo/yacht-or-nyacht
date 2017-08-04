@@ -14,6 +14,7 @@ class Personnel < ActiveRecord::Base
   def serializer(args=nil)
     if args[:basic]
       {
+        id: self.id,
         name: self.name,
         slug: self.slug,
         yachtski: self.yachtski

@@ -4,6 +4,7 @@ module SongSerializers
   # Takes args :extended for full player credits
   def serialize(args={})
     serialized_song = {
+      id: self.id,
       slug: self.slug,
       title: self.title,
       year: self.year,
