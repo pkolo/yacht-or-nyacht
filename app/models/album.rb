@@ -10,6 +10,10 @@ class Album < ActiveRecord::Base
     def player_credits
       where("role != ?", "Artist")
     end
+
+    def artist_credits
+      where 'role IN (?)', ["Artist"]
+    end
   end
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
   after_create :create_slug
