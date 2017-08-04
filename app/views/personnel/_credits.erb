@@ -6,11 +6,11 @@
     <div class="credits-list">
       <% credits.each do |credit| %>
       <div class="row credit">
-        <div class="yachtski-list-item" style="display:none"><%= credit['media']['scores']['yachtski'] %></div>
+        <div class="yachtski-list-item" style="display:none"><%= credit['media']['yachtski'] %></div>
         <div class="col-1 bullet">&nbsp;</div>
         <div class="col-6 media-link">
-          <%= credit['media']['personnel']['artists'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %>
-          <% if credit['media']['personnel']['features'] %>
+          <%= credit['media']['artists'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %>
+          <% if type == "Song" && credit['media']['personnel']['features'] %>
             w/ <%= credit['media']['personnel']['features'].map {|artist| "<a href='#{artist['resource_url']}'>#{artist['name']}</a>" }.join(", ") %>
           <% end %>
            - <a href="<%= credit['media']['resource_url'] %>"><%= credit['media']['title'] %></a>

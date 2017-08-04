@@ -25,7 +25,7 @@
         <%= erb :'albums/_song_list', locals: { songs: @songs } %>
     </div>
 
-    <% if @album['personnel'].any? %>
+    <% if @album['personnel'] %>
       <div class="page-section personnel">
         <div class="section-title">
           Album Personnel
