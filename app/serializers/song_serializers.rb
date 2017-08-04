@@ -19,11 +19,12 @@ module SongSerializers
       episode: {
         number: self.episode.number,
         resource_url: "/episodes/#{self.episode.id}"
-      }
+      },
+      personnel: {}
     }
 
     serialized_song[:track_no] = self.track_no if self.album
-    serialized_song[:personnel][:features] = self.serialize_credits(self.credits.feature_credits) if self.serialize_credits(self.credits.feature_credits).any?
+    serialized_song[:personnel][:features] = self.serialize_credits(self.credits.feature_credits) if self.credits.feature_credits.any?
 
     # Extended options
     if args[:extended]

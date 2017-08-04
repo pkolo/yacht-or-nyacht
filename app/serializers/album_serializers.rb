@@ -12,10 +12,11 @@ module AlbumSerializers
     if args[:basic]
       serialized_album[:personnel] = self.serialize_credits(self.credits.player_credits)
     end
-    
+
     if args[:extended]
       serialized_album[:yachtski] = self.yachtski
       serialized_album[:tracklist] = self.songs.map {|song| song.serialize}
+      serialized_album[:personnel] = self.serialize_credits(self.credits.player_credits)
     end
 
     serialized_album
