@@ -13,7 +13,7 @@
       <div class="artist-credit"><%= @total_credits %> credits</div>
     </div>
 
-    <% if @song_performances %>
+    <% if @song_performances.any? %>
       <div class="page-section tracklist">
         <div class="section-title">
           Artist Tracklist
@@ -22,7 +22,7 @@
       </div>
     <% end %>
 
-    <% if @song_credits %>
+    <% if @song_credits.any? %>
       <%= erb :'personnel/_credits', locals: {credits: @song_credits, type: "Song" } %>
     <% end %>
 
