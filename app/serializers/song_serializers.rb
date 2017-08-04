@@ -32,6 +32,9 @@ module SongSerializers
       serialized_song[:status] = self.status
       serialized_song[:personnel][:players] = self.serialize_credits(self.credits.player_credits)
       serialized_song[:episode][:podcast_url] = self.episode.link
+      if self.album
+        serialized_song[:album] = self.album.serialize
+      end
     end
 
     serialized_song
