@@ -8,19 +8,17 @@ module SongSerializers
       resource_url: "/songs/#{self.slug}",
       title: self.title,
       year: self.year,
+      yachtski: self.yachtski,
+      artists: self.serialize_credits(self.credits.artist_credits),
       scores: {
         jd: self.jd_score,
         hunter: self.hunter_score,
         steve: self.steve_score,
-        dave: self.dave_score,
-        yachtski: self.yachtski
+        dave: self.dave_score
       },
       episode: {
         number: self.episode.number,
         resource_url: "/episodes/#{self.episode.id}"
-      },
-      personnel: {
-        artists: self.serialize_credits(self.credits.artist_credits)
       }
     }
 
