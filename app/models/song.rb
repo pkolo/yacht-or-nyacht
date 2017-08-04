@@ -3,10 +3,12 @@ require 'uri'
 require 'json'
 require_relative '../helpers/discog_helper'
 require_relative '../helpers/personnel_helper'
+require_relative '../helpers/creditable_helpers'
 
 class Song < ActiveRecord::Base
   include DiscogHelper
   include PersonnelHelper
+  include CreditableHelpers
 
   belongs_to :episode
   belongs_to :album
@@ -81,15 +83,6 @@ class Song < ActiveRecord::Base
   def feature_json
     feature_data = self.features.pluck(:slug, :name)
     features = feature_data.map { |data| {slug: data[0], name: data[1]} }
-  end
-
-  def serialize_credits(credits_list)
-    # Combine players by name, combine their roles
-    personnel = credits_list.uniq { |p| p[:personnel].id }.each_with_object([]) do |credit, memo|
-      person_data = credit.personnel.serializer({basic: true})
-      person_data[:roles] = credits_list.where(personnel_id: credit.personnel.id).pluck(:role)
-      memo << person_data
-    end
   end
 
   def yachtski
