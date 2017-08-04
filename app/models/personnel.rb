@@ -11,6 +11,18 @@ class Personnel < ActiveRecord::Base
 
   after_create :create_slug
 
+  def serializer(args=nil)
+    if args[:basic]
+      {
+        name: self.name,
+        slug: self.slug,
+        yachtski: self.yachtski
+      }
+    else
+      {}
+    end
+  end
+
   def combined_song_credits
     combined_credits = self.song_credits.uniq.each_with_object([]) do |credit, memo|
       combined_credit = {
