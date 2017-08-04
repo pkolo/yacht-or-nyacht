@@ -8,8 +8,6 @@ module SongSerializers
       resource_url: "/songs/#{self.slug}",
       title: self.title,
       year: self.year,
-      status: self.status,
-      video_url: "https://www.youtube.com/embed/#{self.yt_id}",
       scores: {
         jd: self.jd_score,
         hunter: self.hunter_score,
@@ -27,7 +25,14 @@ module SongSerializers
     }
 
     serialized_song[:personnel][:features] = self.serialize_credits(self.credits.feature_credits) if self.serialize_credits(self.credits.feature_credits).any?
-    serialized_song[:personnel][:players] = self.serialize_credits(self.credits.player_credits) if args[:extended]
+
+    # Extended options
+    if args[:extended]
+      serialized_song[:video_url] = "https://www.youtube.com/embed/#{self.yt_id}"
+      serialized_song[:status] = self.status
+      serialized_song[:personnel][:players] = self.serialize_credits(self.credits.player_credits)
+      serialized_song[:episode][:podcast_url] = self.episode.link
+    end
 
     serialized_song
   end
