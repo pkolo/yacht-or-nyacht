@@ -19,7 +19,7 @@
     <%= erb :'songs/_song_info' %>
 
   <% if @album %>
-    <% if @personnel['players'] %>
+    <% if @personnel['players'].any? %>
       <div class="page-section personnel">
         <div class="section-title">
           Track Personnel
@@ -28,7 +28,7 @@
       </div>
     <% end %>
 
-    <% if @album['personnel'] %>
+    <% if @album['personnel'].any? %>
       <div class="page-section personnel">
         <div class="section-title">
           Album Personnel
