@@ -8,6 +8,7 @@ module SongSerializers
       slug: self.slug,
       title: self.title,
       year: self.year,
+      status: self.status,
       scores: {
         jd: self.jd_score,
         hunter: self.hunter_score,
