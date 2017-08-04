@@ -34,7 +34,8 @@ get '/songs/:slug' do
   # This is redundant, meant to mimic API call
   song = Song.find_by(slug: params[:slug]).serialize({extended: true}).to_json
   @song = JSON.parse(song)
-
+  @episode = @song['episode']
+  @album = @song['album']
   @scores = @song['scores']
   @personnel = @song['personnel']
   @subtitle = @song['title']
