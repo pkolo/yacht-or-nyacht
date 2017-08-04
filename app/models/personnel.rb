@@ -16,6 +16,7 @@ class Personnel < ActiveRecord::Base
   has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
 
   after_create :create_slug
+  after_create :write_yachtski
 
   def all_song_albums
     song_albums = self.songs.map {|song| song.album}.uniq
@@ -32,12 +33,17 @@ class Personnel < ActiveRecord::Base
     total / self.albums.uniq.length
   end
 
-  def yachtski
+  def get_yachtski
       song_total = self.songs.uniq.inject(0) {|sum, song| sum + song.yachtski}
       album_total = self.albums.uniq.inject(0) {|sum, album| sum + album.yachtski}
       contribution_total = self.albums.uniq.length + self.songs.uniq.length
 
       contribution_total > 3 ? (song_total + album_total) / (contribution_total) : -1.0
+  end
+
+  def write_yachtski
+    self.yachtski = self.get_yachtski
+    self.save
   end
 
   def active_years
