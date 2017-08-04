@@ -25,5 +25,13 @@
         <%= erb :'albums/_song_list', locals: { songs: @songs } %>
     </div>
 
+    <% if @album['personnel'].any? %>
+      <div class="page-section personnel">
+        <div class="section-title">
+          Album Personnel
+        </div>
+        <%= erb :'credits/_media_credits_list', locals: { credits: @album['personnel'] } %>
+      </div>
+    <% end %>
   </div>
 </div>
