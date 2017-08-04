@@ -2,4 +2,19 @@
   <div class="col-3 sidebar-wrapper">
     <%= erb :'songs/_score_panel', locals: {scores: @scores, song: @song} %>
   </div>
+
+  <div class="col-9 main-wrapper">
+
+    <div class="page-header">
+      <div class="big-title"><%= @song['title'] %></div>
+      <div class="artist-credit">
+        by
+        <%= @personnel['artists'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %>
+        <% if @personnel['features'] %>
+          w/ <%= @personnel['features'].map {|artist| "<a href='/personnel/#{artist['slug']}'>#{artist['name']}</a>" }.join(", ") %>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
 </div>
