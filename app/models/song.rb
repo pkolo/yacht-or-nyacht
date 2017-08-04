@@ -69,19 +69,6 @@ class Song < ActiveRecord::Base
     features = feature_data.map { |data| {slug: data[0], name: data[1]} }
   end
 
-  def combined_players
-    roles = self.credits.players.pluck(:role).uniq
-    roles.each_with_object([]) do |role, memo|
-      credits = self.credits.players.where(role: role)
-
-      players = {
-        role: role,
-        personnel: credits.map { |credit| "<a href='/personnel/#{credit.personnel.slug}'>#{credit.personnel.name}</a>" }
-      }
-      memo << players
-    end
-  end
-
   def personnel_combined_roles
     # Combine players by name, combine their roles
     personnel = self.credits.players.each_with_object([]) do |credit, memo|
