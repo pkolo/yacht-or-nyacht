@@ -1,4 +1,8 @@
+require_relative '../serializers/personnel_serializers'
+
 class Personnel < ActiveRecord::Base
+  include PersonnelSerializers
+
   has_many :credits
   has_many :songs, through: :credits, source: :creditable, source_type: 'Song'
   has_many :albums, through: :credits, source: :creditable, source_type: 'Album'
@@ -10,19 +14,6 @@ class Personnel < ActiveRecord::Base
   has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
 
   after_create :create_slug
-
-  def serializer(args=nil)
-    if args[:basic]
-      {
-        id: self.id,
-        name: self.name,
-        resource_url: "/personnel/#{self.slug}",
-        yachtski: self.yachtski
-      }
-    else
-      {}
-    end
-  end
 
   def combined_song_credits
     combined_credits = self.song_credits.uniq.each_with_object([]) do |credit, memo|
