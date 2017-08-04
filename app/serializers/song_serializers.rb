@@ -5,10 +5,11 @@ module SongSerializers
   def serialize(args={})
     serialized_song = {
       id: self.id,
-      slug: self.slug,
+      resource_url: "/songs/#{self.slug}",
       title: self.title,
       year: self.year,
       status: self.status,
+      video_url: "https://www.youtube.com/embed/#{self.yt_id}",
       scores: {
         jd: self.jd_score,
         hunter: self.hunter_score,

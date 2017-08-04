@@ -16,7 +16,7 @@ class Personnel < ActiveRecord::Base
       {
         id: self.id,
         name: self.name,
-        slug: self.slug,
+        resource_url: "/personnel/#{self.slug}",
         yachtski: self.yachtski
       }
     else
