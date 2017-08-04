@@ -17,5 +17,30 @@
     </div>
 
     <%= erb :'songs/_song_info' %>
+
+  <% if @album %>
+    <% if @personnel['players'] %>
+      <div class="page-section personnel">
+        <div class="section-title">
+          Track Personnel
+        </div>
+        <%= erb :'songs/_credits_list', locals: { credits: @personnel['players'] } %>
+      </div>
+    <% end %>
+
+    <% if @album['personnel'] %>
+      <div class="page-section personnel">
+        <div class="section-title">
+          Album Personnel
+        </div>
+        <%= erb :'songs/_credits_list', locals: { credits: @album['personnel'] } %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <% if logged_in? %>
+      <a href="/songs/<%= @song.slug %>/edit">Edit entry</a>
+    <% end %>
+  <% end %>
   </div>
 </div>
