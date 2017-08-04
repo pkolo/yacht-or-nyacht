@@ -87,8 +87,7 @@ class Song < ActiveRecord::Base
     # Combine players by name, combine their roles
     personnel = credits_list.uniq { |p| p[:personnel].id }.each_with_object([]) do |credit, memo|
       combined_roles = {
-        personnel: credit.personnel,
-        yachtski: credit.personnel.yachtski,
+        person_data: credit.personnel.serializer({basic: true}),
         roles: credits_list.where(personnel_id: credit.personnel.id).pluck(:role)
       }
       memo << combined_roles
