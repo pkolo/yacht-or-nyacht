@@ -34,7 +34,7 @@ class Song < ActiveRecord::Base
   after_create :get_youtube_id
 
   # Creates a hash of song data, used by cache for index page
-  def to_json
+  def serialize
     {
       slug: self.slug,
       title: self.title,
