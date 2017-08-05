@@ -46,11 +46,6 @@ class Personnel < ActiveRecord::Base
     self.save
   end
 
-  def active_years
-    chron_credits = self.credits.sort_by {|credit| credit.creditable.year }
-    "#{chron_credits.first.creditable.year} - #{chron_credits.last.creditable.year}"
-  end
-
   def self.name_search(query)
     self.where("similarity(name, ?) > 0.3", query).order("similarity(name, #{ActiveRecord::Base.connection.quote(query)}) DESC")
   end
