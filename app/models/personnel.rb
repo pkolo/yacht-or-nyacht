@@ -15,6 +15,8 @@ class Personnel < ActiveRecord::Base
   has_many :song_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Song" }, class_name: 'Credit'
   has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
 
+  default_scope { order(yachtski: :desc) }
+
   after_create :create_slug
   after_create :write_yachtski
 
