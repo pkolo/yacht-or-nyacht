@@ -29,15 +29,27 @@ class Song < ActiveRecord::Base
     end
   end
 
-  has_many :players, ->(credit) { where("credits.role NOT IN (?)", ["Artist", "Duet", "Featuring"]) }, through: :credits, source: :personnel
-  has_many :performers, ->(credit) { where 'credits.role IN (?)', ["Artist"] }, through: :credits, source: :personnel
-  has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
+  # has_many :players, ->(credit) { where("credits.role NOT IN (?)", ["Artist", "Duet", "Featuring"]) }, through: :credits, source: :personnel
+  # has_many :performers, ->(credit) { where 'credits.role IN (?)', ["Artist"] }, through: :credits, source: :personnel
+  # has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
 
   default_scope { order(yachtski: :desc) }
 
   after_create :create_slug
   after_create :get_youtube_id
   after_create :get_yachtski
+
+  def players
+    query = <<-SQL
+      SELECT p.id, p.name, p.yachtski, p.slug, string_agg(c.role, ', ') AS roles
+      FROM personnels p JOIN credits c ON p.id=c.personnel_id
+      WHERE c.creditable_id=#{self.id} AND c.role NOT IN ('Artist', 'Duet', 'Featuring')
+      GROUP BY p.id
+      ORDER BY p.yachtski DESC
+      SQL
+    ActiveRecord::Base.connection.execute(query)
+  end
+
 
   def artist
     self.performers.pluck(:name).first
