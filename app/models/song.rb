@@ -162,10 +162,6 @@ class Song < ActiveRecord::Base
     self.all.select {|song| song.yachtski >= 90 }
   end
 
-  def self.title_search(query)
-    self.where("similarity(title, ?) > 0.3", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
-  end
-
   def get_youtube_id
     base = "https://www.googleapis.com/youtube/v3/search?"
     q = "part=snippet&type=video&videoEmbeddable=true&q=#{self.artist.downcase.gsub(/[^0-9a-z ]/i, '')} #{self.title.downcase.gsub(/[^0-9a-z ]/i, '')}&key=#{ENV['YT_KEY']}"
