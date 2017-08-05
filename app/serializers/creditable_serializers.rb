@@ -10,4 +10,16 @@ module CreditableSerializers
     personnel.uniq {|p| p[:id]}
   end
 
+  def serialize_credits_from_sql(credits_list)
+    credits_list.each_with_object([]) do |credit, memo|
+      memo << {
+        id: credit["id"].to_i,
+        name: credit["name"],
+        resource_url: "/personnel/#{credit["slug"]}",
+        yachtski: credit["yachtski"].to_f,
+        roles: credit["roles"].split(", ")
+      }
+    end
+  end
+
 end
