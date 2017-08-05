@@ -43,7 +43,7 @@ class Song < ActiveRecord::Base
     query = <<-SQL
       SELECT p.id, p.name, p.yachtski, p.slug, string_agg(c.role, ', ') AS roles
       FROM personnels p JOIN credits c ON p.id=c.personnel_id
-      WHERE c.creditable_id=#{self.id} AND c.role NOT IN ('Artist', 'Duet', 'Featuring')
+      WHERE c.creditable_id=#{self.id} AND c.creditable_type='Song' AND c.role NOT IN ('Artist', 'Duet', 'Featuring')
       GROUP BY p.id
       ORDER BY p.yachtski DESC
       SQL
