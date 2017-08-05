@@ -18,6 +18,17 @@ class Album < ActiveRecord::Base
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
   after_create :create_slug
 
+  def players
+    query = <<-SQL
+      SELECT p.id, p.name, p.yachtski, p.slug, string_agg(c.role, ', ') AS roles
+      FROM personnels p JOIN credits c ON p.id=c.personnel_id
+      WHERE c.creditable_id=#{self.id} AND c.creditable_type='Album' AND c.role NOT IN ('Artist', 'Duet', 'Featuring')
+      GROUP BY p.id
+      ORDER BY p.yachtski DESC
+      SQL
+    ActiveRecord::Base.connection.execute(query)
+  end
+
   def yachtski
     total_pts = self.songs.inject(0) { |sum, song| sum += song.yachtski }
     (total_pts / self.songs.length)
