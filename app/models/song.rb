@@ -38,6 +38,7 @@ class Song < ActiveRecord::Base
   after_create :create_slug
   after_create :get_youtube_id
   after_create :get_yachtski
+  after_create :update_album_yachtski
 
   def players
     query = <<-SQL
@@ -175,6 +176,10 @@ class Song < ActiveRecord::Base
   def get_yachtski
     self.yachtski = (self.dave_score + self.jd_score + self.hunter_score + self.steve_score) / 4.0
     self.save
+  end
+
+  def update_album_yachtski
+    self.album.write_yachtski if self.album
   end
 
   private
