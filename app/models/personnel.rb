@@ -13,21 +13,22 @@ class Personnel < ActiveRecord::Base
   has_many :album_performances, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :creditable, source_type: 'Album'
 
   # has_many :song_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Song" }, class_name: 'Credit'
-  has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
+  # has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
 
   default_scope { order(yachtski: :desc) }
 
   after_create :create_slug
   after_create :write_yachtski
 
-  def song_credits
+  # Returns a PG object with creditable ID and type with combined credit roles.
+  def credits_for(table)
     query = <<-SQL
-      SELECT s.id, c.creditable_type AS type, string_agg(c.role, ', ') AS roles
-      FROM songs s
-      JOIN credits c ON c.creditable_id=s.id AND creditable_type='Song'
-      WHERE c.personnel_id=#{self.id}
-      GROUP BY s.id, c.creditable_type
-      ORDER BY s.yachtski DESC
+      SELECT #{table}.id, c.creditable_type AS type, string_agg(c.role, ', ') AS roles
+      FROM #{table}
+      JOIN credits c ON c.creditable_id=#{table}.id AND c.creditable_type=\'#{table[0..-2].capitalize}\'
+      WHERE c.personnel_id=#{self.id} AND c.role NOT IN ('Artist', 'Duet', 'Featuring')
+      GROUP BY #{table}.id, c.creditable_type
+      ORDER BY #{table}.yachtski DESC
     SQL
     ActiveRecord::Base.connection.execute(query)
   end
