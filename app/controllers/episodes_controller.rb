@@ -66,6 +66,8 @@ post '/episodes/:id/songs' do
     end
 
     if @song.save
+      song = Song.find(@song.id).serialize.to_json
+      @song = JSON.parse(song)
       erb :'/episodes/_list_item', layout: false, locals: {song: @song}
     else
       "error"
