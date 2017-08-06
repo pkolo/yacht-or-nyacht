@@ -12,13 +12,25 @@ class Personnel < ActiveRecord::Base
   has_many :song_performances, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :creditable, source_type: 'Song'
   has_many :album_performances, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :creditable, source_type: 'Album'
 
-  has_many :song_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Song" }, class_name: 'Credit'
+  # has_many :song_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Song" }, class_name: 'Credit'
   has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
 
   default_scope { order(yachtski: :desc) }
 
   after_create :create_slug
   after_create :write_yachtski
+
+  def song_credits
+    query = <<-SQL
+      SELECT s.id, c.creditable_type AS type, string_agg(c.role, ', ') AS roles
+      FROM songs s
+      JOIN credits c ON c.creditable_id=s.id AND creditable_type='Song'
+      WHERE c.personnel_id=#{self.id}
+      GROUP BY s.id, c.creditable_type
+      ORDER BY s.yachtski DESC
+    SQL
+    ActiveRecord::Base.connection.execute(query)
+  end
 
   def all_song_albums
     song_albums = self.songs.map {|song| song.album}.uniq
