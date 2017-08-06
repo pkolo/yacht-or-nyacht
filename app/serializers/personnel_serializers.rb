@@ -4,8 +4,8 @@ module PersonnelSerializers
 
     serialized_personnel = self.link_serializer
     serialized_personnel[:song_performances] = self.song_performances.map {|song| song.serialize }
-    serialized_personnel[:song_credits] = self.serialize_song_credits
-    serialized_personnel[:album_credits] = self.serialize_album_credits
+    serialized_personnel[:song_credits] = self.serialize_personnel_credits_from_sql(self.credits_for("songs"))
+    serialized_personnel[:album_credits] = self.serialize_personnel_credits_from_sql(self.credits_for("albums"))
 
     serialized_personnel
   end
@@ -19,26 +19,13 @@ module PersonnelSerializers
     }
   end
 
-  def serialize_song_credits
-    combined_credits = self.song_credits.uniq.each_with_object([]) do |credit, memo|
-      combined_credit = {
-        media: credit.creditable.serialize,
-        roles: self.song_credits.where(creditable_id: credit.creditable.id).pluck(:role)
+  def serialize_personnel_credits_from_sql(credits_list)
+    credits_list.map do |credit|
+      {
+        media: credit["type"].constantize.find(credit["id"]).serialize,
+        roles: credit["roles"].split(', ')
       }
-      memo << combined_credit
     end
-    combined_credits.uniq {|c| c[:media]}
-  end
-
-  def serialize_album_credits
-    combined_credits = self.album_credits.each_with_object([]) do |credit, memo|
-      combined_credit = {
-        media: credit.creditable.serialize,
-        roles: self.album_credits.where(creditable_id: credit.creditable.id).pluck(:role)
-      }
-      memo << combined_credit
-    end
-    combined_credits.uniq {|c| c[:media]}
   end
 
 end

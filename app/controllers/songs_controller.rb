@@ -44,7 +44,13 @@ end
 
 get '/songs/:slug/edit' do
   if logged_in?
-    @song = Song.find_by(slug: params[:slug])
+    song = Song.find_by(slug: params[:slug]).serialize({extended: true}).to_json
+    @song = JSON.parse(song)
+    @episode = @song['episode']
+    @album = @song['album']
+    @scores = @song['scores']
+    @personnel = @song['personnel']
+    @subtitle = @song['title']
     erb :'songs/edit'
   else
     redirect '/'

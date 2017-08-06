@@ -25,14 +25,16 @@ get '/episodes/:id' do
   episode = Episode.find(params[:id]).serialize.to_json
   @episode = JSON.parse(episode)
 
-  @songs = @episode['tracklist'].sort_by { |song| song['yachtski'] }.reverse
+  @songs = @episode['tracklist']
   erb :'episodes/show'
 end
 
 get '/episodes/:id/edit' do
   if logged_in?
-    @episode = Episode.find(params[:id])
-    @songs = @episode.songs.sort_by { |song| song.yachtski }.reverse
+    episode = Episode.find(params[:id]).serialize.to_json
+    @episode = JSON.parse(episode)
+
+    @songs = @episode['tracklist']
     erb :'episodes/edit'
   else
     redirect '/'
@@ -53,19 +55,22 @@ post '/episodes/:id/songs' do
     data = params[:song]
     @episode = Episode.find(params[:id])
     @artist = Personnel.find_by("similarity(name, ?) > 0.5", data[:artist])
-
-    if @artist
-      @credit = Credit.create(personnel: @artist, role: "Artist")
-    else
-      @artist = Personnel.create(name: data[:artist])
-      @credit = Credit.create(personnel: @artist, role: "Artist")
-    end
-
     @song = Song.new(title: data[:title], year: data[:year], jd_score: data[:jd_score], hunter_score: data[:hunter_score], steve_score: data[:steve_score], dave_score: data[:dave_score])
     @song.episode = @episode
-    @song.credits << @credit
-
     if @song.save
+
+      if @artist
+        credit = Credit.create(personnel: @artist, role: "Artist")
+        @song.credits << credit
+      else
+        @artist = Personnel.create(name: data[:artist])
+        credit = Credit.create(personnel: @artist, role: "Artist")
+        @song.credits << credit
+      end
+
+      @artist.write_yachtski
+      song = Song.find(@song.id).serialize.to_json
+      @song = JSON.parse(song)
       erb :'/episodes/_list_item', layout: false, locals: {song: @song}
     else
       "error"

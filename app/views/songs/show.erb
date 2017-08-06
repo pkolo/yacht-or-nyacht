@@ -39,7 +39,7 @@
 
   <% else %>
     <% if logged_in? %>
-      <a href="/songs/<%= @song.slug %>/edit">Edit entry</a>
+      <a href="<%= @song['resource_url'] %>/edit">Edit entry</a>
     <% end %>
   <% end %>
   </div>

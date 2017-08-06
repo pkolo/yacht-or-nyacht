@@ -12,27 +12,27 @@ class Personnel < ActiveRecord::Base
   has_many :song_performances, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :creditable, source_type: 'Song'
   has_many :album_performances, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :creditable, source_type: 'Album'
 
-  has_many :song_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Song" }, class_name: 'Credit'
-  has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
+  # has_many :song_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Song" }, class_name: 'Credit'
+  # has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
+
+  default_scope { order(yachtski: :desc) }
 
   after_create :create_slug
 
-  def all_song_albums
-    song_albums = self.songs.map {|song| song.album}.uniq
-    (song_albums + self.albums.uniq).uniq
+  # Returns a PG object with creditable ID and type with combined credit roles.
+  def credits_for(table)
+    query = <<-SQL
+      SELECT #{table}.id, c.creditable_type AS type, string_agg(c.role, ', ') AS roles
+      FROM #{table}
+      JOIN credits c ON c.creditable_id=#{table}.id AND c.creditable_type=\'#{table[0..-2].capitalize}\'
+      WHERE c.personnel_id=#{self.id} AND c.role NOT IN ('Artist', 'Duet', 'Featuring')
+      GROUP BY #{table}.id, c.creditable_type
+      ORDER BY #{table}.yachtski DESC
+    SQL
+    ActiveRecord::Base.connection.execute(query)
   end
 
-  def yachtski_songs
-    total = self.songs.uniq.inject(0) {|sum, song| sum + song.yachtski}
-    total / self.songs.uniq.length
-  end
-
-  def yachtski_albums
-    total = self.albums.uniq.inject(0) {|sum, album| sum + album.yachtski}
-    total / self.albums.uniq.length
-  end
-
-  def yachtski
+  def get_yachtski
       song_total = self.songs.uniq.inject(0) {|sum, song| sum + song.yachtski}
       album_total = self.albums.uniq.inject(0) {|sum, album| sum + album.yachtski}
       contribution_total = self.albums.uniq.length + self.songs.uniq.length
@@ -40,13 +40,13 @@ class Personnel < ActiveRecord::Base
       contribution_total > 3 ? (song_total + album_total) / (contribution_total) : -1.0
   end
 
-  def active_years
-    chron_credits = self.credits.sort_by {|credit| credit.creditable.year }
-    "#{chron_credits.first.creditable.year} - #{chron_credits.last.creditable.year}"
+  def write_yachtski
+    self.yachtski = self.get_yachtski
+    self.save
   end
 
   def self.name_search(query)
-    self.where("similarity(name, ?) > 0.3", query).order("similarity(name, #{ActiveRecord::Base.connection.quote(query)}) DESC")
+    self.where("similarity(name, ?) > 0.3", query).order("similarity(name, ?) DESC", ActiveRecord::Base.connection.quote(query))
   end
 
   private

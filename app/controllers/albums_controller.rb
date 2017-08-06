@@ -3,6 +3,6 @@ get '/albums/:slug' do
   @album = JSON.parse(album)
   @subtitle = @album['title']
 
-  @songs = @album['tracklist'].sort_by { |song| song['scores']['yachtski'] }.reverse
+  @songs = @album['tracklist']
   erb :'albums/show'
 end

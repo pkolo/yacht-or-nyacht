@@ -29,11 +29,29 @@ class Song < ActiveRecord::Base
     end
   end
 
-  has_many :players, ->(credit) { where("credits.role NOT IN (?)", ["Artist", "Duet", "Featuring"]) }, through: :credits, source: :personnel
+  # has_many :players, ->(credit) { where("credits.role NOT IN (?)", ["Artist", "Duet", "Featuring"]) }, through: :credits, source: :personnel
   has_many :performers, ->(credit) { where 'credits.role IN (?)', ["Artist"] }, through: :credits, source: :personnel
-  has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
+  # has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
+
+  default_scope { order(yachtski: :desc) }
+
   after_create :create_slug
-  after_create :get_youtube_id
+  after_create :write_yachtski
+
+  def players
+    query = <<-SQL
+      SELECT p.id, p.name, p.yachtski, p.slug, string_agg(c.role, ', ') AS roles
+      FROM personnels p JOIN credits c ON p.id=c.personnel_id
+      WHERE c.creditable_id=#{self.id} AND c.creditable_type='Song' AND c.role NOT IN ('Artist', 'Duet', 'Featuring')
+      GROUP BY p.id
+      ORDER BY p.yachtski DESC
+      SQL
+    ActiveRecord::Base.connection.execute(query)
+  end
+
+  def update_person_yachtski(credit)
+    credit.personnel.write_yachtski
+  end
 
   def artist
     self.performers.pluck(:name).first
@@ -47,10 +65,6 @@ class Song < ActiveRecord::Base
   def feature_json
     feature_data = self.features.pluck(:slug, :name)
     features = feature_data.map { |data| {slug: data[0], name: data[1]} }
-  end
-
-  def yachtski
-    (self.dave_score + self.jd_score + self.hunter_score + self.steve_score) / 4.0
   end
 
   def status
@@ -79,6 +93,7 @@ class Song < ActiveRecord::Base
   def add_personnel(url, add_album_personnel)
     results = DiscogHelpers.api_call(url)
     album = Album.find_or_create_by(year: results["year"], title: results["title"], discog_id: results["id"])
+    album.songs << self
     self.album = album
     track_data = results["tracklist"].find {|track| is_match?(remove_parens(track["title"]), remove_parens(self.title)) }
     self.track_no = track_data["position"]
@@ -90,26 +105,29 @@ class Song < ActiveRecord::Base
     if track_data["artists"]
       track_data["artists"].each do |artist|
         new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
-        song_credit = Credit.new(role: "Artist", personnel: new_person)
+        song_credit = Credit.create(role: "Artist", personnel: new_person)
         self.credits << song_credit
+        new_person.write_yachtski
       end
 
       if add_album_personnel
         results["artists"].each do |artist|
           new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
-          album_credit = Credit.new(role: "Artist", personnel: new_person)
+          album_credit = Credit.create(role: "Artist", personnel: new_person)
           album.credits << album_credit
+          new_person.write_yachtski
         end
       end
     else
       results["artists"].each do |artist|
         new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
-        song_credit = Credit.new(role: "Artist", personnel: new_person)
+        song_credit = Credit.create(role: "Artist", personnel: new_person)
         self.credits << song_credit
         if add_album_personnel
-          album_credit = Credit.new(role: "Artist", personnel: new_person)
+          album_credit = Credit.create(role: "Artist", personnel: new_person)
           album.credits << album_credit
         end
+        new_person.write_yachtski
       end
     end
 
@@ -119,8 +137,9 @@ class Song < ActiveRecord::Base
       album_personnel.each do |personnel|
         new_person = Personnel.find_or_create_by(name: remove_parens(personnel["name"]), discog_id: personnel["id"])
         personnel["role"].split(", ").each do |role|
-          credit = Credit.new(role: role, personnel: new_person)
+          credit = Credit.create(role: role, personnel: new_person)
           album.credits << credit
+          new_person.write_yachtski
         end
       end
     end
@@ -134,13 +153,14 @@ class Song < ActiveRecord::Base
       new_person = Personnel.find_or_create_by(name: remove_parens(personnel["name"]), discog_id: personnel["id"])
       personnel["role"].split(", ").each do |role|
         if role.include?("Duet")
-          credit = Credit.new(role: "Duet", personnel: new_person)
+          credit = Credit.create(role: "Duet", personnel: new_person)
         elsif role.include?("Featuring")
-          credit = Credit.new(role: "Featuring", personnel: new_person)
+          credit = Credit.create(role: "Featuring", personnel: new_person)
         else
-          credit = Credit.new(role: role, personnel: new_person)
+          credit = Credit.create(role: role, personnel: new_person)
         end
         self.credits << credit
+        new_person.write_yachtski
       end
     end
     self.credits
@@ -150,10 +170,6 @@ class Song < ActiveRecord::Base
     self.all.select {|song| song.yachtski >= 90 }
   end
 
-  def self.title_search(query)
-    self.where("similarity(title, ?) > 0.3", query).order("similarity(title, #{ActiveRecord::Base.connection.quote(query)}) DESC")
-  end
-
   def get_youtube_id
     base = "https://www.googleapis.com/youtube/v3/search?"
     q = "part=snippet&type=video&videoEmbeddable=true&q=#{self.artist.downcase.gsub(/[^0-9a-z ]/i, '')} #{self.title.downcase.gsub(/[^0-9a-z ]/i, '')}&key=#{ENV['YT_KEY']}"
@@ -161,6 +177,11 @@ class Song < ActiveRecord::Base
     vid_data = res["items"].first
     vid_id = vid_data["id"]["videoId"]
     self.yt_id = vid_id
+    self.save
+  end
+
+  def write_yachtski
+    self.yachtski = (self.dave_score + self.jd_score + self.hunter_score + self.steve_score) / 4.0
     self.save
   end
 
