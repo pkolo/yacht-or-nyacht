@@ -5,7 +5,7 @@ class Personnel < ActiveRecord::Base
   include PersonnelSerializers
   include CreditableSerializers
 
-  has_many :credits
+  has_many :credits, after_add: :write_yachtski
   has_many :songs, through: :credits, source: :creditable, source_type: 'Song'
   has_many :albums, through: :credits, source: :creditable, source_type: 'Album'
 
@@ -18,7 +18,6 @@ class Personnel < ActiveRecord::Base
   default_scope { order(yachtski: :desc) }
 
   after_create :create_slug
-  after_create :write_yachtski
 
   # Returns a PG object with creditable ID and type with combined credit roles.
   def credits_for(table)

@@ -5,7 +5,7 @@ class Album < ActiveRecord::Base
   include AlbumSerializers
   include CreditableSerializers
 
-  has_many :songs
+  has_many :songs, after_add: :write_yachtski
   has_many :credits, as: :creditable, dependent: :destroy do
     def player_credits
       where("role != ?", "Artist")
@@ -17,7 +17,6 @@ class Album < ActiveRecord::Base
   end
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
   after_create :create_slug
-  after_create :write_yachtski
 
   def players
     query = <<-SQL
