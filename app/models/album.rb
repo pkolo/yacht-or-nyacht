@@ -17,6 +17,7 @@ class Album < ActiveRecord::Base
   end
   has_many :performers, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :personnel
   after_create :create_slug
+  after_create :write_yachtski
 
   def players
     query = <<-SQL
