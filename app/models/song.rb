@@ -107,6 +107,7 @@ class Song < ActiveRecord::Base
         new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
         song_credit = Credit.create(role: "Artist", personnel: new_person)
         self.credits << song_credit
+        new_person.write_yachtski
       end
 
       if add_album_personnel
@@ -114,6 +115,7 @@ class Song < ActiveRecord::Base
           new_person = Personnel.find_or_create_by(name: remove_parens(artist["name"]), discog_id: artist["id"])
           album_credit = Credit.create(role: "Artist", personnel: new_person)
           album.credits << album_credit
+          new_person.write_yachtski
         end
       end
     else
@@ -125,6 +127,7 @@ class Song < ActiveRecord::Base
           album_credit = Credit.create(role: "Artist", personnel: new_person)
           album.credits << album_credit
         end
+        new_person.write_yachtski
       end
     end
 
@@ -136,6 +139,7 @@ class Song < ActiveRecord::Base
         personnel["role"].split(", ").each do |role|
           credit = Credit.create(role: role, personnel: new_person)
           album.credits << credit
+          new_person.write_yachtski
         end
       end
     end
@@ -156,6 +160,7 @@ class Song < ActiveRecord::Base
           credit = Credit.create(role: role, personnel: new_person)
         end
         self.credits << credit
+        new_person.write_yachtski
       end
     end
     self.credits
