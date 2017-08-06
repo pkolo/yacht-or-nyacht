@@ -31,8 +31,10 @@ end
 
 get '/episodes/:id/edit' do
   if logged_in?
-    @episode = Episode.find(params[:id])
-    @songs = @episode.songs.sort_by { |song| song.yachtski }.reverse
+    episode = Episode.find(params[:id]).serialize.to_json
+    @episode = JSON.parse(episode)
+
+    @songs = @episode['tracklist']
     erb :'episodes/edit'
   else
     redirect '/'
