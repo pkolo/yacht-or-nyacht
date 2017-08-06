@@ -33,7 +33,7 @@ class Album < ActiveRecord::Base
     self.songs.sum(:yachtski) / self.songs.count
   end
 
-  def write_yachtski
+  def write_yachtski(obj=self)
     self.yachtski = self.get_yachtski
     self.save
   end
