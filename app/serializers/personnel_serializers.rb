@@ -4,7 +4,7 @@ module PersonnelSerializers
 
     serialized_personnel = self.link_serializer
     serialized_personnel[:song_performances] = self.song_performances.map {|song| song.serialize }
-    serialized_personnel[:song_credits] = self.serialize_song_credits
+    serialized_personnel[:song_credits] = self.serialize_personnel_credits_from_sql(self.song_credits)
     serialized_personnel[:album_credits] = self.serialize_album_credits
 
     serialized_personnel
@@ -17,6 +17,15 @@ module PersonnelSerializers
       resource_url: "/personnel/#{self.slug}",
       yachtski: self.yachtski
     }
+  end
+
+  def serialize_personnel_credits_from_sql(credits_list)
+    credits_list.map do |credit|
+      {
+        media: credit["type"].constantize.find(credit["id"]).serialize,
+        roles: credit["roles"].split(', ')
+      }
+    end
   end
 
   def serialize_song_credits
