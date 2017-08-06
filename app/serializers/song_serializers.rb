@@ -30,7 +30,7 @@ module SongSerializers
     if args[:extended]
       serialized_song[:video_url] = "https://www.youtube.com/embed/#{self.yt_id}"
       serialized_song[:status] = self.status
-      serialized_song[:personnel][:players] = self.serialize_credits_from_sql(self.players)
+      serialized_song[:personnel][:players] = (self.players.any? ? self.serialize_credits_from_sql(self.players) : [])
       serialized_song[:episode][:podcast_url] = self.episode.link
       if self.album
         serialized_song[:album] = self.album.serialize({basic: true})
