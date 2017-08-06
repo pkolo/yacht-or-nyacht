@@ -29,9 +29,13 @@ class Album < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(query)
   end
 
-  def yachtski
-    total_pts = self.songs.inject(0) { |sum, song| sum += song.yachtski }
-    (total_pts / self.songs.length)
+  def get_yachtski
+    self.songs.sum(:yachtski) / self.songs.count
+  end
+
+  def write_yachtski
+    self.yachtski = self.get_yachtski
+    self.save
   end
 
   def self.match_in(results)
