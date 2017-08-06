@@ -36,9 +36,7 @@ class Song < ActiveRecord::Base
   default_scope { order(yachtski: :desc) }
 
   after_create :create_slug
-  after_create :get_youtube_id
-  after_create :get_yachtski
-  after_create :update_album_yachtski
+  after_create :write_yachtski
 
   def players
     query = <<-SQL
@@ -164,6 +162,7 @@ class Song < ActiveRecord::Base
   end
 
   def get_youtube_id
+    binding.pry
     base = "https://www.googleapis.com/youtube/v3/search?"
     q = "part=snippet&type=video&videoEmbeddable=true&q=#{self.artist.downcase.gsub(/[^0-9a-z ]/i, '')} #{self.title.downcase.gsub(/[^0-9a-z ]/i, '')}&key=#{ENV['YT_KEY']}"
     res = api_call(base+q)
@@ -173,13 +172,9 @@ class Song < ActiveRecord::Base
     self.save
   end
 
-  def get_yachtski
+  def write_yachtski
     self.yachtski = (self.dave_score + self.jd_score + self.hunter_score + self.steve_score) / 4.0
     self.save
-  end
-
-  def update_album_yachtski
-    self.album.write_yachtski if self.album
   end
 
   private
