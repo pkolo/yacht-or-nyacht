@@ -10,6 +10,8 @@ class Episode < ActiveRecord::Base
   def title
     if self.number.match('YON')
       self.number.gsub('YON', 'Yacht Or Nyacht #')
+    elsif self.number.match('BRC')
+      self.number.gsub('BRC', 'Beyond Yacht Rock Record Club #')
     else
       self.number.gsub('BYR', 'Beyond Yacht Rock #')
     end
