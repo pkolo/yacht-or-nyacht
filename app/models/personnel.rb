@@ -5,7 +5,7 @@ class Personnel < ActiveRecord::Base
   include PersonnelSerializers
   include CreditableSerializers
 
-  has_many :credits, after_add: :write_yachtski
+  has_many :credits
   has_many :songs, through: :credits, source: :creditable, source_type: 'Song'
   has_many :albums, through: :credits, source: :creditable, source_type: 'Album'
 

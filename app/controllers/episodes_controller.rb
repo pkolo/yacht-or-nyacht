@@ -57,15 +57,17 @@ post '/episodes/:id/songs' do
     @artist = Personnel.find_by("similarity(name, ?) > 0.5", data[:artist])
     @song = Song.new(title: data[:title], year: data[:year], jd_score: data[:jd_score], hunter_score: data[:hunter_score], steve_score: data[:steve_score], dave_score: data[:dave_score])
     @song.episode = @episode
-
-    if @artist
-      @song.credits.build(personnel: @artist, role: "Artist")
-    else
-      @artist = Personnel.create(name: data[:artist])
-      @song.credits.build(personnel: @artist, role: "Artist")
-    end
-
     if @song.save
+
+      if @artist
+        credit = Credit.create(personnel: @artist, role: "Artist")
+        @song.credits << credit
+      else
+        @artist = Personnel.create(name: data[:artist])
+        credit = Credit.create(personnel: @artist, role: "Artist")
+        @song.credits << credit
+      end
+      
       song = Song.find(@song.id).serialize.to_json
       @song = JSON.parse(song)
       erb :'/episodes/_list_item', layout: false, locals: {song: @song}
