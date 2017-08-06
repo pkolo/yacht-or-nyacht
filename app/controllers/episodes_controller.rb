@@ -67,7 +67,8 @@ post '/episodes/:id/songs' do
         credit = Credit.create(personnel: @artist, role: "Artist")
         @song.credits << credit
       end
-      
+
+      @artist.write_yachtski
       song = Song.find(@song.id).serialize.to_json
       @song = JSON.parse(song)
       erb :'/episodes/_list_item', layout: false, locals: {song: @song}
