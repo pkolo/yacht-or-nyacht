@@ -9,7 +9,7 @@ module SongSerializers
       title: self.title,
       year: self.year,
       yachtski: self.yachtski,
-      artists: self.serialize_credits(self.credits.artist_credits),
+      artists: self.serialize_credits(self.credits.artist),
       scores: {
         jd: self.jd_score,
         hunter: self.hunter_score,
@@ -24,7 +24,7 @@ module SongSerializers
     }
 
     serialized_song[:track_no] = self.track_no if self.album
-    serialized_song[:personnel][:features] = self.serialize_credits(self.credits.feature_credits) if self.credits.feature_credits.any?
+    serialized_song[:personnel][:features] = self.serialize_credits(self.credits.feature) if self.credits.feature.any?
 
     # Extended options
     if args[:extended]

@@ -6,14 +6,11 @@ class Personnel < ActiveRecord::Base
   include CreditableSerializers
 
   has_many :credits
-  has_many :songs, through: :credits, source: :creditable, source_type: 'Song'
-  has_many :albums, through: :credits, source: :creditable, source_type: 'Album'
+  has_many :songs, -> { distinct }, through: :credits, source: :creditable, source_type: 'Song'
+  has_many :albums, -> { distinct }, through: :credits, source: :creditable, source_type: 'Album'
 
   has_many :song_performances, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :creditable, source_type: 'Song'
   has_many :album_performances, ->(credit) { where 'credits.role = ?', "Artist" }, through: :credits, source: :creditable, source_type: 'Album'
-
-  # has_many :song_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Song" }, class_name: 'Credit'
-  # has_many :album_credits, ->(credit) { where 'credits.role != ? AND credits.creditable_type = ?', "Artist", "Album" }, class_name: 'Credit'
 
   default_scope { order(yachtski: :desc) }
 
@@ -32,12 +29,15 @@ class Personnel < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(query)
   end
 
-  def get_yachtski
-      song_total = self.songs.uniq.inject(0) {|sum, song| sum + song.yachtski}
-      album_total = self.albums.uniq.inject(0) {|sum, album| sum + album.yachtski}
-      contribution_total = self.albums.uniq.length + self.songs.uniq.length
+  def total_credited_media
+    self.songs.count + self.albums.count
+  end
 
-      contribution_total > 3 ? (song_total + album_total) / (contribution_total) : -1.0
+  def get_yachtski
+    song_yachtski = self.songs.average(:yachtski).to_f
+    album_yachtski = self.albums.average(:yachtski).to_f
+
+    self.total_credited_media > 3 ? (song_yachtski + album_yachtski) / 2 : -1.0
   end
 
   def write_yachtski
