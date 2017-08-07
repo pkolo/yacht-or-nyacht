@@ -15,11 +15,9 @@ class Song < ActiveRecord::Base
   belongs_to :episode
   belongs_to :album
 
-  has_many :credits, as: :creditable, dependent: :destroy 
+  has_many :credits, as: :creditable, dependent: :destroy
 
-  # has_many :players, ->(credit) { where("credits.role NOT IN (?)", ["Artist", "Duet", "Featuring"]) }, through: :credits, source: :personnel
   has_many :performers, ->(credit) { where 'credits.role IN (?)', ["Artist"] }, through: :credits, source: :personnel
-  # has_many :features, ->(credit) { where 'credits.role IN (?)', ["Duet", "Featuring"] }, through: :credits, source: :personnel
 
   default_scope { order(yachtski: :desc) }
 
