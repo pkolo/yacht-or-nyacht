@@ -32,12 +32,15 @@ class Personnel < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(query)
   end
 
-  def get_yachtski
-      song_total = self.songs.inject(0) {|sum, song| sum + song.yachtski}
-      album_total = self.albums.inject(0) {|sum, album| sum + album.yachtski}
-      contribution_total = self.albums.count + self.songs.uniq.count
+  def total_credited_media
+    self.songs.count + self.albums.count
+  end
 
-      contribution_total > 3 ? (song_total + album_total) / (contribution_total) : -1.0
+  def get_yachtski
+    song_yachtski = self.songs.average(:yachtski).to_f
+    album_yachtski = self.albums.average(:yachtski).to_f
+
+    self.total_credited_media > 3 ? (song_yachtski + album_yachtski) / 2 : -1.0
   end
 
   def write_yachtski
