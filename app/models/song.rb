@@ -15,19 +15,7 @@ class Song < ActiveRecord::Base
   belongs_to :episode
   belongs_to :album
 
-  has_many :credits, as: :creditable, dependent: :destroy do
-    def player_credits
-      where("role NOT IN (?)", ["Artist", "Duet", "Featuring"])
-    end
-
-    def artist_credits
-      where 'role IN (?)', ["Artist"]
-    end
-
-    def feature_credits
-      where 'role IN (?)', ["Duet", "Featuring"]
-    end
-  end
+  has_many :credits, as: :creditable, dependent: :destroy 
 
   # has_many :players, ->(credit) { where("credits.role NOT IN (?)", ["Artist", "Duet", "Featuring"]) }, through: :credits, source: :personnel
   has_many :performers, ->(credit) { where 'credits.role IN (?)', ["Artist"] }, through: :credits, source: :personnel
