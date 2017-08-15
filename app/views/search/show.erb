@@ -1,14 +1,4 @@
 <h2>Search results for "<%= @q %>"</h2>
-
-<% if @song_results.any? %>
-  <div class="content-section">
-    <div class="sidebar-title">
-      <%= @song_results.length %> Songs found
-    </div>
-    <%= erb :'songs/_list', locals: {songs: @song_results} %>
-  </div>
-<% end %>
-
 <% if @personnel_results.any? %>
   <div class="content-section">
     <div class="sidebar-title">

@@ -46,7 +46,7 @@ class Personnel < ActiveRecord::Base
   end
 
   def self.name_search(query)
-    self.where("similarity(name, ?) > 0.3", query).order("similarity(name, ?) DESC", ActiveRecord::Base.connection.quote(query))
+    self.where("similarity(name, ?) > 0.3", query)
   end
 
   private
