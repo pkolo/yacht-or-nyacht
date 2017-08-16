@@ -5,7 +5,7 @@ def is_match?(str1, str2, strength=0.85)
 end
 
 def remove_parens(string)
-  string.gsub(/\([^)]*\)/, '')
+  string.gsub(/\([^)]*\)/, '').rstrip
 end
 
 def sluggify(string, id)
